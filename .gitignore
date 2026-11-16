@@ -19,13 +19,20 @@ windows/flutter/ephemeral/
 # Генерируемый код drift
 *.g.dart
 
-# Ассеты пользователя — большие бинарники не коммитим (см. AGENTS.md, docs/08-assets.md)
+# Ассеты пользователя — большие бинарники не коммитим (см. docs/08-assets.md)
 assets/2d/*
 !assets/2d/.gitkeep
 assets/maps/*
 !assets/maps/.gitkeep
 assets/fonts/*
 !assets/fonts/.gitkeep
+
+# Локальные материалы проекта — в репозитории только код и README.
+# Документация, игровые данные и инструменты остаются локально (по решению владельца).
+docs/
+data/
+tools/
+AGENTS.md
 
 # Системное
 .DS_Store
