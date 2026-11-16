@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'master/master_home.dart';
-import 'player/player_home.dart';
+import '../master/master_home.dart';
+import '../player/player_home.dart';
 
 /// Экран входа: выбор роли — Игрок / Мастер (docs/01-architecture.md, раздел 8).
 /// Иконки-ассеты (assets/2d/ui/tab_player.png, tab_dm.png) подключаются после
@@ -43,7 +43,7 @@ class RoleGateScreen extends StatelessWidget {
       );
 
   void _open(BuildContext context, Widget screen) => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => screen),
+        MaterialPageRoute<void>(builder: (_) => screen),
       );
 }
 

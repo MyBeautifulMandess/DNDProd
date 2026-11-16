@@ -1,10 +1,10 @@
-import '../../core/models/room.dart';
-
 /// Лобби: сервер на устройстве мастера, клиенты — игроки (docs/06-lobby-network.md).
 /// Здесь — только контракты и типы сообщений протокола v1.
 /// Реализация (shelf_web_socket / web_socket_channel) — фаза 3: делегируется
 /// отдельной модели, см. docs/11-progress-log.md.
 library;
+
+import '../../core/models/room.dart';
 
 /// Версия протокола — в каждом сообщении, чтобы избежать рассинхрона клиент/сервер.
 const protocolVersion = 1;

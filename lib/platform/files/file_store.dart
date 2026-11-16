@@ -1,13 +1,13 @@
+/// Хранение пользовательских файлов (персонажи, приключения, экспорт JSON).
+/// Абстракция изолирует path_provider, чтобы ядро не зависело от платформы.
+/// Реализация одна — через path_provider работает и на Windows, и на Android.
+library;
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-
-/// Хранение пользовательских файлов (персонажи, приключения, экспорт JSON).
-/// Абстракция изолирует path_provider, чтобы ядро не зависело от платформы.
-/// Реализация одна — через path_provider работает и на Windows, и на Android.
-library;
 
 abstract class FileStore {
   Future<String> read(String name);

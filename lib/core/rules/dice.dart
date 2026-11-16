@@ -1,7 +1,7 @@
-import 'dart:math';
-
 /// Броски кубиков по docs/02-rules-data.md (раздел «Броски»).
 library;
+
+import 'dart:math';
 
 /// Результат одного броска: выпавшие кости и итог.
 class RollResult {

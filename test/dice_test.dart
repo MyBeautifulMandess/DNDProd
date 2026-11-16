@@ -38,13 +38,12 @@ void main() {
       expect(r.total, r.rolls[0]);
     });
 
-    test('преимущество ≥ обычного результата, помеха ≤', () {
+    test('преимущество: берётся больший из двух кубиков, помеха — меньший', () {
       for (var i = 0; i < 100; i++) {
-        final normal = roller.d20Test();
         final adv = roller.d20Test(advantage: true);
+        expect(adv.total - adv.modifier, adv.rolls.reduce(max));
         final dis = roller.d20Test(disadvantage: true);
-        expect(adv.total - adv.modifier, greaterThanOrEqualTo(normal.rolls.first));
-        expect(dis.total - dis.modifier, lessThanOrEqualTo(normal.rolls.first));
+        expect(dis.total - dis.modifier, dis.rolls.reduce(min));
       }
     });
 

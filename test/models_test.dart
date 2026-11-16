@@ -63,7 +63,7 @@ void main() {
 
   group('LobbyMessage', () {
     test('сериализация: v, type, payload', () {
-      final m = LobbyMessage(LobbyMessageType.tokenMove, {'id': 't1', 'x': 3, 'y': 5});
+      const m = LobbyMessage(LobbyMessageType.tokenMove, {'id': 't1', 'x': 3, 'y': 5});
       final restored = LobbyMessage.fromJson(m.toJson());
       expect(restored.type, 'token_move');
       expect(restored.payload['x'], 3);

@@ -1,8 +1,8 @@
-import '../rules/ability.dart';
-
 /// Персонаж игрока по docs/01-architecture.md (раздел 5) и docs/03-character-builder.md.
 /// Модель допускает мультиклассирование (несколько классов), хотя на старте — один класс.
 library;
+
+import '../rules/ability.dart';
 
 class Character {
   Character({

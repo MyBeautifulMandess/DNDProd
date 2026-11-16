@@ -1,13 +1,13 @@
+/// Загрузка официальных каталогов из data/catalogs/ (зашиты в приложение как assets).
+/// Офлайн-ферст: после парсинга справочники работают без сети.
+/// Источник данных — dnd.su, пересбор через tools/build_catalogs.py.
+library;
+
 import 'dart:convert';
 
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../core/models/catalog.dart';
-
-/// Загрузка официальных каталогов из data/catalogs/ (зашиты в приложение как assets).
-/// Офлайн-ферст: после парсинга справочники работают без сети.
-/// Источник данных — dnd.su, пересбор через tools/build_catalogs.py.
-library;
 
 class CatalogLoader {
   CatalogLoader({Future<String> Function(String key)? assetLoader})
