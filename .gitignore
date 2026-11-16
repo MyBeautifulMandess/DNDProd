@@ -1,0 +1,32 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Платформенные артефакты сборки
+android/.gradle/
+android/local.properties
+windows/flutter/ephemeral/
+
+# Генерируемый код drift
+*.g.dart
+
+# Ассеты пользователя — большие бинарники не коммитим (см. AGENTS.md, docs/08-assets.md)
+assets/2d/*
+!assets/2d/.gitkeep
+assets/maps/*
+!assets/maps/.gitkeep
+assets/fonts/*
+!assets/fonts/.gitkeep
+
+# Системное
+.DS_Store
+Thumbs.db

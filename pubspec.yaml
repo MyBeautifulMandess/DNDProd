@@ -1,0 +1,40 @@
+name: dnd_prod
+description: >-
+  Приложение для мастеров и игроков D&D 5e (официальные правила, dnd.su).
+  Windows-десктоп с переносом на Android. См. docs/00-index.md.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.2
+  # Данные
+  drift: ^2.18.0
+  sqlite3_flutter_libs: ^0.5.24
+  path_provider: ^2.1.3
+  path: ^1.9.0
+  # Сеть (лобби) — реализация в фазе 3, см. docs/06-lobby-network.md
+  web_socket_channel: ^3.0.0
+  shelf: ^1.4.1
+  shelf_web_socket: ^2.0.0
+  connectivity_plus: ^6.0.3
+  # QR-код для подключения к комнате
+  qr_flutter: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  drift_dev: ^2.18.0
+  build_runner: ^2.4.9
+
+flutter:
+  uses-material-design: true
+  assets:
+    - data/catalogs/
+    - assets/2d/ui/
+    - assets/maps/
