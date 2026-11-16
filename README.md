@@ -18,12 +18,13 @@
 
 ## Запуск
 
-Flutter SDK не входит в репозиторий. После установки (`flutter doctor` — без ошибок):
+Flutter SDK 3.44.1 уже установлен (`C:\Users\erizo\flutter`, в PATH). Платформенные папки (`android/`, `windows/`) сгенерированы. В сессии с прокси (иначе `pub` зависнет — см. `docs/11-progress-log.md`, раздел 2):
 
 ```bash
-flutter create . --platforms windows,android --org su.dnd   # платформенные папки
-flutter pub get && flutter test
-flutter run -d windows
+export HTTPS_PROXY=http://127.0.0.1:10809 HTTP_PROXY=http://127.0.0.1:10809 NO_PROXY=localhost,127.0.0.1,::1
+flutter pub get        # если менялся pubspec
+flutter test           # юнит-тесты ядра
+flutter run -d windows # запуск (нужен workload «Desktop development with C++» в VS 2022)
 ```
 
 ## Быстрый старт для агента
