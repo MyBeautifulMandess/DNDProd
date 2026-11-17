@@ -4,40 +4,50 @@ import '../master/master_home.dart';
 import '../player/player_home.dart';
 
 /// Экран входа: выбор роли — Игрок / Мастер (docs/01-architecture.md, раздел 8).
-/// Иконки-ассеты (assets/2d/ui/tab_player.png, tab_dm.png) подключаются после
-/// генерации набора из docs/08-assets.md; до этого — системные иконки.
+/// Иконки и фон — сгенерированный набор из docs/08-assets.md (шаг 0.3).
 class RoleGateScreen extends StatelessWidget {
   const RoleGateScreen({super.key});
 
+  static const _menuBg = 'assets/2d/ui/menu_bg.jpg';
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isWide = constraints.maxWidth >= 720;
-              final cards = [
-                _RoleCard(
-                  icon: Icons.shield_outlined,
-                  title: 'Игрок',
-                  subtitle: 'Мои персонажи, справочники, подключение к комнате мастера',
-                  onTap: () => _open(context, const PlayerHomeScreen()),
-                ),
-                _RoleCard(
-                  icon: Icons.menu_book_outlined,
-                  title: 'Мастер',
-                  subtitle: 'Приключения, игровые поля, запуск комнаты',
-                  onTap: () => _open(context, const MasterHomeScreen()),
-                ),
-              ];
-              return Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 900),
-                  child: isWide
-                      ? Row(children: cards.map((c) => Expanded(child: c)).toList())
-                      : Column(children: cards.map((c) => Expanded(child: c)).toList()),
-                ),
-              );
-            },
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(_menuBg),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+            ),
+          ),
+          child: SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isWide = constraints.maxWidth >= 720;
+                final cards = [
+                  _RoleCard(
+                    iconAsset: 'assets/2d/ui/tab_player.png',
+                    title: 'Игрок',
+                    subtitle: 'Мои персонажи, справочники, подключение к комнате мастера',
+                    onTap: () => _open(context, const PlayerHomeScreen()),
+                  ),
+                  _RoleCard(
+                    iconAsset: 'assets/2d/ui/tab_dm.png',
+                    title: 'Мастер',
+                    subtitle: 'Приключения, игровые поля, запуск комнаты',
+                    onTap: () => _open(context, const MasterHomeScreen()),
+                  ),
+                ];
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 900),
+                    child: isWide
+                        ? Row(children: cards.map((c) => Expanded(child: c)).toList())
+                        : Column(children: cards.map((c) => Expanded(child: c)).toList()),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       );
@@ -48,9 +58,9 @@ class RoleGateScreen extends StatelessWidget {
 }
 
 class _RoleCard extends StatelessWidget {
-  const _RoleCard({required this.icon, required this.title, required this.subtitle, required this.onTap});
+  const _RoleCard({required this.iconAsset, required this.title, required this.subtitle, required this.onTap});
 
-  final IconData icon;
+  final String iconAsset;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
@@ -67,7 +77,7 @@ class _RoleCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 64),
+                Image.asset(iconAsset, width: 96, height: 96),
                 const SizedBox(height: 16),
                 Text(title, style: Theme.of(context).textTheme.headlineSmall),
                 const SizedBox(height: 8),

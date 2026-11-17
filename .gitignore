@@ -26,6 +26,8 @@ assets/maps/*
 !assets/maps/.gitkeep
 assets/fonts/*
 !assets/fonts/.gitkeep
+# Сырец сгенерированных ассетов (tools/gen_assets.py), финальные файлы — в assets/2d, assets/maps
+assets/_gen_raw/
 
 # Локальные материалы проекта — в репозитории только код и README.
 # Документация, игровые данные и инструменты остаются локально (по решению владельца).
