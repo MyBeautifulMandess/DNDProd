@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:dnd_prod/app.dart';
 import 'package:dnd_prod/core/models/character.dart';
+import 'package:dnd_prod/data/catalog_loader.dart';
 import 'package:dnd_prod/lobby/master_lobby_controller.dart';
 import 'package:dnd_prod/lobby/player_lobby_controller.dart';
 import 'package:dnd_prod/master/room/lobby_host_screen.dart';
@@ -13,6 +14,14 @@ import 'package:dnd_prod/player/lobby/connect_screen.dart';
 import 'package:dnd_prod/shared/theme.dart';
 
 void main() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await catalogLoader.raceDetails();
+    await catalogLoader.classes();
+    await catalogLoader.backgrounds();
+    await catalogLoader.spells();
+  });
+
   testWidgets('игрок видит форму подключения и своих персонажей',
       (tester) async {
     final repository = CharacterRepository(InMemoryFileStore());
@@ -39,6 +48,12 @@ void main() {
     expect(find.text('Подключение к комнате'), findsOneWidget);
     expect(find.textContaining('Алиса'), findsWidgets);
     expect(find.text('Подключиться'), findsOneWidget);
+    expect(find.text('Лист персонажа'), findsOneWidget);
+
+    await tester.tap(find.text('Лист персонажа'));
+    await tester.pumpAndSettle();
+    expect(find.text('Алиса'), findsWidgets);
+    expect(find.text('Хиты'), findsOneWidget);
   });
 
   testWidgets('мастер до запуска видит кнопку старта комнаты', (tester) async {

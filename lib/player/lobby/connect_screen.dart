@@ -8,6 +8,7 @@ import '../../core/models/character.dart';
 import '../../lobby/player_lobby_controller.dart';
 import '../../platform/files/file_store.dart';
 import '../../player/characters/character_repository.dart';
+import '../../player/sheet/character_sheet_panel.dart';
 import '../../shared/lobby/chat_panel.dart';
 import '../../shared/field/battle_field.dart';
 
@@ -27,6 +28,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   final _address = TextEditingController();
   final _name = TextEditingController();
   String? _characterId;
+  Character? _activeCharacter;
 
   @override
   void initState() {
@@ -150,19 +152,40 @@ class _ConnectScreenState extends State<ConnectScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      FilledButton.icon(
-                        onPressed: controller.connecting
-                            ? null
-                            : () => _connect(controller, selected),
-                        icon: controller.connecting
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2),
-                              )
-                            : const Icon(Icons.login),
-                        label: const Text('Подключиться'),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                minimumSize: const Size(0, 44),
+                              ),
+                              onPressed: () =>
+                                  _openSheet(context, controller, selected),
+                              icon: const Icon(Icons.badge_outlined),
+                              label: const Text('Лист персонажа'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: FilledButton.icon(
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size(0, 44),
+                              ),
+                              onPressed: controller.connecting
+                                  ? null
+                                  : () => _connect(controller, selected),
+                              icon: controller.connecting
+                                  ? const SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2),
+                                    )
+                                  : const Icon(Icons.login),
+                              label: const Text('Подключиться'),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -205,8 +228,24 @@ class _ConnectScreenState extends State<ConnectScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Участники: ${state.players.map((p) => p.name).join(', ')}',
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Участники: ${state.players.map((p) => p.name).join(', ')}',
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 44),
+                      ),
+                      onPressed: () =>
+                          _openSheet(context, controller, _activeCharacter),
+                      icon: const Icon(Icons.badge_outlined),
+                      label: const Text('Лист персонажа'),
+                    ),
+                  ],
                 ),
                 if (ownToken == null) const Text('Ваша пешка ещё не создана'),
               ],
@@ -223,7 +262,11 @@ class _ConnectScreenState extends State<ConnectScreen> {
         ),
         const SizedBox(height: 12),
         OutlinedButton.icon(
-          onPressed: () => context.read<PlayerLobbyController>().disconnect(),
+          style: OutlinedButton.styleFrom(minimumSize: const Size(0, 44)),
+          onPressed: () {
+            setState(() => _activeCharacter = null);
+            context.read<PlayerLobbyController>().disconnect();
+          },
           icon: const Icon(Icons.logout),
           label: const Text('Отключиться'),
         ),
@@ -231,8 +274,54 @@ class _ConnectScreenState extends State<ConnectScreen> {
     );
   }
 
+  void _openSheet(
+    BuildContext context,
+    PlayerLobbyController controller,
+    Character? character,
+  ) {
+    if (character == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Сначала выберите персонажа')),
+      );
+      return;
+    }
+    final connected = controller.connected;
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (sheetContext) => CharacterSheetPanel(
+        character: character,
+        repository: _repository,
+        onRoll: (formula) {
+          if (!connected) {
+            _offlineNotice(sheetContext);
+            return;
+          }
+          controller.requestRoll(formula);
+        },
+        onChat: (text) {
+          if (!connected) {
+            _offlineNotice(sheetContext);
+            return;
+          }
+          controller.sendChat(text);
+        },
+      ),
+    );
+  }
+
+  void _offlineNotice(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Броски и сообщения доступны после подключения'),
+      ),
+    );
+  }
+
   Future<void> _connect(
       PlayerLobbyController controller, Character character) async {
+    setState(() => _activeCharacter = character);
     await controller.connect(
       address: _address.text.trim(),
       name: _name.text.trim().isEmpty ? character.name : _name.text.trim(),
