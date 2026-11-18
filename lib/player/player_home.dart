@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'characters/characters_screen.dart';
+import '../shared/catalog_ui/library_home.dart';
 import '../shared/stub_placeholder.dart';
 
 /// Домашний экран роли «Игрок».
@@ -26,9 +27,10 @@ class _PlayerHomeScreenState extends State<PlayerHomeScreen> {
         appBar: AppBar(title: Text(_tabs[_tab].label)),
         body: switch (_tab) {
           0 => const CharactersScreen(),
+          1 => const LibraryHomeScreen(),
           _ => StubPlaceholder(
               title: _tabs[_tab].label,
-              phase: 'Фаза 2 — справочники из data/catalogs/ (docs/04-player-app.md, раздел 4)',
+              phase: 'Фаза 3 — подключение к лобби мастера (docs/06-lobby-network.md)',
             ),
         },
         // Нижняя навигация — форм-фактор телефона; на широких экранах заменить

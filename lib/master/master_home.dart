@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../shared/catalog_ui/library_home.dart';
 import '../shared/stub_placeholder.dart';
 
 /// Домашний экран роли «Мастер».
@@ -23,14 +24,17 @@ class _MasterHomeScreenState extends State<MasterHomeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text(_tabs[_tab].label)),
-        body: StubPlaceholder(
-          title: _tabs[_tab].label,
-          phase: _tab == 0
-              ? 'Фаза 5 — приключения: карты, токены врагов, лор, ПМ (docs/05-master-app.md)'
-              : _tab == 1
-                  ? 'Фаза 2 — справочники из data/catalogs/ (общие с игроком)'
-                  : 'Фаза 3 — запуск комнаты и управление сессией (docs/06-lobby-network.md)',
-        ),
+        body: switch (_tab) {
+          1 => const LibraryHomeScreen(),
+          0 => StubPlaceholder(
+              title: _tabs[_tab].label,
+              phase: 'Фаза 5 — приключения: карты, токены врагов, лор, ПМ (docs/05-master-app.md)',
+            ),
+          _ => StubPlaceholder(
+              title: _tabs[_tab].label,
+              phase: 'Фаза 3 — запуск комнаты и управление сессией (docs/06-lobby-network.md)',
+            ),
+        },
         bottomNavigationBar: NavigationBar(
           selectedIndex: _tab,
           onDestinationSelected: (i) => setState(() => _tab = i),
