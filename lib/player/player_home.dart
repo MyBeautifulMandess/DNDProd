@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'lobby/connect_screen.dart';
 import 'characters/characters_screen.dart';
 import '../shared/catalog_ui/library_home.dart';
-import '../shared/stub_placeholder.dart';
 
 /// Домашний экран роли «Игрок».
 /// Реализация вкладок — фазы 1–2 (билдер, список персонажей, справочники), см. docs/07-roadmap.md.
@@ -28,10 +28,7 @@ class _PlayerHomeScreenState extends State<PlayerHomeScreen> {
         body: switch (_tab) {
           0 => const CharactersScreen(),
           1 => const LibraryHomeScreen(),
-          _ => StubPlaceholder(
-              title: _tabs[_tab].label,
-              phase: 'Фаза 3 — подключение к лобби мастера (docs/06-lobby-network.md)',
-            ),
+          _ => const ConnectScreen(),
         },
         // Нижняя навигация — форм-фактор телефона; на широких экранах заменить
         // боковой (LayoutBuilder), см. правила переносимости docs/01-architecture.md.

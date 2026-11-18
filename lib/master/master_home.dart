@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../master/room/lobby_host_screen.dart';
 import '../shared/catalog_ui/library_home.dart';
 import '../shared/stub_placeholder.dart';
 
@@ -28,12 +29,10 @@ class _MasterHomeScreenState extends State<MasterHomeScreen> {
           1 => const LibraryHomeScreen(),
           0 => StubPlaceholder(
               title: _tabs[_tab].label,
-              phase: 'Фаза 5 — приключения: карты, токены врагов, лор, ПМ (docs/05-master-app.md)',
+              phase:
+                  'Фаза 5 — приключения: карты, токены врагов, лор, ПМ (docs/05-master-app.md)',
             ),
-          _ => StubPlaceholder(
-              title: _tabs[_tab].label,
-              phase: 'Фаза 3 — запуск комнаты и управление сессией (docs/06-lobby-network.md)',
-            ),
+          _ => const LobbyHostScreen(),
         },
         bottomNavigationBar: NavigationBar(
           selectedIndex: _tab,
