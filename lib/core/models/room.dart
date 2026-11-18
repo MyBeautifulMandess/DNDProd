@@ -2,6 +2,9 @@
 /// Авторитет — сервер на устройстве мастера. Сериализация — снапшот `state`.
 library;
 
+/// Фон по умолчанию: генерируется из `08-assets.md`, лежит в `assets/maps/`.
+const defaultMapAsset = 'assets/maps/grid_basic.jpg';
+
 enum TokenKind { player, monster, npc }
 
 class Token {
@@ -129,7 +132,7 @@ class RoomPlayer {
 class RoomState {
   const RoomState({
     this.adventureId = '',
-    this.mapId = '',
+    this.mapId = defaultMapAsset,
     this.grid = const GridSpec(),
     this.tokens = const [],
     this.players = const [],
@@ -187,7 +190,7 @@ class RoomState {
     }
     return RoomState(
       adventureId: room['adventure_id'] as String? ?? '',
-      mapId: room['map_id'] as String? ?? '',
+      mapId: room['map_id'] as String? ?? defaultMapAsset,
       grid: map['grid'] is Map
           ? GridSpec.fromJson((map['grid'] as Map).cast<String, dynamic>())
           : const GridSpec(),
