@@ -21,13 +21,19 @@ class Character {
     this.currentHp = 1,
     this.maxHp = 1,
     this.tempHp = 0,
+    List<String>? knownSpellIds,
+    List<String>? equipmentLines,
+    List<String>? languages,
   })  : abilityScores = abilityScores ?? {for (final a in Ability.values) a: 10},
         skillProficiencies = skillProficiencies ?? {},
-        saveProficiencies = saveProficiencies ?? {};
+        saveProficiencies = saveProficiencies ?? {},
+        knownSpellIds = knownSpellIds ?? [],
+        equipmentLines = equipmentLines ?? [],
+        languages = languages ?? [];
 
   static const schemaVersion = 1;
 
-  final String id;
+  String id;
   String name;
   int level;
   String? raceId;
@@ -36,7 +42,8 @@ class Character {
   String? avatarPath;
   String notes;
 
-  /// Базовые значения характеристик (без временных бонусов).
+  /// Базовые значения характеристик (point buy/массив + бонусы за прокачку,
+  /// без расовых — они вычисляются из каталога по расе).
   final Map<Ability, int> abilityScores;
   final Set<Skill> skillProficiencies;
   final Set<Ability> saveProficiencies;
@@ -47,6 +54,15 @@ class Character {
   int currentHp;
   int maxHp;
   int tempHp;
+
+  /// Известные/подготовленные заклинания (id из каталога заклинаний).
+  List<String> knownSpellIds;
+
+  /// Выбранное стартовое снаряжение (тексты вариантов класса + предыстории).
+  List<String> equipmentLines;
+
+  /// Дополнительные языки (расовые вычисляются из каталога по расе).
+  List<String> languages;
 
   Map<String, dynamic> toJson() => {
         'schema_version': schemaVersion,
@@ -65,6 +81,9 @@ class Character {
         'current_hp': currentHp,
         'max_hp': maxHp,
         'temp_hp': tempHp,
+        'known_spell_ids': knownSpellIds,
+        'equipment_lines': equipmentLines,
+        'languages': languages,
       };
 
   factory Character.fromJson(Map<String, dynamic> json) => Character(
@@ -86,6 +105,9 @@ class Character {
         currentHp: json['current_hp'] as int,
         maxHp: json['max_hp'] as int,
         tempHp: json['temp_hp'] as int? ?? 0,
+        knownSpellIds: (json['known_spell_ids'] as List?)?.cast<String>() ?? [],
+        equipmentLines: (json['equipment_lines'] as List?)?.cast<String>() ?? [],
+        languages: (json['languages'] as List?)?.cast<String>() ?? [],
       );
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'characters/characters_screen.dart';
 import '../shared/stub_placeholder.dart';
 
 /// Домашний экран роли «Игрок».
@@ -23,14 +24,13 @@ class _PlayerHomeScreenState extends State<PlayerHomeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text(_tabs[_tab].label)),
-        body: StubPlaceholder(
-          title: _tabs[_tab].label,
-          phase: _tab == 0
-              ? 'Фаза 1 — создание и прокачка персонажа (docs/03-character-builder.md)'
-              : _tab == 1
-                  ? 'Фаза 2 — справочники из data/catalogs/ (docs/04-player-app.md, раздел 4)'
-                  : 'Фаза 3 — подключение к лобби мастера (docs/06-lobby-network.md)',
-        ),
+        body: switch (_tab) {
+          0 => const CharactersScreen(),
+          _ => StubPlaceholder(
+              title: _tabs[_tab].label,
+              phase: 'Фаза 2 — справочники из data/catalogs/ (docs/04-player-app.md, раздел 4)',
+            ),
+        },
         // Нижняя навигация — форм-фактор телефона; на широких экранах заменить
         // боковой (LayoutBuilder), см. правила переносимости docs/01-architecture.md.
         bottomNavigationBar: NavigationBar(

@@ -24,6 +24,8 @@ dependencies:
   connectivity_plus: ^6.0.3
   # QR-код для подключения к комнате
   qr_flutter: ^4.1.0
+  # Выбор файлов (импорт аватарок) — Windows/Android/macOS
+  file_picker: ^10.1.2
 
 dev_dependencies:
   flutter_test:
