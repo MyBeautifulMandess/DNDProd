@@ -3,10 +3,12 @@ library;
 
 import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
 import '../core/models/room.dart';
 import '../lobby/lobby_log.dart';
+import '../platform/files/map_file.dart';
 import '../platform/network/lobby_transport.dart';
 import '../platform/network/shelf_lobby_server.dart';
 
@@ -93,6 +95,29 @@ class MasterLobbyController extends ChangeNotifier {
       _server?.setFog(cells, reveal: reveal);
 
   void switchMap(String mapId) => _server?.switchMap(mapId);
+
+  /// Фон карты выбирает мастер; сервер раздаёт файл игрокам по HTTP.
+  Future<bool> importMap() async {
+    final server = _server;
+    if (server == null) return false;
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+      final path = result?.files.singleOrNull?.path;
+      if (path == null) return false;
+      final bytes = await readMapBytes(path);
+      server.setMapImage(bytes, contentType: mapContentType(path));
+      return true;
+    } catch (error) {
+      _error = 'Не удалось загрузить карту: $error';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  void useDefaultMap() => _server?.useAssetMap();
 
   void _onMessage(LobbyMessage message) {
     switch (message.type) {

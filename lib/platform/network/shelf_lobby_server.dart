@@ -5,7 +5,9 @@ library;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -35,6 +37,9 @@ class ShelfLobbyServer implements LobbyServer {
   bool _moveOwnAllowed = true;
   int _nextPlayer = 1;
   int _nextToken = 1;
+  Uint8List? _mapBytes;
+  String _mapContentType = 'image/png';
+  int _mapVersion = 0;
 
   @override
   String get address => '$_host:$boundPort';
@@ -52,12 +57,12 @@ class ShelfLobbyServer implements LobbyServer {
   Future<void> start() async {
     if (_httpServer != null) return;
     _host = await preferredLocalIp();
-    _httpServer = await shelf_io.serve(
-      webSocketHandler(_onConnection,
-          pingInterval: const Duration(seconds: 30)),
-      InternetAddress.anyIPv4,
-      port,
-    );
+    final handler = shelf.Cascade()
+        .add(_mapHandler)
+        .add(webSocketHandler(_onConnection,
+            pingInterval: const Duration(seconds: 30)))
+        .handler;
+    _httpServer = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
   }
 
   @override
@@ -107,6 +112,39 @@ class ShelfLobbyServer implements LobbyServer {
 
   void showImage(String url) =>
       submit(LobbyMessage(LobbyMessageType.imageShow, {'url': url}));
+
+  /// Импортированная карта: байты отдаются на /map.png, URL уходит в снапшот.
+  void setMapImage(Uint8List bytes, {String contentType = 'image/png'}) {
+    if (bytes.isEmpty) return;
+    _mapBytes = bytes;
+    _mapContentType = contentType;
+    _setMapId('http://$_host:$boundPort/map.png?v=${++_mapVersion}');
+  }
+
+  /// Вернуть стандартную карту из `assets/maps/`.
+  void useAssetMap([String asset = defaultMapAsset]) {
+    _mapBytes = null;
+    _setMapId('asset:$asset');
+  }
+
+  void _setMapId(String mapId) {
+    _state = _state.copyWith(mapId: mapId);
+    broadcast(LobbyMessage(LobbyMessageType.mapSwitch, {'map_id': mapId}));
+    _broadcastState();
+  }
+
+  shelf.Response _mapHandler(shelf.Request request) {
+    if (request.url.path != 'map.png' || _mapBytes == null) {
+      return shelf.Response.notFound('');
+    }
+    return shelf.Response.ok(
+      _mapBytes,
+      headers: {
+        'Content-Type': _mapContentType,
+        'Cache-Control': 'no-store',
+      },
+    );
+  }
 
   void draw(Iterable<(int, int)> cells) =>
       submit(LobbyMessage(LobbyMessageType.draw, {
