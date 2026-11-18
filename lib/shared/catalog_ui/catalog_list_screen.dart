@@ -21,6 +21,7 @@ class CatalogListScreen<T extends CatalogEntry> extends StatefulWidget {
     required this.onOpenCard,
     this.searchPlaceholder = 'Поиск по названию',
     this.filtersBuilder,
+    this.pageSize = 60,
   });
 
   final String title;
@@ -37,6 +38,9 @@ class CatalogListScreen<T extends CatalogEntry> extends StatefulWidget {
   /// Слот доменных фильтров; получает полный набор записей.
   final Widget Function(BuildContext context, List<T> raw)? filtersBuilder;
 
+  /// Сколько записей показывать за одну «страницу» (большие справочники).
+  final int pageSize;
+
   @override
   State<CatalogListScreen<T>> createState() => _CatalogListScreenState<T>();
 }
@@ -47,10 +51,21 @@ class _CatalogListScreenState<T extends CatalogEntry>
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
 
+  /// Сколько записей отрисовано; растёт кнопкой «Показать ещё» и прокруткой.
+  late int _limit;
+
+  /// Кэш отбора: фильтрация 2673 записей переиспользуется между кадрами,
+  /// пока не сменился запрос, набор данных или замыкание фильтров.
+  List<T>? _visibleCache;
+  List<T>? _visibleSource;
+  List<T> Function(List<T>, String)? _visibleSelect;
+  String? _visibleQuery;
+
   @override
   void initState() {
     super.initState();
     _future = widget.entries;
+    _limit = widget.pageSize;
   }
 
   @override
@@ -58,6 +73,13 @@ class _CatalogListScreenState<T extends CatalogEntry>
     super.didUpdateWidget(oldWidget);
     if (!identical(oldWidget.entries, widget.entries)) {
       _future = widget.entries;
+      _visibleCache = null;
+      _limit = widget.pageSize;
+    }
+    // Новое замыкание select — сменились фильтры доменного экрана.
+    if (!identical(oldWidget.select, widget.select) ||
+        oldWidget.pageSize != widget.pageSize) {
+      _limit = widget.pageSize;
     }
   }
 
@@ -73,12 +95,45 @@ class _CatalogListScreenState<T extends CatalogEntry>
     });
   }
 
+  List<T> _select(List<T> raw) {
+    if (_visibleCache == null ||
+        !identical(_visibleSelect, widget.select) ||
+        !identical(_visibleSource, raw) ||
+        _visibleQuery != _query) {
+      _visibleCache = widget.select(raw, _query);
+      _visibleSource = raw;
+      _visibleSelect = widget.select;
+      _visibleQuery = _query;
+    }
+    return _visibleCache!;
+  }
+
+  void _resetQuery(String value) {
+    setState(() {
+      _query = value;
+      _limit = widget.pageSize;
+    });
+  }
+
+  void _showMore(int total) {
+    if (_limit >= total) return;
+    setState(() {
+      final next = _limit + widget.pageSize;
+      _limit = next > total ? total : next;
+    });
+  }
+
+  int _nextPageSize(int shown, int total) {
+    final remaining = total - shown;
+    return remaining < widget.pageSize ? remaining : widget.pageSize;
+  }
+
   Widget _buildSearchField() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
       child: TextField(
         controller: _searchController,
-        onChanged: (value) => setState(() => _query = value),
+        onChanged: _resetQuery,
         decoration: InputDecoration(
           isDense: true,
           hintText: widget.searchPlaceholder,
@@ -89,7 +144,7 @@ class _CatalogListScreenState<T extends CatalogEntry>
                   tooltip: 'Очистить',
                   onPressed: () {
                     _searchController.clear();
-                    setState(() => _query = '');
+                    _resetQuery('');
                   },
                   icon: const Icon(Icons.close),
                 ),
@@ -113,7 +168,9 @@ class _CatalogListScreenState<T extends CatalogEntry>
             return _CatalogErrorView(onRetry: _retry);
           }
           final raw = snapshot.data ?? <T>[];
-          final visible = widget.select(raw, _query);
+          final visible = _select(raw);
+          final shown = visible.length < _limit ? visible.length : _limit;
+          final hasMore = shown < visible.length;
           final filters = widget.filtersBuilder;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,6 +183,14 @@ class _CatalogListScreenState<T extends CatalogEntry>
                     child: filters(context, raw),
                   ),
                 ),
+              if (visible.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
+                  child: Text(
+                    'Показано $shown из ${visible.length}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
               const Divider(height: 1),
               Expanded(
                 child: visible.isEmpty
@@ -134,33 +199,50 @@ class _CatalogListScreenState<T extends CatalogEntry>
                             ? 'Справочник пока пуст.'
                             : 'Попробуйте изменить запрос или фильтры.',
                       )
-                    : ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        itemCount: visible.length,
-                        itemBuilder: (context, index) {
-                          final entry = visible[index];
-                          return ListTile(
-                            minVerticalPadding: 10,
-                            title: Text(
-                              entry.nameRu,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            subtitle: entry.nameEn.trim().isEmpty
-                                ? null
-                                : Text(
-                                    entry.nameEn,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: AppTheme.gold),
-                                  ),
-                            trailing: const Icon(Icons.chevron_right),
-                            onTap: () => widget.onOpenCard(context, entry),
-                          );
+                    : NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (hasMore &&
+                              notification.metrics.axis == Axis.vertical &&
+                              notification.metrics.extentAfter < 240) {
+                            _showMore(visible.length);
+                          }
+                          return false;
                         },
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          itemCount: shown + (hasMore ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            if (index >= shown) {
+                              return _ShowMoreButton(
+                                label: 'Показать ещё '
+                                    '${_nextPageSize(shown, visible.length)}',
+                                onPressed: () => _showMore(visible.length),
+                              );
+                            }
+                            final entry = visible[index];
+                            return ListTile(
+                              minVerticalPadding: 10,
+                              title: Text(
+                                entry.nameRu,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              subtitle: entry.nameEn.trim().isEmpty
+                                  ? null
+                                  : Text(
+                                      entry.nameEn,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: AppTheme.gold),
+                                    ),
+                              trailing: const Icon(Icons.chevron_right),
+                              onTap: () => widget.onOpenCard(context, entry),
+                            );
+                          },
+                        ),
                       ),
               ),
             ],
@@ -400,6 +482,29 @@ class CatalogFilterMenu extends StatelessWidget {
           materialTapTargetSize: MaterialTapTargetSize.padded,
           labelStyle: theme.textTheme.labelLarge,
         ),
+      ),
+    );
+  }
+}
+
+class _ShowMoreButton extends StatelessWidget {
+  const _ShowMoreButton({required this.label, required this.onPressed});
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(44),
+          foregroundColor: AppTheme.gold,
+          tapTargetSize: MaterialTapTargetSize.padded,
+        ),
+        child: Text(label),
       ),
     );
   }
