@@ -164,6 +164,41 @@ void main() {
     expect(snapshot(state).tokens.length, 1);
     expect(snapshot(state).players.single.name, 'Алиса');
   }, timeout: const Timeout(Duration(seconds: 15)));
+
+  test('мастер рисует и меняет пешки, игрок получает снапшот', () async {
+    await join(alice, 'Алиса');
+    final welcome = await aliceTap.wait(LobbyMessageType.welcome);
+    final tokenId = snapshot(welcome).tokens.single.id;
+
+    server.draw([(2, 2), (3, 2)]);
+    final drawn = await aliceTap.wait(
+      LobbyMessageType.state,
+      where: (message) => snapshot(message).strokes.isNotEmpty,
+    );
+    expect(snapshot(drawn).strokes.single.cells, [
+      (2, 2),
+      (3, 2)
+    ]);
+    await aliceTap.wait(LobbyMessageType.draw);
+
+    server.resizeToken(tokenId, 2);
+    final resized = await aliceTap.wait(
+      LobbyMessageType.state,
+      where: (message) => snapshot(message).tokens.single.size == 2,
+    );
+    expect(snapshot(resized).tokens.single.size, 2);
+
+    server.removeToken(tokenId);
+    final removed = await aliceTap.wait(
+      LobbyMessageType.state,
+      where: (message) => snapshot(message).tokens.isEmpty,
+    );
+    expect(snapshot(removed).tokens, isEmpty);
+
+    alice.send(LobbyMessage(LobbyMessageType.tokenRemove, {'id': tokenId}));
+    final error = await aliceTap.wait(LobbyMessageType.error);
+    expect(error.payload['message'], contains('только мастер'));
+  }, timeout: const Timeout(Duration(seconds: 15)));
 }
 
 class _MessageTap {

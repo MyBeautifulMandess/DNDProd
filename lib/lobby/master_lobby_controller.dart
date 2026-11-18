@@ -70,10 +70,28 @@ class MasterLobbyController extends ChangeNotifier {
   void moveToken(String tokenId, int x, int y) =>
       _server?.moveToken(tokenId, x, y);
 
-  void addToken(String label) {
+  void addToken(
+    String label, {
+    TokenKind kind = TokenKind.npc,
+    int size = 1,
+    int? hp,
+  }) {
     if (label.trim().isEmpty) return;
-    _server?.addToken(label: label.trim());
+    _server?.addToken(
+      label: label.trim(),
+      kind: kind,
+      size: size,
+      hp: hp,
+      maxHp: hp,
+    );
   }
+
+  void removeToken(String tokenId) => _server?.removeToken(tokenId);
+
+  void resizeToken(String tokenId, int size) =>
+      _server?.resizeToken(tokenId, size);
+
+  void drawStroke(Iterable<(int, int)> cells) => _server?.draw(cells);
 
   void sendChat(String text) {
     if (text.trim().isEmpty) return;

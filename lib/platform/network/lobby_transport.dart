@@ -58,6 +58,8 @@ abstract final class LobbyMessageType {
   static const welcome = 'welcome';
   static const state = 'state';
   static const tokenMove = 'token_move';
+  static const tokenRemove = 'token_remove';
+  static const tokenResize = 'token_resize';
   static const fogUpdate = 'fog_update';
   static const mapSwitch = 'map_switch';
   static const chat = 'chat';

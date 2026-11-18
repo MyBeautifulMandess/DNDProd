@@ -12,6 +12,7 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../../core/field_grid.dart';
 import '../../core/models/room.dart';
 import '../../core/rules/dice.dart';
 import '../../lobby/lobby_log.dart';
@@ -37,6 +38,14 @@ class ShelfLobbyServer implements LobbyServer {
   bool _moveOwnAllowed = true;
   int _nextPlayer = 1;
   int _nextToken = 1;
+  int _nextStroke = 1;
+  static const _strokeColors = <int>[
+    0xFFC9A227,
+    0xFF64B5F6,
+    0xFF81C784,
+    0xFFFF8A65,
+    0xFFBA68C8,
+  ];
   Uint8List? _mapBytes;
   String _mapContentType = 'image/png';
   int _mapVersion = 0;
@@ -179,20 +188,34 @@ class ShelfLobbyServer implements LobbyServer {
     int? y,
     int? hp,
     int? maxHp,
+    int size = 1,
   }) {
     final number = _nextToken++;
+    final safeSize = size.clamp(1, 4).toInt();
+    final spawn = clampCell(
+      (x ?? 1 + (number % 10), y ?? 1),
+      _state.grid,
+      size: safeSize,
+    );
     final token = Token(
       id: 't$number',
       kind: kind,
       label: label,
-      x: x ?? 1 + (number % 10),
-      y: y ?? 1,
+      x: spawn.$1,
+      y: spawn.$2,
       hp: hp,
       maxHp: maxHp ?? hp,
+      size: safeSize,
     );
     _state = _state.copyWith(tokens: [..._state.tokens, token]);
     _broadcastState();
   }
+
+  void removeToken(String tokenId) => submit(LobbyMessage(
+      LobbyMessageType.tokenRemove, {'id': tokenId}));
+
+  void resizeToken(String tokenId, int size) => submit(LobbyMessage(
+      LobbyMessageType.tokenResize, {'id': tokenId, 'size': size}));
 
   void _onConnection(WebSocketChannel channel) {
     _unregistered.add(channel);
@@ -303,6 +326,20 @@ class ShelfLobbyServer implements LobbyServer {
       case LobbyMessageType.tokenMove:
         _move(message, playerId, isDm: isDm);
         break;
+      case LobbyMessageType.tokenRemove:
+        if (!isDm) {
+          _errorTo(playerId, 'Удаляет пешки только мастер');
+          return;
+        }
+        _removeToken(message);
+        break;
+      case LobbyMessageType.tokenResize:
+        if (!isDm) {
+          _errorTo(playerId, 'Размер пешки меняет только мастер');
+          return;
+        }
+        _resizeToken(message);
+        break;
       case LobbyMessageType.chat:
         final text = (payload['text'] as String? ?? '').trim();
         if (text.isEmpty || text.length > 1000) return;
@@ -346,7 +383,7 @@ class ShelfLobbyServer implements LobbyServer {
         broadcast(message);
         break;
       case LobbyMessageType.draw:
-        broadcast(message);
+        _addStroke(message, playerId, isDm: isDm);
         break;
       case LobbyMessageType.ping:
         final channel = _clients[playerId];
@@ -372,11 +409,12 @@ class ShelfLobbyServer implements LobbyServer {
       _errorTo(playerId, 'Некорректное перемещение пешки');
       return;
     }
-    if (x >= _state.grid.cols || y >= _state.grid.rows) {
+    final token = _state.tokens[index];
+    final clamped = clampCell((x, y), _state.grid, size: token.size);
+    if (clamped.$1 != x || clamped.$2 != y) {
       _errorTo(playerId, 'Клетка вне поля');
       return;
     }
-    final token = _state.tokens[index];
     final moveOwn = _state.players
             .where((item) => item.id == playerId)
             .map((item) => item.moveOwn)
@@ -394,6 +432,57 @@ class ShelfLobbyServer implements LobbyServer {
     }
     final tokens = [..._state.tokens]..[index] = token.copyWith(x: x, y: y);
     _state = _state.copyWith(tokens: tokens);
+    _broadcastState();
+  }
+
+  void _removeToken(LobbyMessage message) {
+    final id = message.payload['id'] as String? ?? '';
+    final tokens = _state.tokens.where((token) => token.id != id).toList();
+    if (tokens.length == _state.tokens.length) return;
+    _state = _state.copyWith(tokens: tokens);
+    _broadcastState();
+  }
+
+  void _resizeToken(LobbyMessage message) {
+    final id = message.payload['id'] as String? ?? '';
+    final rawSize = message.payload['size'] as int?;
+    final index = _state.tokens.indexWhere((token) => token.id == id);
+    if (index < 0 || rawSize == null) return;
+    final size = rawSize.clamp(1, 4).toInt();
+    final token = _state.tokens[index];
+    final position = clampCell((token.x, token.y), _state.grid, size: size);
+    final tokens = [..._state.tokens]
+      ..[index] = token.copyWith(x: position.$1, y: position.$2, size: size);
+    _state = _state.copyWith(tokens: tokens);
+    _broadcastState();
+  }
+
+  void _addStroke(LobbyMessage message, String playerId, {required bool isDm}) {
+    final seen = <(int, int)>{};
+    final cells = <(int, int)>[];
+    for (final cell in (message.payload['cells'] as List?) ?? const []) {
+      if (cell is! List || cell.length != 2) continue;
+      final x = cell[0];
+      final y = cell[1];
+      if (x is! int || y is! int) continue;
+      final point = clampCell((x, y), _state.grid);
+      if (seen.add(point) && cells.length < 400) cells.add(point);
+    }
+    if (cells.isEmpty) return;
+    final index = _state.players.indexWhere((player) => player.id == playerId);
+    final stroke = DrawStroke(
+      id: 's${_nextStroke++}',
+      author: isDm ? 'Мастер' : _nameOf(playerId),
+      color: isDm
+          ? _strokeColors.first
+          : _strokeColors[(index + 1) % _strokeColors.length],
+      cells: cells,
+    );
+    final strokes = [..._state.strokes, stroke];
+    if (strokes.length > 200) strokes.removeAt(0);
+    _state = _state.copyWith(strokes: strokes);
+    broadcast(LobbyMessage(
+        LobbyMessageType.draw, {'stroke': stroke.toJson()}..addAll(message.payload)));
     _broadcastState();
   }
 

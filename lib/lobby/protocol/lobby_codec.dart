@@ -10,6 +10,8 @@ const _knownTypes = <String>{
   LobbyMessageType.welcome,
   LobbyMessageType.state,
   LobbyMessageType.tokenMove,
+  LobbyMessageType.tokenRemove,
+  LobbyMessageType.tokenResize,
   LobbyMessageType.fogUpdate,
   LobbyMessageType.mapSwitch,
   LobbyMessageType.chat,

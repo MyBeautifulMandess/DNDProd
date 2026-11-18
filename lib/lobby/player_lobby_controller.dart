@@ -88,6 +88,13 @@ class PlayerLobbyController extends ChangeNotifier {
     }));
   }
 
+  void drawStroke(Iterable<(int, int)> cells) => _client.send(LobbyMessage(
+      LobbyMessageType.draw, {
+        'cells': [
+          for (final cell in cells) [cell.$1, cell.$2]
+        ],
+      }));
+
   void _onMessage(LobbyMessage message) {
     switch (message.type) {
       case LobbyMessageType.welcome:
