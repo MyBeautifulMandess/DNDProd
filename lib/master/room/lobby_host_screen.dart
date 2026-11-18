@@ -7,7 +7,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../lobby/master_lobby_controller.dart';
 import '../../shared/lobby/chat_panel.dart';
-import '../../shared/lobby/token_grid.dart';
+import '../../shared/field/battle_field.dart';
 
 class LobbyHostScreen extends StatefulWidget {
   const LobbyHostScreen({super.key});
@@ -111,10 +111,11 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: TokenGrid(
+            child: BattleField(
               state: state,
-              selectedId: _selectedToken,
+              selectedTokenId: _selectedToken,
               isMaster: true,
+              onTokenTap: (id) => setState(() => _selectedToken = id),
               onCellTap: (x, y) {
                 final id = _selectedToken;
                 if (id != null) controller.moveToken(id, x, y);
@@ -184,6 +185,49 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
                   title: const Text('Игроки двигают свои пешки'),
                   value: controller.moveOwnAllowed,
                   onChanged: controller.setMoveOwnAllowed,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Карта', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Text(
+                  state.mapId.startsWith('asset:')
+                      ? 'Стандартная карта'
+                      : 'Своя карта (доступна игрокам)',
+                  style: const TextStyle(fontSize: 12, color: Colors.white70),
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    FilledButton.tonal(
+                      onPressed: () => controller.importMap(),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.image_outlined),
+                          SizedBox(width: 8),
+                          Text('Загрузить'),
+                        ],
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: state.mapId.startsWith('asset:')
+                          ? null
+                          : controller.useDefaultMap,
+                      child: const Text('Стандартная'),
+                    ),
+                  ],
                 ),
               ],
             ),

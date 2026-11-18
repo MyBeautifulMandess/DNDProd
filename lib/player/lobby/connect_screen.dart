@@ -9,7 +9,7 @@ import '../../lobby/player_lobby_controller.dart';
 import '../../platform/files/file_store.dart';
 import '../../player/characters/character_repository.dart';
 import '../../shared/lobby/chat_panel.dart';
-import '../../shared/lobby/token_grid.dart';
+import '../../shared/field/battle_field.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({super.key, this.repository});
@@ -184,9 +184,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: TokenGrid(
+            child: BattleField(
               state: state,
-              selectedId: ownToken?.id,
+              selectedTokenId: ownToken?.id,
               onCellTap: (x, y) {
                 final token = ownToken;
                 if (token != null) controller.moveToken(token.id, x, y);
