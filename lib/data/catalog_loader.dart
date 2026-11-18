@@ -22,6 +22,8 @@ class CatalogLoader {
   List<Background>? _backgrounds;
   List<Feat>? _feats;
   Map<String, ClassEntryCatalog>? _classes;
+  Map<String, RaceDetail>? _raceDetails;
+  Map<String, ClassEquipment>? _classEquipment;
 
   Future<List<Spell>> spells() async => _spells ??= await _loadList('spells_5e14.json', _parseSpell);
 
@@ -34,6 +36,34 @@ class CatalogLoader {
   Future<List<Background>> backgrounds() async => _backgrounds ??= await _loadList('backgrounds_full.json', _parseBackground);
 
   Future<List<Feat>> feats() async => _feats ??= await _loadList('feats_full.json', _parseFeat);
+
+  /// Детали рас (бонусы/скорость/черты/подвиды) из _races_detail.json, ключ — id расы.
+  Future<Map<String, RaceDetail>> raceDetails() async {
+    if (_raceDetails != null) return _raceDetails!;
+    final raw = await _loadJsonMap('_races_detail.json');
+    _raceDetails = {
+      for (final e in raw.entries) e.key: _parseRaceDetail(e.key, e.value as Map<String, dynamic>),
+    };
+    return _raceDetails!;
+  }
+
+  /// Стартовое снаряжение классов из _classes_equipment.json, ключ — id класса.
+  Future<Map<String, ClassEquipment>> classEquipment() async {
+    if (_classEquipment != null) return _classEquipment!;
+    final raw = await _loadJsonMap('_classes_equipment.json');
+    _classEquipment = {
+      for (final e in raw.entries)
+        e.key: ClassEquipment(
+          intro: e.value['intro'] as String? ?? '',
+          rows: [
+            for (final row in (e.value['rows'] as List? ?? const []))
+              (row as List).cast<String>(),
+          ],
+          gold: e.value['gold'] as String? ?? '',
+        ),
+    };
+    return _classEquipment!;
+  }
 
   /// Классы: _classes_core.json (хиты, владения) + classes_5e14.json (прогрессия 1–20).
   Future<Map<String, ClassEntryCatalog>> classes() async {
@@ -94,6 +124,21 @@ class CatalogLoader {
   static List<String> _sources(dynamic value) =>
       value is List ? value.cast<String>() : const [];
 
+  /// Стоимость предмета без подписи («Рекомендованная стоимость: 500 зм» → «500 зм»).
+  static String _itemCost(dynamic value) {
+    final cost = (value as String? ?? '').trim();
+    final colon = cost.indexOf(':');
+    if (colon >= 0 && colon < 40) return cost.substring(colon + 1).trim();
+    return cost;
+  }
+
+  /// Имя класса с заглавной буквы (в каталоге — строчными).
+  static String _className(String raw) {
+    final value = raw.trim();
+    if (value.isEmpty) return value;
+    return value[0].toUpperCase() + value.substring(1);
+  }
+
   // --- приватное: парсеры записей ---
 
   Spell _parseSpell(Map<String, dynamic> j) => Spell(
@@ -109,13 +154,25 @@ class CatalogLoader {
         components: j['components'] as String? ?? '',
         duration: j['duration'] as String? ?? '',
         classes: j['classes'] as String? ?? '',
+        classList: [
+          for (final value in (j['class_list'] as List? ?? const []))
+            _className(value as String),
+        ],
         subclasses: j['subclasses'] as String? ?? '',
         concentration: j['concentration'] as bool? ?? false,
         ritual: j['ritual'] as bool? ?? false,
+        description: j['description'] as String? ?? '',
         sources: _sources(j['sources']),
       );
 
-  Monster _parseMonster(Map<String, dynamic> j) => Monster(
+  Monster _parseMonster(Map<String, dynamic> j) {
+    final sections = _parseSections(j['sections']);
+    List<MonsterAbility> byTitle(bool Function(String title) match) => [
+          for (final section in sections)
+            if (match(section.title)) ...section.entries,
+        ];
+    final traits = byTitle((title) => title.trim().isEmpty);
+    return Monster(
         id: _idFromUrl(j['url'] as String),
         url: j['url'] as String,
         nameRu: j['name_ru'] as String,
@@ -130,8 +187,30 @@ class CatalogLoader {
         senses: j['senses'] as String? ?? '',
         languages: j['languages'] as String? ?? '',
         habitat: j['habitat'] as String? ?? '',
+        speed: j['speed'] as String? ?? '',
+        damageResistance: j['damage_resistance'] as String? ?? '',
+        damageImmunity: j['damage_immunity'] as String? ?? '',
+        damageVulnerability: j['damage_vulnerability'] as String? ?? '',
+        conditionImmunity: j['condition_immunity'] as String? ?? '',
+        traits: traits.isNotEmpty ? traits : _parseAbilities(j['traits']),
+        sections: sections,
+        actions: byTitle(
+          (title) =>
+              title.toLowerCase().contains('действ') &&
+              !title.toLowerCase().contains('легендар') &&
+              !title.toLowerCase().contains('бонусн'),
+        ),
+        abilities: traits,
+        legendaryActions: byTitle(
+          (title) => title.toLowerCase().contains('легендар'),
+        ),
+        reactions: byTitle((title) => title.toLowerCase().contains('реакц')),
+        description: byTitle(
+          (title) => title.toLowerCase().contains('описан'),
+        ).map((ability) => ability.text).where((text) => text.isNotEmpty).join('\n\n'),
         sources: _sources(j['sources']),
       );
+  }
 
   Item _parseItem(Map<String, dynamic> j) => Item(
         id: _idFromUrl(j['url'] as String),
@@ -141,7 +220,8 @@ class CatalogLoader {
         kind: j['kind'] as String? ?? '',
         rarity: j['rarity'] as String? ?? '',
         attunement: j['attunement'] as bool? ?? false,
-        cost: j['cost'] as String? ?? '',
+        cost: _itemCost(j['cost']),
+        description: j['description'] as String? ?? '',
         sources: _sources(j['sources']),
       );
 
@@ -163,9 +243,67 @@ class CatalogLoader {
         tools: j['tools'] as String? ?? '',
         languages: j['languages'] as String? ?? '',
         equipment: j['equipment'] as String? ?? '',
-        feature: j['feature'] as String? ?? '',
+        featureName: j['feature_name'] as String? ?? '',
+        featureText: j['feature_text'] as String? ?? '',
         source: j['source'] as String? ?? '',
       );
+
+  RaceDetail _parseRaceDetail(String id, Map<String, dynamic> j) => RaceDetail(
+        id: id,
+        url: j['url'] as String? ?? '',
+        nameRu: j['name_ru'] as String? ?? '',
+        nameEn: j['name_en'] as String? ?? '',
+        bonusesText: j['bonuses_text'] as String? ?? '',
+        bonuses: _parseBonuses(j['bonuses']),
+        bonusesChoice: j['bonuses_choice'] as bool? ?? false,
+        choiceOptions: _parseChoiceOptions(j['choice_options']),
+        size: j['size'] as String? ?? '',
+        sizeText: j['size_text'] as String? ?? '',
+        speedFt: j['speed_ft'] as int?,
+        speedText: j['speed_text'] as String? ?? '',
+        languagesText: j['languages_text'] as String? ?? '',
+        traits: _parseTraits(j['traits']),
+        darkvisionFt: j['darkvision_ft'] as int?,
+        subspecies: [
+          for (final s in (j['subspecies'] as List? ?? const []))
+            _parseSubspecies(s as Map<String, dynamic>),
+        ],
+      );
+
+  Subspecies _parseSubspecies(Map<String, dynamic> j) => Subspecies(
+        anchor: j['anchor'] as String? ?? '',
+        name: j['name'] as String? ?? '',
+        source: j['source'] as String? ?? '',
+        ua: j['ua'] as bool? ?? false,
+        bonusesText: j['bonuses_text'] as String? ?? '',
+        bonuses: _parseBonuses(j['bonuses']),
+        bonusesChoice: j['bonuses_choice'] as bool? ?? false,
+        choiceOptions: _parseChoiceOptions(j['choice_options']),
+        size: j['size'] as String? ?? '',
+        sizeText: j['size_text'] as String? ?? '',
+        speedFt: j['speed_ft'] as int?,
+        speedText: j['speed_text'] as String? ?? '',
+        languagesText: j['languages_text'] as String? ?? '',
+        traits: _parseTraits(j['traits']),
+        darkvisionFt: j['darkvision_ft'] as int?,
+      );
+
+  List<RaceBonus> _parseBonuses(dynamic value) => [
+        for (final b in (value as List? ?? const []))
+          RaceBonus(
+            ability: (b as Map<String, dynamic>)['ability'] as String,
+            bonus: b['bonus'] as int,
+          ),
+      ];
+
+  List<List<int>>? _parseChoiceOptions(dynamic value) => value is List
+      ? [for (final variant in value) (variant as List).cast<int>()]
+      : null;
+
+  List<RaceTrait> _parseTraits(dynamic value) => [
+        for (final t in (value as List? ?? const []))
+          RaceTrait(name: (t as Map<String, dynamic>)['name'] as String, text: t['text'] as String),
+      ];
 
   Feat _parseFeat(Map<String, dynamic> j) => Feat(
         id: _idFromUrl(j['url'] as String),
@@ -173,7 +311,25 @@ class CatalogLoader {
         nameRu: j['name_ru'] as String,
         nameEn: j['name_en'] as String,
         source: j['source'] as String? ?? '',
+        prerequisite: j['prerequisite'] as String? ?? '',
+        description: j['description'] as String? ?? '',
       );
+
+  List<MonsterAbility> _parseAbilities(dynamic value) => [
+        for (final entry in (value as List? ?? const []))
+          MonsterAbility(
+            name: (entry as Map<String, dynamic>)['name'] as String? ?? '',
+            text: entry['text'] as String? ?? '',
+          ),
+      ];
+
+  List<MonsterSection> _parseSections(dynamic value) => [
+        for (final entry in (value as List? ?? const []))
+          MonsterSection(
+            title: (entry as Map<String, dynamic>)['title'] as String? ?? '',
+            entries: _parseAbilities(entry['entries']),
+          ),
+      ];
 
   ClassEntryCatalog _parseClass(String id, Map<String, dynamic> core, Map<String, dynamic>? progression) {
     final cols = (progression?['cols'] as List?)?.cast<String>() ?? const <String>[];

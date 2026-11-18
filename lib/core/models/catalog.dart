@@ -27,9 +27,11 @@ class Spell extends CatalogEntry {
     required this.components,
     required this.duration,
     required this.classes,
+    required this.classList,
     required this.subclasses,
     required this.concentration,
     required this.ritual,
+    required this.description,
     required this.sources,
   });
 
@@ -44,10 +46,32 @@ class Spell extends CatalogEntry {
 
   /// Список классов строкой, как в каталоге (напр. «Жрец, Чародей»).
   final String classes;
+
+  /// Классы по отдельности (без служебных пометок источника).
+  final List<String> classList;
   final String subclasses;
   final bool concentration;
   final bool ritual;
+
+  /// Текст заклинания (включая «На больших уровнях»).
+  final String description;
   final List<String> sources;
+}
+
+/// Способность, атака или черта существа: название и текст.
+class MonsterAbility {
+  const MonsterAbility({required this.name, required this.text});
+
+  final String name;
+  final String text;
+}
+
+/// Именованная секция карточки существа («Действия», «Реакции», «Логово»).
+class MonsterSection {
+  const MonsterSection({required this.title, required this.entries});
+
+  final String title;
+  final List<MonsterAbility> entries;
 }
 
 class Monster extends CatalogEntry {
@@ -66,6 +90,18 @@ class Monster extends CatalogEntry {
     required this.senses,
     required this.languages,
     required this.habitat,
+    required this.speed,
+    required this.damageResistance,
+    required this.damageImmunity,
+    required this.damageVulnerability,
+    required this.conditionImmunity,
+    required this.traits,
+    required this.sections,
+    required this.actions,
+    required this.abilities,
+    required this.legendaryActions,
+    required this.reactions,
+    required this.description,
     required this.sources,
   });
 
@@ -79,6 +115,34 @@ class Monster extends CatalogEntry {
   final String senses;
   final String languages;
   final String habitat;
+  final String speed;
+
+  /// Сопротивление, иммунитеты и уязвимости урону/состояниям.
+  final String damageResistance;
+  final String damageImmunity;
+  final String damageVulnerability;
+  final String conditionImmunity;
+
+  /// Особенности существа (без названия секции).
+  final List<MonsterAbility> traits;
+
+  /// Именованные секции карточки: «Действия», «Реакции», «Логово» и прочие.
+  final List<MonsterSection> sections;
+
+  /// Атаки и прочие действия.
+  final List<MonsterAbility> actions;
+
+  /// Особые способности.
+  final List<MonsterAbility> abilities;
+
+  /// Легендарные действия.
+  final List<MonsterAbility> legendaryActions;
+
+  /// Реакции.
+  final List<MonsterAbility> reactions;
+
+  /// Лорное описание существа.
+  final String description;
   final List<String> sources;
 }
 
@@ -92,6 +156,7 @@ class Item extends CatalogEntry {
     required this.rarity,
     required this.attunement,
     required this.cost,
+    required this.description,
     required this.sources,
   });
 
@@ -99,6 +164,9 @@ class Item extends CatalogEntry {
   final String rarity;
   final bool attunement;
   final String cost;
+
+  /// Текст описания предмета (пустой, если у предмета нет описания).
+  final String description;
   final List<String> sources;
 }
 
@@ -126,7 +194,8 @@ class Background extends CatalogEntry {
     required this.tools,
     required this.languages,
     required this.equipment,
-    required this.feature,
+    required this.featureName,
+    required this.featureText,
     required this.source,
   });
 
@@ -135,14 +204,141 @@ class Background extends CatalogEntry {
   final String tools;
   final String languages;
   final String equipment;
-  final String feature;
+
+  /// Умение предыстории: название и текст (пустые, если не распарсилось).
+  final String featureName;
+  final String featureText;
   final String source;
 }
 
+/// Бонус характеристики расы: ability — id из Ability (str..cha).
+class RaceBonus {
+  const RaceBonus({required this.ability, required this.bonus});
+
+  final String ability;
+  final int bonus;
+}
+
+/// Черта расы/подвида: название и текст.
+class RaceTrait {
+  const RaceTrait({required this.name, required this.text});
+
+  final String name;
+  final String text;
+}
+
+/// Подвид расы (горный дварф, лесной эльф…). Самодостаточная запись:
+/// при выборе подвида его поля заменяют/дополняют поля расы.
+class Subspecies {
+  const Subspecies({
+    required this.anchor,
+    required this.name,
+    required this.source,
+    required this.ua,
+    required this.bonusesText,
+    required this.bonuses,
+    required this.bonusesChoice,
+    required this.choiceOptions,
+    required this.size,
+    required this.sizeText,
+    required this.speedFt,
+    required this.speedText,
+    required this.languagesText,
+    required this.traits,
+    required this.darkvisionFt,
+  });
+
+  /// Якорь на странице расы (напр. «hill»).
+  final String anchor;
+  final String name;
+  final String source;
+
+  /// Unearthed Arcana — неофициальный плейтест; в билдере скрывается.
+  final bool ua;
+  final String bonusesText;
+  final List<RaceBonus> bonuses;
+
+  /// true — бонусы выбирает игрок (правило MPMM: +2/+1 или +1/+1/+1).
+  final bool bonusesChoice;
+
+  /// Варианты распределения бонусов при выборе (напр. [[2, 1], [1, 1, 1]]).
+  final List<List<int>>? choiceOptions;
+  final String size;
+  final String sizeText;
+  final int? speedFt;
+  final String speedText;
+  final String languagesText;
+  final List<RaceTrait> traits;
+  final int? darkvisionFt;
+}
+
+/// Детальная карточка расы из _races_detail.json.
+class RaceDetail {
+  const RaceDetail({
+    required this.id,
+    required this.url,
+    required this.nameRu,
+    required this.nameEn,
+    required this.bonusesText,
+    required this.bonuses,
+    required this.bonusesChoice,
+    required this.choiceOptions,
+    required this.size,
+    required this.sizeText,
+    required this.speedFt,
+    required this.speedText,
+    required this.languagesText,
+    required this.traits,
+    required this.darkvisionFt,
+    required this.subspecies,
+  });
+
+  final String id;
+  final String url;
+  final String nameRu;
+  final String nameEn;
+  final String bonusesText;
+  final List<RaceBonus> bonuses;
+  final bool bonusesChoice;
+  final List<List<int>>? choiceOptions;
+  final String size;
+  final String sizeText;
+  final int? speedFt;
+  final String speedText;
+  final String languagesText;
+  final List<RaceTrait> traits;
+  final int? darkvisionFt;
+  final List<Subspecies> subspecies;
+}
+
+/// Стартовое снаряжение класса из _classes_equipment.json:
+/// rows — строки выбора, каждая строка — взаимоисключающие варианты.
+class ClassEquipment {
+  const ClassEquipment({required this.intro, required this.rows, required this.gold});
+
+  final String intro;
+  final List<List<String>> rows;
+  final String gold;
+}
+
 class Feat extends CatalogEntry {
-  const Feat({required super.id, required super.url, required super.nameRu, required super.nameEn, required this.source});
+  const Feat({
+    required super.id,
+    required super.url,
+    required super.nameRu,
+    required super.nameEn,
+    required this.source,
+    required this.prerequisite,
+    required this.description,
+  });
 
   final String source;
+
+  /// Требование к черте («Сила 13 или выше», «4 уровень, ...»).
+  final String prerequisite;
+
+  /// Текст черты.
+  final String description;
 }
 
 /// Класс: ядро из _classes_core.json + прогрессия 1–20 из classes_5e14.json.
