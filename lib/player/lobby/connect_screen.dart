@@ -187,6 +187,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
             child: BattleField(
               state: state,
               selectedTokenId: ownToken?.id,
+              canDragToken: (token) => token.owner == controller.playerId,
+              onTokenDrag: (id, x, y) => controller.moveToken(id, x, y),
+              onDraw: controller.drawStroke,
+              showTools: true,
               onCellTap: (x, y) {
                 final token = ownToken;
                 if (token != null) controller.moveToken(token.id, x, y);

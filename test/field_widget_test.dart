@@ -79,6 +79,111 @@ void main() {
     expect(find.textContaining('100%'), findsOneWidget);
   });
 
+  testWidgets('кисть, линейка и туман работают инструментами', (tester) async {
+    final strokes = <List<(int, int)>>[];
+    final fogCalls = <bool>[];
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: SizedBox(
+          width: 600,
+          height: 400,
+          child: BattleField(
+            state: smallRoom(),
+            mapImage: image,
+            showTools: true,
+            onDraw: (cells) => strokes.add(cells.toList()),
+            onFog: (cells, {required reveal}) => fogCalls.add(reveal),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+
+    Future<void> dragCells(Offset start, List<Offset> steps) async {
+      final gesture = await tester.startGesture(start);
+      for (final step in steps) {
+        await gesture.moveBy(step);
+        await tester.pump();
+      }
+      await gesture.up();
+      await tester.pumpAndSettle();
+    }
+
+    expect(find.byTooltip('Кисть'), findsOneWidget);
+    expect(find.byTooltip('Линейка'), findsOneWidget);
+    expect(find.byTooltip('Туман'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Кисть'));
+    await tester.pumpAndSettle();
+    await dragCells(const Offset(35, 80), const [
+      Offset(70, 0),
+      Offset(70, 0),
+      Offset(70, 0),
+    ]);
+    await tester.pumpAndSettle();
+    expect(strokes, hasLength(1));
+    expect(strokes.single, contains((2, 1)));
+
+    await tester.tap(find.byTooltip('Линейка'));
+    await tester.pumpAndSettle();
+    await dragCells(const Offset(35, 80), const [
+      Offset(70, 0),
+      Offset(70, 0),
+      Offset(70, 0),
+      Offset(0, 70),
+    ]);
+    await tester.pumpAndSettle();
+    final texts = tester
+        .widgetList<Text>(find.byType(Text))
+        .map((widget) => widget.data ?? '')
+        .toList();
+    expect(
+      texts.any((text) => text.contains('15 фт')),
+      isTrue,
+      reason: 'Тексты на поле: ${texts.join(' | ')}',
+    );
+
+    await tester.tap(find.byTooltip('Туман'));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Открывать'), findsOneWidget);
+    expect(find.byTooltip('Закрывать'), findsOneWidget);
+    await tester.tap(find.byTooltip('Закрывать'));
+    await tester.pumpAndSettle();
+    await dragCells(const Offset(35, 80), const [Offset(70, 0)]);
+    await tester.pumpAndSettle();
+    expect(fogCalls, isNotEmpty);
+    expect(fogCalls.first, isFalse);
+  });
+
+  testWidgets('пешку можно перетащить долгим нажатием', (tester) async {
+    final drags = <(String, int, int)>[];
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: SizedBox(
+          width: 600,
+          height: 400,
+          child: BattleField(
+            state: smallRoom(),
+            mapImage: image,
+            isMaster: true,
+            canDragToken: (_) => true,
+            onTokenDrag: (id, x, y) => drags.add((id, x, y)),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+
+    final gesture = await tester.startGesture(const Offset(245, 175));
+    await tester.pump(const Duration(milliseconds: 700));
+    await gesture.moveBy(const Offset(-70, 0));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+
+    expect(drags, [('t1', 2, 2)]);
+  });
+
   test('художник поля перерисовывается при изменении тумана', () {
     const painter = FieldPainter(
       grid: GridSpec(cellPx: 70, cols: 4, rows: 3),

@@ -13,11 +13,15 @@ class FieldPainter extends CustomPainter {
     required this.grid,
     required this.revealedCells,
     required this.isMaster,
+    this.strokes = const [],
+    this.ruler,
   });
 
   final GridSpec grid;
   final Set<(int, int)> revealedCells;
   final bool isMaster;
+  final List<DrawStroke> strokes;
+  final ((int, int), (int, int))? ruler;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -45,6 +49,27 @@ class FieldPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y * cell), Offset(width, y * cell), major);
     }
 
+    final strokePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    for (final stroke in strokes) {
+      if (stroke.cells.isEmpty) continue;
+      strokePaint.color = Color(stroke.color).withValues(alpha: 0.85);
+      final path = Path()
+        ..moveTo(
+          cellCenter(grid, stroke.cells.first.$1, stroke.cells.first.$2).dx,
+          cellCenter(grid, stroke.cells.first.$1, stroke.cells.first.$2).dy,
+        );
+      for (final point in stroke.cells.skip(1)) {
+        final center = cellCenter(grid, point.$1, point.$2);
+        path.lineTo(center.dx, center.dy);
+      }
+      if (stroke.cells.length == 1) path.lineTo(cell * 0.01, 0);
+      canvas.drawPath(path, strokePaint);
+    }
+
     final fog = Paint()
       ..color = isMaster ? const Color(0x33000000) : const Color(0xE0000000)
       ..style = PaintingStyle.fill;
@@ -53,6 +78,18 @@ class FieldPainter extends CustomPainter {
         if (!revealedCells.contains((x, y))) {
           canvas.drawRect(cellRect(grid, x, y), fog);
         }
+      }
+    }
+
+    if (ruler != null) {
+      final start = cellCenter(grid, ruler!.$1.$1, ruler!.$1.$2);
+      final end = cellCenter(grid, ruler!.$2.$1, ruler!.$2.$2);
+      final line = Paint()
+        ..color = AppTheme.gold
+        ..strokeWidth = 3;
+      canvas.drawLine(start, end, line);
+      for (final point in [start, end]) {
+        canvas.drawCircle(point, 6, Paint()..color = AppTheme.gold);
       }
     }
 
@@ -71,5 +108,7 @@ class FieldPainter extends CustomPainter {
       old.grid.cols != grid.cols ||
       old.grid.rows != grid.rows ||
       old.isMaster != isMaster ||
+      old.strokes != strokes ||
+      old.ruler != ruler ||
       !setEquals(old.revealedCells, revealedCells);
 }

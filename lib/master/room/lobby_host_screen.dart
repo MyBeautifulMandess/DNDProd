@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../core/models/room.dart';
 import '../../lobby/master_lobby_controller.dart';
 import '../../shared/lobby/chat_panel.dart';
 import '../../shared/field/battle_field.dart';
@@ -19,10 +20,14 @@ class LobbyHostScreen extends StatefulWidget {
 class _LobbyHostScreenState extends State<LobbyHostScreen> {
   String? _selectedToken;
   final _tokenName = TextEditingController();
+  final _tokenHp = TextEditingController();
+  TokenKind _newKind = TokenKind.npc;
+  int _newSize = 1;
 
   @override
   void dispose() {
     _tokenName.dispose();
+    _tokenHp.dispose();
     super.dispose();
   }
 
@@ -116,6 +121,12 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
               selectedTokenId: _selectedToken,
               isMaster: true,
               onTokenTap: (id) => setState(() => _selectedToken = id),
+              onTokenDrag: (id, x, y) => controller.moveToken(id, x, y),
+              canDragToken: (_) => true,
+              onDraw: controller.drawStroke,
+              onFog: (cells, {required reveal}) =>
+                  controller.toggleFog(cells, reveal: reveal),
+              showTools: true,
               onCellTap: (x, y) {
                 final id = _selectedToken;
                 if (id != null) controller.moveToken(id, x, y);
@@ -278,20 +289,93 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
                     ),
                   ],
                 ),
-                if (selected != null)
-                  Row(
-                    children: [
-                      Text('Хиты: ${selected.hp ?? '—'}'),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: () => controller.updateHp(
-                            selected.id, (selected.hp ?? 0) - 1),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    DropdownButton<TokenKind>(
+                      value: _newKind,
+                      onChanged: (value) => setState(
+                          () => _newKind = value ?? TokenKind.npc),
+                      items: const [
+                        DropdownMenuItem(
+                            value: TokenKind.player, child: Text('Игрок')),
+                        DropdownMenuItem(
+                            value: TokenKind.monster, child: Text('Монстр')),
+                        DropdownMenuItem(
+                            value: TokenKind.npc, child: Text('NPC')),
+                      ],
+                    ),
+                    DropdownButton<int>(
+                      value: _newSize,
+                      onChanged: (value) =>
+                          setState(() => _newSize = value ?? 1),
+                      items: [
+                        for (var size = 1; size <= 4; size++)
+                          DropdownMenuItem<int>(
+                              value: size, child: Text('$size×$size')),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 72,
+                      child: TextField(
+                        controller: _tokenHp,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          hintText: 'ХП',
+                          isDense: true,
+                        ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () => controller.updateHp(
-                            selected.id, (selected.hp ?? 0) + 1),
+                    ),
+                  ],
+                ),
+                if (selected != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Хиты: ${selected.hp ?? '—'}'),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            tooltip: '−1 ХП',
+                            onPressed: () => controller.updateHp(
+                                selected.id, (selected.hp ?? 0) - 1),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            tooltip: '+1 ХП',
+                            onPressed: () => controller.updateHp(
+                                selected.id, (selected.hp ?? 0) + 1),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline),
+                            tooltip: 'Удалить пешку',
+                            onPressed: () {
+                              controller.removeToken(selected.id);
+                              setState(() => _selectedToken = null);
+                            },
+                          ),
+                        ],
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          const Text('Размер:', style: TextStyle(fontSize: 12)),
+                          DropdownButton<int>(
+                            value: selected.size,
+                            onChanged: (value) => controller.resizeToken(
+                                selected.id, value ?? 1),
+                            items: [
+                              for (var size = 1; size <= 4; size++)
+                                DropdownMenuItem<int>(
+                                    value: size, child: Text('$size×$size')),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -322,7 +406,13 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
   }
 
   void _addToken(MasterLobbyController controller) {
-    controller.addToken(_tokenName.text);
+    controller.addToken(
+      _tokenName.text,
+      kind: _newKind,
+      size: _newSize,
+      hp: int.tryParse(_tokenHp.text.trim()),
+    );
     _tokenName.clear();
+    _tokenHp.clear();
   }
 }
