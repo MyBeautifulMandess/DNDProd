@@ -72,12 +72,21 @@ void main() {
               x: 3,
               y: 4,
               hp: 10,
-              maxHp: 12),
+              maxHp: 12,
+              size: 2),
         ],
         players: [
           RoomPlayer(id: 'p1', name: 'Алиса', characterId: 'c1', moveOwn: false)
         ],
         revealedCells: {(1, 2), (3, 4)},
+        strokes: [
+          DrawStroke(
+            id: 's1',
+            author: 'Мастер',
+            color: 0xFFC9A227,
+            cells: [(1, 1), (2, 2)],
+          ),
+        ],
       );
       final restored = RoomState.fromJson(state.toJson());
       expect(restored.adventureId, 'a1');
@@ -85,9 +94,12 @@ void main() {
       expect(restored.grid.cellPx, 64);
       expect(restored.tokens.single.x, 3);
       expect(restored.tokens.single.hp, 10);
+      expect(restored.tokens.single.size, 2);
       expect(restored.players.single.moveOwn, isFalse);
       expect(restored.revealedCells, contains((1, 2)));
       expect(restored.revealedCells, contains((3, 4)));
+      expect(restored.strokes.single.cells, [(1, 1), (2, 2)]);
+      expect(restored.strokes.single.color, 0xFFC9A227);
       expect(state.toJson()['protocol'], protocolVersion);
     });
   });

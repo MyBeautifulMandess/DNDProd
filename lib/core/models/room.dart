@@ -19,6 +19,7 @@ class Token {
     this.hp,
     this.maxHp,
     this.visible = true,
+    this.size = 1,
   });
 
   final String id;
@@ -32,7 +33,11 @@ class Token {
   final int? maxHp;
   final bool visible;
 
-  Token copyWith({int? x, int? y, int? hp, int? maxHp, bool? visible}) => Token(
+  /// Сторона пешки в клетках (1 — средняя, 2 — большая и т.д.).
+  final int size;
+
+  Token copyWith({int? x, int? y, int? hp, int? maxHp, bool? visible, int? size}) =>
+      Token(
         id: id,
         kind: kind,
         owner: owner,
@@ -43,6 +48,7 @@ class Token {
         hp: hp ?? this.hp,
         maxHp: maxHp ?? this.maxHp,
         visible: visible ?? this.visible,
+        size: size ?? this.size,
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,21 +62,65 @@ class Token {
         'hp': hp,
         'max_hp': maxHp,
         'visible': visible,
+        'size': size,
       };
 
-  factory Token.fromJson(Map<String, dynamic> json) => Token(
-        id: json['id'] as String,
-        kind: TokenKind.values.firstWhere((k) => k.name == json['kind'],
-            orElse: () => TokenKind.npc),
-        owner: json['owner'] as String?,
-        catalogId: json['catalog_id'] as String?,
-        label: json['label'] as String? ?? '',
-        x: json['x'] as int,
-        y: json['y'] as int,
-        hp: json['hp'] as int?,
-        maxHp: json['max_hp'] as int?,
-        visible: json['visible'] as bool? ?? true,
-      );
+  factory Token.fromJson(Map<String, dynamic> json) {
+    final rawSize = json['size'] as int?;
+    return Token(
+      id: json['id'] as String,
+      kind: TokenKind.values.firstWhere((k) => k.name == json['kind'],
+          orElse: () => TokenKind.npc),
+      owner: json['owner'] as String?,
+      catalogId: json['catalog_id'] as String?,
+      label: json['label'] as String? ?? '',
+      x: json['x'] as int,
+      y: json['y'] as int,
+      hp: json['hp'] as int?,
+      maxHp: json['max_hp'] as int?,
+      visible: json['visible'] as bool? ?? true,
+      size: rawSize == null ? 1 : rawSize.clamp(1, 4).toInt(),
+    );
+  }
+}
+
+/// Штрих рисования на поле: цвет по автору, клетки сохраняются в снапшоте.
+class DrawStroke {
+  const DrawStroke({
+    required this.id,
+    required this.author,
+    required this.color,
+    required this.cells,
+  });
+
+  final String id;
+  final String author;
+  final int color;
+  final List<(int, int)> cells;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'author': author,
+        'color': color,
+        'cells': [
+          for (final cell in cells) [cell.$1, cell.$2]
+        ],
+      };
+
+  factory DrawStroke.fromJson(Map<String, dynamic> json) {
+    final cells = <(int, int)>{};
+    for (final cell in (json['cells'] as List?) ?? const []) {
+      if (cell is List && cell.length == 2) {
+        cells.add((cell[0] as int, cell[1] as int));
+      }
+    }
+    return DrawStroke(
+      id: json['id'] as String? ?? '',
+      author: json['author'] as String? ?? '',
+      color: json['color'] as int? ?? 0xFFC9A227,
+      cells: cells.toList(),
+    );
+  }
 }
 
 class GridSpec {
@@ -137,6 +187,7 @@ class RoomState {
     this.tokens = const [],
     this.players = const [],
     this.revealedCells = const {},
+    this.strokes = const [],
   });
 
   final String adventureId;
@@ -148,12 +199,16 @@ class RoomState {
   /// Открытые туманом войны клетки (x, y). Скрытое = всё остальное.
   final Set<(int, int)> revealedCells;
 
+  /// Штрихи рисования видны всем участникам комнаты.
+  final List<DrawStroke> strokes;
+
   RoomState copyWith({
     List<Token>? tokens,
     Set<(int, int)>? revealedCells,
     String? mapId,
     List<RoomPlayer>? players,
     GridSpec? grid,
+    List<DrawStroke>? strokes,
   }) =>
       RoomState(
         adventureId: adventureId,
@@ -162,6 +217,7 @@ class RoomState {
         tokens: tokens ?? this.tokens,
         players: players ?? this.players,
         revealedCells: revealedCells ?? this.revealedCells,
+        strokes: strokes ?? this.strokes,
       );
 
   Map<String, dynamic> toJson() => {
@@ -176,12 +232,16 @@ class RoomState {
           'grid': true,
         },
         'players': [for (final player in players) player.toJson()],
+        'draw': {
+          'strokes': [for (final stroke in strokes) stroke.toJson()],
+        },
       };
 
   factory RoomState.fromJson(Map<String, dynamic> json) {
     final room = (json['room'] as Map?) ?? const {};
     final map = (json['map'] as Map?) ?? const {};
     final fog = (json['fog'] as Map?) ?? const {};
+    final draw = (json['draw'] as Map?) ?? const {};
     final revealed = <(int, int)>{};
     for (final cell in (fog['revealed'] as List?) ?? const []) {
       if (cell is List && cell.length == 2) {
@@ -203,6 +263,10 @@ class RoomState {
           RoomPlayer.fromJson((player as Map).cast<String, dynamic>()),
       ],
       revealedCells: revealed,
+      strokes: [
+        for (final stroke in (draw['strokes'] as List?) ?? const [])
+          DrawStroke.fromJson((stroke as Map).cast<String, dynamic>()),
+      ],
     );
   }
 }

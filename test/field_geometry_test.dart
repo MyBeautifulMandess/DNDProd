@@ -35,4 +35,25 @@ void main() {
         isA<NetworkImage>());
     expect(fieldImageProvider(''), isA<AssetImage>());
   });
+
+  test('пешка размера 2 не выходит за край поля', () {
+    expect(clampCell((29, 19), grid, size: 2), (28, 18));
+    expect(clampCell((-3, 25), grid, size: 1), (0, 19));
+    expect(tokenRect(
+      grid,
+      const Token(id: 't', kind: TokenKind.npc, x: 2, y: 3, size: 2),
+    ), const Rect.fromLTWH(140, 210, 140, 140));
+  });
+
+  test('линия клеток непрерывна, линейка считает клетки и футы', () {
+    expect(lineCells((0, 0), (3, 2)), [
+      (0, 0),
+      (1, 1),
+      (2, 1),
+      (3, 2),
+    ]);
+    expect(rulerCells((1, 1), (4, 3)), 3);
+    expect(rulerFeet((1, 1), (4, 3)), 15);
+    expect(rulerFeet((2, 2), (2, 2)), 0);
+  });
 }

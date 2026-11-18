@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 
 import '../../core/models/room.dart';
 
+export '../../core/field_grid.dart';
+
 /// Размер полотна в координатах поля (без учёта зума).
 Size fieldSize(GridSpec grid) => Size(
       grid.cols * grid.cellPx.toDouble(),
@@ -21,6 +23,17 @@ Rect cellRect(GridSpec grid, int x, int y) => Rect.fromLTWH(
     );
 
 Offset cellCenter(GridSpec grid, int x, int y) => cellRect(grid, x, y).center;
+
+/// Прямоугольник пешки с учётом её размера в клетках.
+Rect tokenRect(GridSpec grid, Token token) {
+  final cell = grid.cellPx.toDouble();
+  return Rect.fromLTWH(
+    token.x * cell,
+    token.y * cell,
+    token.size * cell,
+    token.size * cell,
+  );
+}
 
 /// Клетка под локальной точкой полотна; `null` — точка вне сетки.
 (int, int)? cellAt(Offset point, GridSpec grid) {
