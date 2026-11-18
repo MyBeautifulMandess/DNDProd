@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'package:dnd_prod/app.dart';
 import 'package:dnd_prod/core/models/character.dart';
 import 'package:dnd_prod/lobby/master_lobby_controller.dart';
 import 'package:dnd_prod/lobby/player_lobby_controller.dart';
@@ -56,5 +57,22 @@ void main() {
 
     expect(find.text('Локальная комната'), findsOneWidget);
     expect(find.text('Запустить комнату'), findsOneWidget);
+  });
+
+  testWidgets('переход из роли игрока в подключение видит провайдер',
+      (tester) async {
+    await tester.pumpWidget(const DndApp());
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Игрок'));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    await tester.tap(find.text('Подключение'));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+
+    expect(find.byType(ConnectScreen), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

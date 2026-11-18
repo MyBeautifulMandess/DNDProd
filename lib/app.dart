@@ -10,17 +10,18 @@ class DndApp extends StatelessWidget {
   const DndApp({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'D&D Помощник',
-        theme: AppTheme.dark,
-        // Контроллеры живут выше экранов: комната не сбрасывается при смене вкладок.
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => MasterLobbyController()),
-            ChangeNotifierProvider(create: (_) => PlayerLobbyController()),
-          ],
-          child: const RoleGateScreen(),
+  Widget build(BuildContext context) => MultiProvider(
+        // Провайдеры выше MaterialApp: ролевые экраны открываются новыми маршрутами
+        // через Navigator, поэтому в `home` они были бы недоступны.
+        providers: [
+          ChangeNotifierProvider(create: (_) => MasterLobbyController()),
+          ChangeNotifierProvider(create: (_) => PlayerLobbyController()),
+        ],
+        child: MaterialApp(
+          title: 'D&D Помощник',
+          theme: AppTheme.dark,
+          home: const RoleGateScreen(),
+          debugShowCheckedModeBanner: false,
         ),
-        debugShowCheckedModeBanner: false,
       );
 }
