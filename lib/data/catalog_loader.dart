@@ -25,9 +25,19 @@ class CatalogLoader {
   Map<String, RaceDetail>? _raceDetails;
   Map<String, ClassEquipment>? _classEquipment;
 
+  /// Индекс бестиария (id → карточка-краткая запись) и номер шарда с полной карточкой.
+  final Map<String, Monster> _monsterSummaryById = {};
+  final Map<String, int> _monsterShardById = {};
+
+  /// Разобранные шарды бестиария: LRU, чтобы не держать в памяти все ~14 МБ.
+  final Map<int, Map<String, Monster>> _monsterShards = {};
+  final List<int> _monsterShardLru = [];
+  final Map<int, Future<Map<String, Monster>>> _monsterShardPending = {};
+  static const int _monsterShardLimit = 8;
+
   Future<List<Spell>> spells() async => _spells ??= await _loadList('spells_5e14.json', _parseSpell);
 
-  Future<List<Monster>> monsters() async => _monsters ??= await _loadList('bestiary_5e14.json', _parseMonster);
+  Future<List<Monster>> monsters() async => _monsters ??= await _loadMonsterIndex();
 
   Future<List<Item>> items() async => _items ??= await _loadList('items_5e14.json', _parseItem);
 
@@ -36,6 +46,40 @@ class CatalogLoader {
   Future<List<Background>> backgrounds() async => _backgrounds ??= await _loadList('backgrounds_full.json', _parseBackground);
 
   Future<List<Feat>> feats() async => _feats ??= await _loadList('feats_full.json', _parseFeat);
+
+  /// Полная карточка существа: индекс даёт краткую запись, а секции, атаки и
+  /// лор лежат в шарде бестиария и читаются по требованию (с LRU-кэшем).
+  Future<Monster> monsterDetails(String id) async {
+    await monsters();
+    final summary = _monsterSummaryById[id];
+    if (summary == null) {
+      throw StateError('Существо не найдено в каталоге: $id');
+    }
+    final details = await _loadMonsterShard(_monsterShardById[id] ?? 0);
+    return details[id] ?? summary;
+  }
+
+  /// Предзагрузка лёгких каталогов после первого кадра — экраны открываются
+  /// без ожидания. Бестиарий грузится индексом, карточки — по требованию.
+  /// Ошибки отдельных каталогов не мешают запуску приложения.
+  Future<void> preload() async {
+    final tasks = <Future<void>>[
+      spells(),
+      monsters(),
+      items(),
+      feats(),
+      races(),
+      backgrounds(),
+    ];
+    for (final task in tasks) {
+      try {
+        await task;
+      } catch (_) {
+        // Экран справочника покажет ошибку и кнопку «Повторить».
+      }
+    }
+  }
+
 
   /// Детали рас (бонусы/скорость/черты/подвиды) из _races_detail.json, ключ — id расы.
   Future<Map<String, RaceDetail>> raceDetails() async {
@@ -118,6 +162,53 @@ class CatalogLoader {
 
   Future<List<T>> _loadList<T>(String file, T Function(Map<String, dynamic>) parse) async =>
       (await _loadJsonList(file)).map(parse).toList();
+
+  Future<List<Monster>> _loadMonsterIndex() async {
+    final rows = await _loadJsonList('_bestiary_index.json');
+    _monsterSummaryById.clear();
+    _monsterShardById.clear();
+    final result = <Monster>[];
+    for (final row in rows) {
+      final monster = _parseMonster(row);
+      result.add(monster);
+      _monsterSummaryById[monster.id] = monster;
+      _monsterShardById[monster.id] = row['shard'] as int? ?? 0;
+    }
+    return result;
+  }
+
+  Future<Map<String, Monster>> _loadMonsterShard(int shard) {
+    final cached = _monsterShards[shard];
+    if (cached != null) {
+      _touchMonsterShard(shard);
+      return Future.value(cached);
+    }
+    return _monsterShardPending[shard] ??= _readMonsterShard(shard);
+  }
+
+  Future<Map<String, Monster>> _readMonsterShard(int shard) async {
+    try {
+      final rows = await _loadJsonList('bestiary_${shard.toString().padLeft(2, '0')}.json');
+      final parsed = <String, Monster>{
+        for (final row in rows)
+          _idFromUrl(row['url'] as String): _parseMonster(row),
+      };
+      _monsterShards[shard] = parsed;
+      _touchMonsterShard(shard);
+      while (_monsterShardLru.length > _monsterShardLimit) {
+        _monsterShards.remove(_monsterShardLru.removeAt(0));
+      }
+      return parsed;
+    } finally {
+      _monsterShardPending.remove(shard);
+    }
+  }
+
+  void _touchMonsterShard(int shard) {
+    _monsterShardLru
+      ..remove(shard)
+      ..add(shard);
+  }
 
   static String _idFromUrl(String url) => url.split('/').where((s) => s.isNotEmpty).last;
 

@@ -4,20 +4,43 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('в бестиарии есть атаки, способности и секции', () async {
+  test('бестиарий: лёгкий индекс, полная карточка по требованию', () async {
     final monsters = await catalogLoader.monsters();
-    expect(monsters, isNotEmpty);
-    expect(monsters.any((monster) => monster.actions.isNotEmpty), isTrue);
-    expect(monsters.any((monster) => monster.traits.isNotEmpty), isTrue);
-    expect(
-      monsters.any(
-        (monster) => monster.sections.any((section) => section.title == 'Действия'),
-      ),
-      isTrue,
+    expect(monsters.length, greaterThan(2600));
+    // В списке — краткие записи из индекса: карточки ещё не разобраны.
+    final summary = monsters.firstWhere(
+      (monster) => monster.id == '107-ancient_red_dragon',
     );
+    expect(summary.sections, isEmpty);
+    expect(summary.actions, isEmpty);
+    expect(summary.cr, greaterThan(0));
+
+    final dragon = await catalogLoader.monsterDetails(summary.id);
+    expect(dragon.nameRu, 'Древний красный дракон');
+    expect(dragon.actions.isNotEmpty, isTrue);
+    expect(dragon.legendaryActions.isNotEmpty, isTrue);
+    expect(dragon.sections.any((section) => section.title == 'Действия'), isTrue);
+  });
+
+  test('бестиарий: у существ есть способности, атаки и секции', () async {
+    final monsters = await catalogLoader.monsters();
+    var withActions = false;
+    var withTraits = false;
+    // Карточки читаются шардами; для проверки хватает нескольких существ.
+    for (final summary in monsters.take(40)) {
+      final monster = await catalogLoader.monsterDetails(summary.id);
+      withActions = withActions || monster.actions.isNotEmpty;
+      withTraits = withTraits || monster.traits.isNotEmpty;
+      if (withActions && withTraits) break;
+    }
+    expect(withActions, isTrue);
+    expect(withTraits, isTrue);
+  });
+
+  test('бестиарий: неизвестное существо — понятная ошибка', () {
     expect(
-      monsters.any((monster) => monster.legendaryActions.isNotEmpty),
-      isTrue,
+      catalogLoader.monsterDetails('нет-такого-существа'),
+      throwsStateError,
     );
   });
 
