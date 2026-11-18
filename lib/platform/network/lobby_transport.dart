@@ -18,7 +18,8 @@ class LobbyMessage {
   final String type;
   final Map<String, dynamic> payload;
 
-  Map<String, dynamic> toJson() => {'v': protocolVersion, 'type': type, 'payload': payload};
+  Map<String, dynamic> toJson() =>
+      {'v': protocolVersion, 'type': type, 'payload': payload};
 
   factory LobbyMessage.fromJson(Map<String, dynamic> json) => LobbyMessage(
         json['type'] as String,
@@ -66,11 +67,16 @@ abstract final class LobbyMessageType {
   static const draw = 'draw';
   static const ping = 'ping';
   static const pong = 'pong';
+  static const error = 'error';
 }
 
 /// Валидация прав: кто может двигать токен (docs/06-lobby-network.md, раздел 5).
 /// Чистая функция — покрыта юнит-тестами.
-bool canMoveToken({required Token token, required String playerId, required bool isDm, required bool moveOwnAllowed}) {
+bool canMoveToken(
+    {required Token token,
+    required String playerId,
+    required bool isDm,
+    required bool moveOwnAllowed}) {
   if (isDm) return true;
   if (!moveOwnAllowed) return false;
   return token.owner == playerId;
