@@ -35,7 +35,13 @@ class PathProviderFileStore implements FileStore {
   Future<List<String>> list() async {
     final dir = await _dir;
     if (!await dir.exists()) return [];
-    return dir.list().where((e) => e is File).map((e) => p.basename(e.path)).toList();
+    // Относительные пути с подпапками (characters/xxx.json), а не basename —
+    // иначе теряется структура и репозитории не находят свои файлы.
+    return dir
+        .list(recursive: true)
+        .where((e) => e is File)
+        .map((e) => p.relative(e.path, from: dir.path))
+        .toList();
   }
 
   @override

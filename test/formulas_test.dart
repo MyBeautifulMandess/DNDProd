@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:dnd_prod/core/models/catalog.dart';
 import 'package:dnd_prod/core/rules/ability.dart';
 import 'package:dnd_prod/core/rules/formulas.dart';
 
@@ -69,6 +70,66 @@ void main() {
     });
     test('спасбросок', () {
       expect(savingThrowBonus(ability: Ability.constitution, abilityScore: 15, proficient: true, level: 1), 4); // +2 + 2
+    });
+  });
+
+  group('racialBonus', () {
+    RaceDetail race({
+      bool choice = false,
+      List<RaceBonus> bonuses = const [],
+      List<Subspecies> subspecies = const [],
+    }) =>
+        RaceDetail(
+          id: 'test',
+          url: '',
+          nameRu: 'Тестовая раса',
+          nameEn: 'Test',
+          bonusesText: '',
+          bonuses: bonuses,
+          bonusesChoice: choice,
+          choiceOptions: null,
+          size: '',
+          sizeText: '',
+          speedFt: 30,
+          speedText: '',
+          languagesText: '',
+          traits: const [],
+          darkvisionFt: null,
+          subspecies: subspecies,
+        );
+
+    test('бонусы расы складываются с бонусами подвида', () {
+      final r = race(
+        bonuses: const [RaceBonus(ability: 'str', bonus: 2)],
+        subspecies: const [
+          Subspecies(
+            anchor: 'hill',
+            name: 'Холмовой',
+            source: '',
+            ua: false,
+            bonusesText: '',
+            bonuses: [RaceBonus(ability: 'str', bonus: 1)],
+            bonusesChoice: false,
+            choiceOptions: null,
+            size: '',
+            sizeText: '',
+            speedFt: null,
+            speedText: '',
+            languagesText: '',
+            traits: [],
+            darkvisionFt: null,
+          ),
+        ],
+      );
+      expect(racialBonus(Ability.strength, r), 2);
+      expect(racialBonus(Ability.strength, r, subraceAnchor: 'hill'), 3);
+      expect(racialBonus(Ability.dexterity, r, subraceAnchor: 'hill'), 0);
+    });
+
+    test('раса с выбором бонусов (MPMM) не даёт автоматического бонуса', () {
+      final r = race(choice: true, bonuses: const [RaceBonus(ability: 'str', bonus: 2)]);
+      expect(racialBonus(Ability.strength, r), 0);
+      expect(racialBonus(Ability.strength, null), 0);
     });
   });
 

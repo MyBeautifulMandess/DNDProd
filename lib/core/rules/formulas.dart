@@ -3,6 +3,7 @@
 library;
 
 import 'ability.dart';
+import '../models/catalog.dart';
 
 /// Модификатор характеристики: floor((значение − 10) / 2).
 /// Значение 1 → −5, 20 → +5, 30 → +10.
@@ -57,6 +58,27 @@ const pointBuyBudget = 27;
 const standardArray = [15, 14, 13, 12, 10, 8];
 
 int max1(int value) => value < 1 ? 1 : value;
+
+/// Расовый бонус характеристики из каталога рас. Складывает бонусы расы и
+/// выбранного подвида. Для рас/подвидов с выбором бонусов (MPMM, bonusesChoice)
+/// бонус решается в билдере и здесь не учитывается — возвращает 0.
+int racialBonus(Ability ability, RaceDetail? race, {String? subraceAnchor}) {
+  if (race == null) return 0;
+  var bonus = 0;
+  if (!race.bonusesChoice) {
+    for (final b in race.bonuses) {
+      if (b.ability == ability.id) bonus += b.bonus;
+    }
+  }
+  for (final s in race.subspecies) {
+    if (s.anchor == subraceAnchor && !s.bonusesChoice) {
+      for (final b in s.bonuses) {
+        if (b.ability == ability.id) bonus += b.bonus;
+      }
+    }
+  }
+  return bonus;
+}
 
 void _checkLevel(int level) {
   if (level < 1 || level > 20) throw ArgumentError('Уровень $level вне диапазона 1–20');
