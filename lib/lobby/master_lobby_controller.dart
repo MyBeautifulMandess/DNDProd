@@ -2,7 +2,6 @@
 library;
 
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
@@ -31,17 +30,31 @@ class MasterLobbyController extends ChangeNotifier {
   bool get isStarting => _starting;
   bool get moveOwnAllowed => _moveOwnAllowed;
 
-  Future<void> start({int port = defaultLobbyPort}) async {
+  /// `initialState` и `mapBytes` приходят из подготовленного приключения.
+  Future<void> start({
+    int port = defaultLobbyPort,
+    RoomState? initialState,
+    Uint8List? mapBytes,
+    String mapContentType = 'image/png',
+    bool moveOwnAllowed = true,
+  }) async {
     if (_server != null || _starting) return;
     _starting = true;
     notifyListeners();
-    final server = ShelfLobbyServer(port: port);
+    final server = ShelfLobbyServer(
+      port: port,
+      initialState: initialState,
+      mapBytes: mapBytes,
+      mapContentType: mapContentType,
+      moveOwnAllowed: moveOwnAllowed,
+    );
     try {
       await server.start();
       _subscription = server.messages.listen(_onMessage);
       _server = server;
       _address = server.address;
       _state = server.state;
+      _moveOwnAllowed = server.moveOwnAllowed;
       _error = null;
     } catch (error) {
       _error = 'Не удалось запустить комнату: $error';

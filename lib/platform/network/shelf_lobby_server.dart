@@ -22,8 +22,19 @@ import 'lobby_transport.dart';
 import 'local_address.dart';
 
 class ShelfLobbyServer implements LobbyServer {
-  ShelfLobbyServer({this.port = defaultLobbyPort, DiceRoller? roller})
-      : _roller = roller ?? DiceRoller();
+  ShelfLobbyServer({
+    this.port = defaultLobbyPort,
+    DiceRoller? roller,
+    RoomState? initialState,
+    Uint8List? mapBytes,
+    String mapContentType = 'image/png',
+    bool moveOwnAllowed = true,
+  })  : _roller = roller ?? DiceRoller() {
+    _state = initialState ?? const RoomState();
+    _moveOwnAllowed = moveOwnAllowed;
+    _mapBytes = mapBytes;
+    _mapContentType = mapContentType;
+  }
 
   final int port;
   final DiceRoller _roller;
@@ -72,6 +83,11 @@ class ShelfLobbyServer implements LobbyServer {
             pingInterval: const Duration(seconds: 30)))
         .handler;
     _httpServer = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
+    if (_mapBytes != null) {
+      _state = _state.copyWith(
+        mapId: 'http://$_host:$boundPort/map.png?v=${++_mapVersion}',
+      );
+    }
   }
 
   @override
