@@ -1,14 +1,13 @@
 /// Вкладка редактора: подготовка карт, пешек, тумана и запуск комнаты.
 library;
 
-import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/models/adventure.dart';
 import '../../core/models/room.dart';
+import '../../lobby/lobby_map.dart';
 import '../../lobby/master_lobby_controller.dart';
 import '../../platform/files/map_file.dart';
 import '../../shared/field/battle_field.dart';
@@ -57,6 +56,7 @@ class _AdventureMapsTabState extends State<AdventureMapsTab> {
   @override
   Widget build(BuildContext context) {
     final controller = _controller;
+    final lobby = context.watch<MasterLobbyController>();
     final adventure = controller.adventure;
     final map = controller.selectedMap;
     if (adventure == null || map == null) {
@@ -91,6 +91,15 @@ class _AdventureMapsTabState extends State<AdventureMapsTab> {
           _mapChips(adventure, map),
           const SizedBox(height: 12),
           _mapActions(controller, map),
+          if (controller.hasSessionStates(lobby.lastMapStates))
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: FilledButton.icon(
+                onPressed: () => _applySession(controller, lobby),
+                icon: const Icon(Icons.restore),
+                label: const Text('Внести правки из комнаты'),
+              ),
+            ),
           const SizedBox(height: 12),
           Card(
             clipBehavior: Clip.antiAlias,
@@ -387,6 +396,19 @@ class _AdventureMapsTabState extends State<AdventureMapsTab> {
     );
   }
 
+  Future<void> _applySession(
+    AdventureEditorController controller,
+    MasterLobbyController lobby,
+  ) async {
+    controller.applySessionStates(lobby.lastMapStates);
+    lobby.clearSessionStates();
+    await controller.save();
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Правки сессии внесены и сохранены')),
+    );
+  }
+
   Future<void> _startRoom(AdventureEditorController controller) async {
     final adventure = controller.adventure;
     final map = controller.selectedMap;
@@ -394,15 +416,22 @@ class _AdventureMapsTabState extends State<AdventureMapsTab> {
     if (adventure == null || map == null || lobby.isRunning) return;
     setState(() => _starting = true);
     try {
-      Uint8List? bytes;
-      if (map.imagePath.isNotEmpty) {
-        bytes = await widget.repository.mapBytes(map);
+      final maps = <LobbyMap>[];
+      for (final item in adventure.maps) {
+        maps.add(LobbyMap(
+          key: item.id,
+          name: item.name,
+          state: item.roomState(adventure.id),
+          imageBytes: item.imagePath.isEmpty
+              ? null
+              : await widget.repository.mapBytes(item),
+          contentType: widget.repository.contentType(item),
+        ));
       }
       lobby.clearError();
       await lobby.start(
-        initialState: map.roomState(adventure.id),
-        mapBytes: bytes,
-        mapContentType: widget.repository.contentType(map),
+        maps: maps,
+        initialMapKey: map.id,
         moveOwnAllowed: adventure.moveOwnAllowed,
       );
       if (!mounted) return;

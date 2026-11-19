@@ -313,6 +313,28 @@ class AdventureEditorController extends ChangeNotifier {
   Future<ImageProvider> mapImage() =>
       localMapImage(_store, selectedMap?.imagePath ?? '');
 
+  /// Переносит снапшоты остановленной комнаты обратно в приключение.
+  /// Пешки игроков не сохраняются: они создаются заново при подключении.
+  void applySessionStates(Map<String, RoomState> states) {
+    final adventure = _adventure;
+    if (adventure == null) return;
+    for (final map in adventure.maps) {
+      final state = states[map.id];
+      if (state == null) continue;
+      map.grid = state.grid;
+      map.tokens = [
+        for (final token in state.tokens)
+          if (token.kind != TokenKind.player) token,
+      ];
+      map.revealedCells = Set<(int, int)>.of(state.revealedCells);
+      map.strokes = List<DrawStroke>.of(state.strokes);
+    }
+    notifyListeners();
+  }
+
+  bool hasSessionStates(Map<String, RoomState> states) =>
+      adventure?.maps.any((map) => states.containsKey(map.id)) ?? false;
+
   // --- Лор и ПМ -------------------------------------------------------------
 
   void addLorePage() {
