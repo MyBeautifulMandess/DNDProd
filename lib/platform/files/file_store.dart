@@ -5,6 +5,7 @@ library;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +13,11 @@ import 'package:path_provider/path_provider.dart';
 abstract class FileStore {
   Future<String> read(String name);
   Future<void> write(String name, String contents);
+
+  /// Бинарные файлы пользователя: фоны карт и картинки приключений.
+  Future<Uint8List> readBytes(String name);
+  Future<void> writeBytes(String name, Uint8List bytes);
+
   Future<List<String>> list();
   Future<void> delete(String name);
 }
@@ -29,6 +35,17 @@ class PathProviderFileStore implements FileStore {
     final file = await _file(name);
     await file.parent.create(recursive: true);
     await file.writeAsString(contents);
+  }
+
+  @override
+  Future<Uint8List> readBytes(String name) async =>
+      (await _file(name)).readAsBytes();
+
+  @override
+  Future<void> writeBytes(String name, Uint8List bytes) async {
+    final file = await _file(name);
+    await file.parent.create(recursive: true);
+    await file.writeAsBytes(bytes);
   }
 
   @override
@@ -51,16 +68,30 @@ class PathProviderFileStore implements FileStore {
 /// Fallback для тестов и десктоп-окружений без path_provider.
 class InMemoryFileStore implements FileStore {
   final _files = <String, String>{};
+  final _bytes = <String, Uint8List>{};
 
   @override
-  Future<String> read(String name) async => _files[name] ?? (throw FileSystemException('Файл не найден', name));
+  Future<String> read(String name) async =>
+      _files[name] ?? (throw FileSystemException('Файл не найден', name));
 
   @override
-  Future<void> write(String name, String contents) async => _files[name] = contents;
+  Future<void> write(String name, String contents) async =>
+      _files[name] = contents;
 
   @override
-  Future<List<String>> list() async => _files.keys.toList();
+  Future<Uint8List> readBytes(String name) async =>
+      _bytes[name] ?? (throw FileSystemException('Файл не найден', name));
 
   @override
-  Future<void> delete(String name) async => _files.remove(name);
+  Future<void> writeBytes(String name, Uint8List bytes) async =>
+      _bytes[name] = Uint8List.fromList(bytes);
+
+  @override
+  Future<List<String>> list() async => [..._files.keys, ..._bytes.keys];
+
+  @override
+  Future<void> delete(String name) async {
+    _files.remove(name);
+    _bytes.remove(name);
+  }
 }
