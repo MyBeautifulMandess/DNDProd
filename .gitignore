@@ -30,3 +30,11 @@ assets/_gen_raw/
 # Системное
 .DS_Store
 Thumbs.db
+
+# Временные файлы сборки установщиков (готовые пакеты — активы релиза)
+installer/windows/staging/
+installer/windows/extracted/
+installer/windows/setup.sed
+installer/windows/*.exe
+build/dmg-staging/
+installer/macos/*.dmg

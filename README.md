@@ -6,6 +6,22 @@ Flutter-приложение для мастеров и игроков D&D 5e (2
 
 [Скачать последний релиз](https://github.com/MyBeautifulMandess/DNDProd/releases/latest) · [Документация](docs/00-index.md)
 
+## Установка готовыми пакетами
+
+Готовые пакеты лежат в [последнем релизе](https://github.com/MyBeautifulMandess/DNDProd/releases/latest):
+
+| Платформа | Файл | Как ставить |
+|---|---|---|
+| **Windows 10/11 (x64)** | `DNDProd-setup-win-x64.exe` | Запустите установщик, дальше — по шагам мастера. Приложение появится в меню «Пуск» как «D&D Помощник». Удаление — через ярлык «Удалить D&D Помощник» в меню «Пуск». |
+| **macOS** | `DNDProd-macOS.dmg` (если собран) | Откройте образ, перетащите «D&D Помощник» в «Программы». Пакет без подписи Developer ID: при первом запуске сделайте правый клик по приложению → «Открыть» → «Открыть». |
+| **Android 8+** | `app-release.apk` | Скачайте на устройство и откройте файл. Разрешите установку из неизвестных источников. APK подписан debug-ключом, это тестовая сборка. |
+
+Установщик Windows собран через встроенный в Windows IExpress и не требует прав администратора: он распаковывает приложение в `%LOCALAPPDATA%\DNDProd` и создаёт ярлыки в меню «Пуск». При установке/удалении данные персонажей и приключений в «Документах» не затрагиваются.
+
+DMG для macOS в этом репозитории не хранится — `.app` можно собрать только на Mac с Xcode. На macOS запустите `./installer/macos/build_dmg.sh`, и файл `installer/macos/DNDProd-macOS.dmg` будет готов к распространению. Для публикации вне своего компьютера пакет нужно подписать Developer ID и пройти notarization; скрипт накладывает лишь ad-hoc подпись.
+
+Подробности сборки установщиков — в разделе «Сборка релиза» ниже.
+
 ## Что умеет
 
 - **Игрок**
@@ -51,6 +67,27 @@ flutter build macos --release       # только на macOS с Xcode
 ```
 
 APK в релизе подписан debug-ключом: его можно ставить на устройство для тестирования, но для публикации в магазине нужен собственный keystore. Настройки сборки Android находятся в `android/app/build.gradle.kts` и `android/gradle.properties`.
+
+### Сборка установщиков
+
+**Windows.** Нужен встроенный в Windows `iexpress.exe` (есть в любом Windows без дополнительных программ):
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File installer/windows/build_installer.ps1
+```
+
+Скрипт сам соберёт Flutter Windows Release, упакует его и создаст `installer/windows/DNDProd-setup-win-x64.exe`. Проверено: установщик распаковывается, ставит приложение в `%LOCALAPPDATA%\DNDProd`, создаёт ярлыки в «Пуск», приложение запускается, удаление работает. Готовый `.exe` — актив релиза, в репозиторий не коммитится.
+
+**macOS.** На машине с macOS и Xcode:
+
+```bash
+chmod +x installer/macos/build_dmg.sh
+./installer/macos/build_dmg.sh
+```
+
+На выходе `installer/macos/DNDProd-macOS.dmg`. Скрипт собирает release, переименовывает `.app` в «D&D Помощник», накладывает ad-hoc подпись и упаковывает DMG через `hdiutil`. Файл `.dmg` в репозиторий не коммитится — его нужно прикрепить к релизу отдельно.
+
+**Android.** `flutter build apk --release`, затем прикрепите `build/app/outputs/flutter-apk/app-release.apk` к релизу.
 
 ## Игра в локальной сети
 
