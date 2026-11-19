@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'adventures/adventures_screen.dart';
 import '../master/room/lobby_host_screen.dart';
 import '../shared/catalog_ui/library_home.dart';
-import '../shared/stub_placeholder.dart';
 
 /// Домашний экран роли «Мастер».
 /// Реализация вкладок — фазы 2–3 (справочники, приключения, комната), см. docs/05-master-app.md.
@@ -27,10 +27,8 @@ class _MasterHomeScreenState extends State<MasterHomeScreen> {
         appBar: AppBar(title: Text(_tabs[_tab].label)),
         body: switch (_tab) {
           1 => const LibraryHomeScreen(),
-          0 => StubPlaceholder(
-              title: _tabs[_tab].label,
-              phase:
-                  'Фаза 5 — приключения: карты, токены врагов, лор, ПМ (docs/05-master-app.md)',
+          0 => AdventuresScreen(
+              onStartRoom: () => setState(() => _tab = 2),
             ),
           _ => const LobbyHostScreen(),
         },
