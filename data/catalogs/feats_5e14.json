@@ -1,0 +1,527 @@
+[
+ {
+  "name_ru": "Артистичный",
+  "name_en": "Actor",
+  "url": "https://dnd.su/feats/101-actor/"
+ },
+ {
+  "name_ru": "Атлетичный",
+  "name_en": "Athlete",
+  "url": "https://dnd.su/feats/102-athlete/"
+ },
+ {
+  "name_ru": "Бдительный",
+  "name_en": "Alert",
+  "url": "https://dnd.su/feats/103-alert/"
+ },
+ {
+  "name_ru": "Боевой заклинатель",
+  "name_en": "War Caster",
+  "url": "https://dnd.su/feats/104-war-caster/"
+ },
+ {
+  "name_ru": "Борец",
+  "name_en": "Grappler",
+  "url": "https://dnd.su/feats/105-grappler/"
+ },
+ {
+  "name_ru": "Везунчик",
+  "name_en": "Lucky",
+  "url": "https://dnd.su/feats/106-lucky/"
+ },
+ {
+  "name_ru": "Верховой боец",
+  "name_en": "Mounted combatant",
+  "url": "https://dnd.su/feats/107-mounted-combatant/"
+ },
+ {
+  "name_ru": "Внимательный",
+  "name_en": "Observant",
+  "url": "https://dnd.su/feats/108-observant/"
+ },
+ {
+  "name_ru": "Воинский адепт",
+  "name_en": "Martial adept",
+  "url": "https://dnd.su/feats/109-martial-adept/"
+ },
+ {
+  "name_ru": "Воодушевляющий лидер",
+  "name_en": "Inspiring leader",
+  "url": "https://dnd.su/feats/110-inspiring-leader/"
+ },
+ {
+  "name_ru": "Дикий атакующий",
+  "name_en": "Savage attacker",
+  "url": "https://dnd.su/feats/111-savage-attacker/"
+ },
+ {
+  "name_ru": "Драчун",
+  "name_en": "Tavern brawler",
+  "url": "https://dnd.su/feats/112-tavern-brawler/"
+ },
+ {
+  "name_ru": "Знаток лёгких доспехов",
+  "name_en": "Lightly armored",
+  "url": "https://dnd.su/feats/113-lightly-armored/"
+ },
+ {
+  "name_ru": "Знаток средних доспехов",
+  "name_en": "Moderately armored",
+  "url": "https://dnd.su/feats/114-moderately-armored/"
+ },
+ {
+  "name_ru": "Знаток тяжёлых доспехов",
+  "name_en": "Heavily armored",
+  "url": "https://dnd.su/feats/115-heavily-armored/"
+ },
+ {
+  "name_ru": "Использование двух оружий",
+  "name_en": "Dual wielder",
+  "url": "https://dnd.su/feats/116-dual-wielder/"
+ },
+ {
+  "name_ru": "Исследователь подземелий",
+  "name_en": "Dungeon delver",
+  "url": "https://dnd.su/feats/117-dungeon-delver/"
+ },
+ {
+  "name_ru": "Крепкий",
+  "name_en": "Tough",
+  "url": "https://dnd.su/feats/118-tough/"
+ },
+ {
+  "name_ru": "Лекарь",
+  "name_en": "Healer",
+  "url": "https://dnd.su/feats/119-healer/"
+ },
+ {
+  "name_ru": "Мастер большого оружия",
+  "name_en": "Great weapon master",
+  "url": "https://dnd.su/feats/120-great-weapon-master/"
+ },
+ {
+  "name_ru": "Мастер древкового оружия",
+  "name_en": "Polearm master",
+  "url": "https://dnd.su/feats/121-polearm-master/"
+ },
+ {
+  "name_ru": "Мастер оружия",
+  "name_en": "Weapon master",
+  "url": "https://dnd.su/feats/122-weapon-master/"
+ },
+ {
+  "name_ru": "Мастер средних доспехов",
+  "name_en": "Medium armor master",
+  "url": "https://dnd.su/feats/123-medium-armor-master/"
+ },
+ {
+  "name_ru": "Мастер тяжёлых доспехов",
+  "name_en": "Heavy armor master",
+  "url": "https://dnd.su/feats/124-heavy-armor-master/"
+ },
+ {
+  "name_ru": "Мастер щитов",
+  "name_en": "Shield master",
+  "url": "https://dnd.su/feats/125-shield-master/"
+ },
+ {
+  "name_ru": "Меткие заклинания",
+  "name_en": "Spell sniper",
+  "url": "https://dnd.su/feats/126-spell-sniper/"
+ },
+ {
+  "name_ru": "Меткий стрелок",
+  "name_en": "Sharpshooter",
+  "url": "https://dnd.su/feats/127-sharpshooter/"
+ },
+ {
+  "name_ru": "Налётчик",
+  "name_en": "Charger",
+  "url": "https://dnd.su/feats/128-charger/"
+ },
+ {
+  "name_ru": "Оборонительный дуэлянт",
+  "name_en": "Defensive duelist",
+  "url": "https://dnd.su/feats/129-defensive-duelist/"
+ },
+ {
+  "name_ru": "Одарённый",
+  "name_en": "Skilled",
+  "url": "https://dnd.su/feats/130-skilled/"
+ },
+ {
+  "name_ru": "Отличная память",
+  "name_en": "Keen mind",
+  "url": "https://dnd.su/feats/131-keen-mind/"
+ },
+ {
+  "name_ru": "Подвижный",
+  "name_en": "Mobile",
+  "url": "https://dnd.su/feats/132-mobile/"
+ },
+ {
+  "name_ru": "Посвящённый в магию",
+  "name_en": "Magic initiate",
+  "url": "https://dnd.su/feats/133-magic-initiate/"
+ },
+ {
+  "name_ru": "Проныра",
+  "name_en": "Skulker",
+  "url": "https://dnd.su/feats/134-skulker/"
+ },
+ {
+  "name_ru": "Ритуальный заклинатель",
+  "name_en": "Ritual caster",
+  "url": "https://dnd.su/feats/135-ritual-caster/"
+ },
+ {
+  "name_ru": "Стихийный адепт",
+  "name_en": "Elemental adept",
+  "url": "https://dnd.su/feats/136-elemental-adept/"
+ },
+ {
+  "name_ru": "Стойкий",
+  "name_en": "Durable",
+  "url": "https://dnd.su/feats/137-durable/"
+ },
+ {
+  "name_ru": "Страж",
+  "name_en": "Sentinel",
+  "url": "https://dnd.su/feats/138-sentinel/"
+ },
+ {
+  "name_ru": "Убийца магов",
+  "name_en": "Mage slayer",
+  "url": "https://dnd.su/feats/139-mage-slayer/"
+ },
+ {
+  "name_ru": "Устойчивый",
+  "name_en": "Resilient",
+  "url": "https://dnd.su/feats/140-resilient/"
+ },
+ {
+  "name_ru": "Эксперт в арбалетах",
+  "name_en": "Crossbow expert",
+  "url": "https://dnd.su/feats/141-crossbow-expert/"
+ },
+ {
+  "name_ru": "Языковед",
+  "name_en": "Linguist",
+  "url": "https://dnd.su/feats/142-linguist/"
+ },
+ {
+  "name_ru": "Ваятель рун",
+  "name_en": "Rune shaper",
+  "url": "https://dnd.su/feats/218-rune-shaper/"
+ },
+ {
+  "name_ru": "Душа штормового великана",
+  "name_en": "Soul of the storm giant",
+  "url": "https://dnd.su/feats/213-soul-of-the-storm-giant/"
+ },
+ {
+  "name_ru": "Коварство облачного великана",
+  "name_en": "Guile of the cloud giant",
+  "url": "https://dnd.su/feats/215-guile-of-the-cloud-giant/"
+ },
+ {
+  "name_ru": "Неистовство ледяного великана",
+  "name_en": "Fury of the frost giant",
+  "url": "https://dnd.su/feats/216-fury-of-the-frost-giant/"
+ },
+ {
+  "name_ru": "Пылкость огненного великана",
+  "name_en": "Embar of the fire giant",
+  "url": "https://dnd.su/feats/217-embar-of-the-fire-giant/"
+ },
+ {
+  "name_ru": "Стойкость холмового великана",
+  "name_en": "Vigor of the hill giant",
+  "url": "https://dnd.su/feats/220-vigor-of-the-hill-giant/"
+ },
+ {
+  "name_ru": "Удар великанов",
+  "name_en": "Strike of the giants",
+  "url": "https://dnd.su/feats/234-strike-of-the-giants/"
+ },
+ {
+  "name_ru": "Чуткость каменного великана",
+  "name_en": "Keenness of the stone giant",
+  "url": "https://dnd.su/feats/221-keenness-of-the-stone-giant/"
+ },
+ {
+  "name_ru": "Картомант",
+  "name_en": "Cartomancer",
+  "url": "https://dnd.su/feats/224-cartomancer/"
+ },
+ {
+  "name_ru": "Искажённая метка дракона",
+  "name_en": "Aberrant dragonmark",
+  "url": "https://dnd.su/feats/173-aberrant-dragonmark/"
+ },
+ {
+  "name_ru": "Призрачный клинок",
+  "name_en": "Revenant blade",
+  "url": "https://dnd.su/feats/174-revenant-blade/"
+ },
+ {
+  "name_ru": "Дар металлического дракона",
+  "name_en": "Gift of metallic dragon",
+  "url": "https://dnd.su/feats/175-gift-of-metallic-dragon/"
+ },
+ {
+  "name_ru": "Дар самоцветного дракона",
+  "name_en": "Gift of gem dragon",
+  "url": "https://dnd.su/feats/176-gift-of-gem-dragon/"
+ },
+ {
+  "name_ru": "Дар цветного дракона",
+  "name_en": "Gift of chromatic dragon",
+  "url": "https://dnd.su/feats/177-gift-of-chromatic-dragon/"
+ },
+ {
+  "name_ru": "Агент Порядка",
+  "name_en": "Agent of order",
+  "url": "https://dnd.su/feats/222-agent-of-order/"
+ },
+ {
+  "name_ru": "Зловещий наследник",
+  "name_en": "Baleful scion",
+  "url": "https://dnd.su/feats/223-baleful-scion/"
+ },
+ {
+  "name_ru": "Когорта Хаоса",
+  "name_en": "Cohort of chaos",
+  "url": "https://dnd.su/feats/225-cohort-of-chaos/"
+ },
+ {
+  "name_ru": "Наследник внешних планов",
+  "name_en": "Scion of the outer planes",
+  "url": "https://dnd.su/feats/233-scion-of-the-outer-planes/"
+ },
+ {
+  "name_ru": "Планарный странник",
+  "name_en": "Planar wanderer",
+  "url": "https://dnd.su/feats/227-planar-wanderer/"
+ },
+ {
+  "name_ru": "Посол Внешних земель",
+  "name_en": "Outlands envoy",
+  "url": "https://dnd.su/feats/226-outlands-envoy/"
+ },
+ {
+  "name_ru": "Праведный наследник",
+  "name_en": "Righteous heritor",
+  "url": "https://dnd.su/feats/228-righteous-heritor/"
+ },
+ {
+  "name_ru": "Магия свирфнеблинов",
+  "name_en": "Svirfneblin magic",
+  "url": "https://dnd.su/feats/178-svirfneblin-magic/"
+ },
+ {
+  "name_ru": "Адепт метамагии",
+  "name_en": "Metamagic adept",
+  "url": "https://dnd.su/feats/158-metamagic-adept/"
+ },
+ {
+  "name_ru": "Адепт таинств",
+  "name_en": "Eldritch adept",
+  "url": "https://dnd.su/feats/159-eldritch-adept/"
+ },
+ {
+  "name_ru": "Затронутый тенью",
+  "name_en": "Shadow touched",
+  "url": "https://dnd.su/feats/160-shadow-touched/"
+ },
+ {
+  "name_ru": "Затронутый феями",
+  "name_en": "Fey touched",
+  "url": "https://dnd.su/feats/161-fey-touched/"
+ },
+ {
+  "name_ru": "Знаток огнестрельного оружия",
+  "name_en": "Gunner",
+  "url": "https://dnd.su/feats/162-gunner/"
+ },
+ {
+  "name_ru": "Крушитель",
+  "name_en": "Crusher",
+  "url": "https://dnd.su/feats/163-crusher/"
+ },
+ {
+  "name_ru": "Отравитель",
+  "name_en": "Poisoner",
+  "url": "https://dnd.su/feats/164-poisoner/"
+ },
+ {
+  "name_ru": "Посвящённый в боевое искусство",
+  "name_en": "Fighting initiate",
+  "url": "https://dnd.su/feats/165-fighting-initiate/"
+ },
+ {
+  "name_ru": "Посвящённый в изобретательство",
+  "name_en": "Artificer initiate",
+  "url": "https://dnd.su/feats/166-artificer-initiate/"
+ },
+ {
+  "name_ru": "Пронзатель",
+  "name_en": "Piercer",
+  "url": "https://dnd.su/feats/167-piercer/"
+ },
+ {
+  "name_ru": "Рубака",
+  "name_en": "Slasher",
+  "url": "https://dnd.su/feats/168-slasher/"
+ },
+ {
+  "name_ru": "Телекинетик",
+  "name_en": "Telekinetic",
+  "url": "https://dnd.su/feats/169-telekinetic/"
+ },
+ {
+  "name_ru": "Телепат",
+  "name_en": "Telepathic",
+  "url": "https://dnd.su/feats/170-telepathic/"
+ },
+ {
+  "name_ru": "Шеф-повар",
+  "name_en": "Chef",
+  "url": "https://dnd.su/feats/171-chef/"
+ },
+ {
+  "name_ru": "Эксперт в навыке",
+  "name_en": "Skill expert",
+  "url": "https://dnd.su/feats/172-skill-expert/"
+ },
+ {
+  "name_ru": "Бездонная удача",
+  "name_en": "Bountiful luck",
+  "url": "https://dnd.su/feats/143-bountiful-luck/"
+ },
+ {
+  "name_ru": "Второй шанс",
+  "name_en": "Second chance",
+  "url": "https://dnd.su/feats/144-second-chance/"
+ },
+ {
+  "name_ru": "Вундеркинд",
+  "name_en": "Prodigy",
+  "url": "https://dnd.su/feats/145-prodigy/"
+ },
+ {
+  "name_ru": "Высшая магия дроу",
+  "name_en": "Drow high magic",
+  "url": "https://dnd.su/feats/146-drow-high-magic/"
+ },
+ {
+  "name_ru": "Дварфийская стойкость",
+  "name_en": "Dwarven Fortitude",
+  "url": "https://dnd.su/feats/147-dwarven-fortitude/"
+ },
+ {
+  "name_ru": "Драконий страх",
+  "name_en": "Dragon fear",
+  "url": "https://dnd.su/feats/148-dragon-fear/"
+ },
+ {
+  "name_ru": "Драконья шкура",
+  "name_en": "Dragon hide",
+  "url": "https://dnd.su/feats/149-dragon-hide/"
+ },
+ {
+  "name_ru": "Инфернальное телосложение",
+  "name_en": "Infernal constitution",
+  "url": "https://dnd.su/feats/150-infernal-constitution/"
+ },
+ {
+  "name_ru": "Исчезновение",
+  "name_en": "Fade away",
+  "url": "https://dnd.su/feats/151-fade-away/"
+ },
+ {
+  "name_ru": "Магия лесных эльфов",
+  "name_en": "Wood elf magic",
+  "url": "https://dnd.su/feats/152-wood-elf-magic/"
+ },
+ {
+  "name_ru": "Низкорослое проворство",
+  "name_en": "Squat nimbleness",
+  "url": "https://dnd.su/feats/153-squat-nimbleness/"
+ },
+ {
+  "name_ru": "Орочье буйство",
+  "name_en": "Orcish fury",
+  "url": "https://dnd.su/feats/154-orcish-fury/"
+ },
+ {
+  "name_ru": "Пламя Флегетоса",
+  "name_en": "Flames of Phlegethos",
+  "url": "https://dnd.su/feats/155-flames-of-phlegethos/"
+ },
+ {
+  "name_ru": "Телепортация фей",
+  "name_en": "Fey teleportation",
+  "url": "https://dnd.su/feats/156-fey-teleportation/"
+ },
+ {
+  "name_ru": "Эльфийская точность",
+  "name_en": "Elven accuracy",
+  "url": "https://dnd.su/feats/157-elven-accuracy/"
+ },
+ {
+  "name_ru": "Адепт Белых одежд",
+  "name_en": "Adept of the White Robes",
+  "url": "https://dnd.su/feats/251-adept-of-the-white-robes/"
+ },
+ {
+  "name_ru": "Адепт Красных одежд",
+  "name_en": "Adept of the Red Robes",
+  "url": "https://dnd.su/feats/250-adept-of-the-red-robes/"
+ },
+ {
+  "name_ru": "Адепт Чёрных одежд",
+  "name_en": "Adept of the Black Robes",
+  "url": "https://dnd.su/feats/249-adept-of-the-black-robes/"
+ },
+ {
+  "name_ru": "Любимец богов",
+  "name_en": "Divinely Favored",
+  "url": "https://dnd.su/feats/247-divinely-favored/"
+ },
+ {
+  "name_ru": "Оруженосец рыцаря Соламнии",
+  "name_en": "Squire of Solamnia",
+  "url": "https://dnd.su/feats/252-squire-of-solamnia/"
+ },
+ {
+  "name_ru": "Посвящённый в Высшее волшебство",
+  "name_en": "Initiate of High Sorcery",
+  "url": "https://dnd.su/feats/248-initiate-of-high-sorcery/"
+ },
+ {
+  "name_ru": "Рыцарь Короны",
+  "name_en": "Knight of the Crown",
+  "url": "https://dnd.su/feats/253-knight-of-the-crown/"
+ },
+ {
+  "name_ru": "Рыцарь Меча",
+  "name_en": "Knight of the Sword",
+  "url": "https://dnd.su/feats/255-knight-of-the-sword/"
+ },
+ {
+  "name_ru": "Рыцарь Розы",
+  "name_en": "Knight of the Rose",
+  "url": "https://dnd.su/feats/254-knight-of-the-rose/"
+ },
+ {
+  "name_ru": "Поступивший в Стриксхейвен",
+  "name_en": "Strixhaven initiate",
+  "url": "https://dnd.su/feats/179-strixhaven-initiate/"
+ },
+ {
+  "name_ru": "Талисман Стриксхейвена",
+  "name_en": "Strixhaven Mascot",
+  "url": "https://dnd.su/feats/180-strixhaven-mascot/"
+ }
+]

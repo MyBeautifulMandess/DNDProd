@@ -1,0 +1,543 @@
+{
+ "101-sorcerer": {
+  "class": "Чародей",
+  "subclasses": [
+   {
+    "anchor": "feature.metamagic",
+    "name": "Метамагия"
+   },
+   {
+    "anchor": "origin.draconic",
+    "name": "Наследие драконьей крови"
+   },
+   {
+    "anchor": "origin.wild-magic",
+    "name": "Дикая магия"
+   },
+   {
+    "anchor": "origin.divine-soul",
+    "name": "Божественная душа"
+   },
+   {
+    "anchor": "origin.shadow",
+    "name": "Теневая магия"
+   },
+   {
+    "anchor": "origin.storm",
+    "name": "Штормовое колдовство"
+   },
+   {
+    "anchor": "origin.aberrant-mind",
+    "name": "Аберрантный разум"
+   },
+   {
+    "anchor": "origin.clockwork-soul",
+    "name": "Заводная душа"
+   },
+   {
+    "anchor": "origin.lunar-sorcery",
+    "name": "Лунное чародейство"
+   }
+  ]
+ },
+ "104-warlock": {
+  "class": "Колдун",
+  "subclasses": [
+   {
+    "anchor": "patron.archfey",
+    "name": "Архифея"
+   },
+   {
+    "anchor": "patron.fiend",
+    "name": "Исчадие"
+   },
+   {
+    "anchor": "patron.great-old-one",
+    "name": "Великий Древний"
+   },
+   {
+    "anchor": "patron.undying",
+    "name": "Бессмертный"
+   },
+   {
+    "anchor": "patron.hexblade",
+    "name": "Ведьмовской клинок"
+   },
+   {
+    "anchor": "patron.celestial",
+    "name": "Небожитель"
+   },
+   {
+    "anchor": "patron.fathomless",
+    "name": "Бездонный"
+   },
+   {
+    "anchor": "patron.genie",
+    "name": "Гений"
+   },
+   {
+    "anchor": "patron.undead",
+    "name": "Нежить"
+   }
+  ]
+ },
+ "105-wizard": {
+  "class": "Волшебник",
+  "subclasses": [
+   {
+    "anchor": "tradition.evocation",
+    "name": "Школа Воплощения"
+   },
+   {
+    "anchor": "tradition.conjuration",
+    "name": "Школа Вызова"
+   },
+   {
+    "anchor": "tradition.illusion",
+    "name": "Школа Иллюзии"
+   },
+   {
+    "anchor": "tradition.necromancy",
+    "name": "Школа Некромантии"
+   },
+   {
+    "anchor": "tradition.abjuration",
+    "name": "Школа Ограждения"
+   },
+   {
+    "anchor": "tradition.enchantment",
+    "name": "Школа Очарования"
+   },
+   {
+    "anchor": "tradition.transmutation",
+    "name": "Школа Преобразования"
+   },
+   {
+    "anchor": "tradition.divination",
+    "name": "Школа Прорицания"
+   },
+   {
+    "anchor": "tradition.war-magic",
+    "name": "Военная магия"
+   },
+   {
+    "anchor": "tradition.chronurgy",
+    "name": "Магия хронургии"
+   },
+   {
+    "anchor": "tradition.graviturgy",
+    "name": "Магия гравитургии"
+   },
+   {
+    "anchor": "tradition.scribes",
+    "name": "Орден писцов"
+   },
+   {
+    "anchor": "tradition.bladesinging",
+    "name": "Песнь клинка"
+   }
+  ]
+ },
+ "137-artificer": {
+  "class": "Изобретатель",
+  "subclasses": [
+   {
+    "anchor": "specialist.alchemist",
+    "name": "Алхимик"
+   },
+   {
+    "anchor": "specialist.artillerist",
+    "name": "Артиллерист"
+   },
+   {
+    "anchor": "specialist.battlesmith",
+    "name": "Боевой кузнец"
+   },
+   {
+    "anchor": "specialist.armorer",
+    "name": "Бронник"
+   }
+  ]
+ },
+ "87-barbarian": {
+  "class": "Варвар",
+  "subclasses": [
+   {
+    "anchor": "primal.berserker",
+    "name": "Путь берсерка"
+   },
+   {
+    "anchor": "primal.totem-warrior",
+    "name": "Путь тотемного воина"
+   },
+   {
+    "anchor": "primal.battlerager",
+    "name": "Путь бушующего в бою"
+   },
+   {
+    "anchor": "primal.storm-herald",
+    "name": "Путь буревестника"
+   },
+   {
+    "anchor": "primal.ancestral-guardian",
+    "name": "Путь предка-хранителя"
+   },
+   {
+    "anchor": "primal.zealot",
+    "name": "Путь фанатика"
+   },
+   {
+    "anchor": "primal.wild-magic",
+    "name": "Путь дикой магии"
+   },
+   {
+    "anchor": "primal.beast",
+    "name": "Путь зверя"
+   },
+   {
+    "anchor": "primal.giant",
+    "name": "Путь великана"
+   }
+  ]
+ },
+ "88-bard": {
+  "class": "Бард",
+  "subclasses": [
+   {
+    "anchor": "college.valor",
+    "name": "Коллегия доблести"
+   },
+   {
+    "anchor": "college.lore",
+    "name": "Коллегия знаний"
+   },
+   {
+    "anchor": "college.swords",
+    "name": "Коллегия мечей"
+   },
+   {
+    "anchor": "college.glamour",
+    "name": "Коллегия очарования"
+   },
+   {
+    "anchor": "college.whispers",
+    "name": "Коллегия шёпотов"
+   },
+   {
+    "anchor": "college.eloquence",
+    "name": "Коллегия красноречия"
+   },
+   {
+    "anchor": "college.creation",
+    "name": "Коллегия созидания"
+   },
+   {
+    "anchor": "college.spirits",
+    "name": "Коллегия духов"
+   }
+  ]
+ },
+ "89-cleric": {
+  "class": "Жрец",
+  "subclasses": [
+   {
+    "anchor": "domain.tempest",
+    "name": "Домен бури"
+   },
+   {
+    "anchor": "domain.war",
+    "name": "Домен войны"
+   },
+   {
+    "anchor": "domain.life",
+    "name": "Домен жизни"
+   },
+   {
+    "anchor": "domain.knowledge",
+    "name": "Домен знаний"
+   },
+   {
+    "anchor": "domain.trickery",
+    "name": "Домен обмана"
+   },
+   {
+    "anchor": "domain.nature",
+    "name": "Домен природы"
+   },
+   {
+    "anchor": "domain.light",
+    "name": "Домен света"
+   },
+   {
+    "anchor": "domain.death",
+    "name": "Домен смерти"
+   },
+   {
+    "anchor": "domain.arcana",
+    "name": "Домен магии"
+   },
+   {
+    "anchor": "domain.forge",
+    "name": "Домен кузни"
+   },
+   {
+    "anchor": "domain.grave",
+    "name": "Домен упокоения"
+   },
+   {
+    "anchor": "domain.peace",
+    "name": "Домен мира"
+   },
+   {
+    "anchor": "domain.order",
+    "name": "Домен порядка"
+   },
+   {
+    "anchor": "domain.twilight",
+    "name": "Домен сумерек"
+   }
+  ]
+ },
+ "90-druid": {
+  "class": "Друид",
+  "subclasses": [
+   {
+    "anchor": "circle.land",
+    "name": "Круг земли"
+   },
+   {
+    "anchor": "circle.moon",
+    "name": "Круг луны"
+   },
+   {
+    "anchor": "circle.shepherd",
+    "name": "Круг пастыря"
+   },
+   {
+    "anchor": "circle.dreams",
+    "name": "Круг снов"
+   },
+   {
+    "anchor": "circle.wildfire",
+    "name": "Круг дикого огня"
+   },
+   {
+    "anchor": "circle.stars",
+    "name": "Круг звёзд"
+   },
+   {
+    "anchor": "circle.spores",
+    "name": "Круг спор"
+   }
+  ]
+ },
+ "91-fighter": {
+  "class": "Воин",
+  "subclasses": [
+   {
+    "anchor": "archetype.battlemaster",
+    "name": "Мастер боевых искусств"
+   },
+   {
+    "anchor": "archetype.eldritch-knigh",
+    "name": "Мистический рыцарь"
+   },
+   {
+    "anchor": "archetype.champion",
+    "name": "Чемпион"
+   },
+   {
+    "anchor": "archetype.banneret",
+    "name": "Рыцарь Пурпурного дракона"
+   },
+   {
+    "anchor": "archetype.cavalier",
+    "name": "Кавалерист"
+   },
+   {
+    "anchor": "archetype.arcane-archer",
+    "name": "Мистический лучник"
+   },
+   {
+    "anchor": "archetype.samurai",
+    "name": "Самурай"
+   },
+   {
+    "anchor": "archetype.echo-knight",
+    "name": "Рыцарь Эха"
+   },
+   {
+    "anchor": "archetype.psi-warrior",
+    "name": "Пси-воин"
+   },
+   {
+    "anchor": "archetype.rune-knight",
+    "name": "Рунный рыцарь"
+   }
+  ]
+ },
+ "93-monk": {
+  "class": "Монах",
+  "subclasses": [
+   {
+    "anchor": "tradition.open-hand",
+    "name": "Путь открытой ладони"
+   },
+   {
+    "anchor": "tradition.shadow",
+    "name": "Путь тени"
+   },
+   {
+    "anchor": "tradition.four-elements",
+    "name": "Путь четырёх стихий"
+   },
+   {
+    "anchor": "tradition.long-death",
+    "name": "Путь долгой смерти"
+   },
+   {
+    "anchor": "tradition.kensei",
+    "name": "Путь кэнсэя"
+   },
+   {
+    "anchor": "tradition.drunken-master",
+    "name": "Путь пьяного мастера"
+   },
+   {
+    "anchor": "tradition.sun-soul",
+    "name": "Путь солнечной души"
+   },
+   {
+    "anchor": "tradition.astral-body",
+    "name": "Путь астрального тела"
+   },
+   {
+    "anchor": "tradition.mercy",
+    "name": "Путь милосердия"
+   },
+   {
+    "anchor": "tradition.ascending-dragon",
+    "name": "Путь восходящего дракона"
+   }
+  ]
+ },
+ "94-paladin": {
+  "class": "Паладин",
+  "subclasses": [
+   {
+    "anchor": "oath.devotion",
+    "name": "Клятва преданности"
+   },
+   {
+    "anchor": "oath.ancients",
+    "name": "Клятва древних"
+   },
+   {
+    "anchor": "oath.vengeance",
+    "name": "Клятва мести"
+   },
+   {
+    "anchor": "oath.oathbreaker",
+    "name": "Клятвопреступник"
+   },
+   {
+    "anchor": "oath.crown",
+    "name": "Клятва короны"
+   },
+   {
+    "anchor": "oath.redemption",
+    "name": "Клятва искупления"
+   },
+   {
+    "anchor": "oath.conquest",
+    "name": "Клятва покорения"
+   },
+   {
+    "anchor": "oath.glory",
+    "name": "Клятва славы"
+   },
+   {
+    "anchor": "oath.watchers",
+    "name": "Клятва смотрителей"
+   }
+  ]
+ },
+ "97-ranger": {
+  "class": "Следопыт",
+  "subclasses": [
+   {
+    "anchor": "archetype.hunter",
+    "name": "Охотник"
+   },
+   {
+    "anchor": "archetype.beast-master",
+    "name": "Повелитель зверей"
+   },
+   {
+    "anchor": "archetype.horizon-walker",
+    "name": "Странник горизонта"
+   },
+   {
+    "anchor": "archetype.gloom-stalker",
+    "name": "Сумрачный охотник"
+   },
+   {
+    "anchor": "archetype.monster-slayer",
+    "name": "Убийца чудовищ"
+   },
+   {
+    "anchor": "archetype.fey-wanderer",
+    "name": "Странник фей"
+   },
+   {
+    "anchor": "archetype.swarmkeeper",
+    "name": "Хранитель роя"
+   },
+   {
+    "anchor": "archetype.drakewarden",
+    "name": "Наездник на дрейке"
+   }
+  ]
+ },
+ "99-rogue": {
+  "class": "Плут",
+  "subclasses": [
+   {
+    "anchor": "archetype.thief",
+    "name": "Вор"
+   },
+   {
+    "anchor": "archetype.assasin",
+    "name": "Убийца"
+   },
+   {
+    "anchor": "archetype.arcane-trickster",
+    "name": "Мистический ловкач"
+   },
+   {
+    "anchor": "archetype.swashbuckler",
+    "name": "Дуэлянт"
+   },
+   {
+    "anchor": "archetype.mastermind",
+    "name": "Комбинатор"
+   },
+   {
+    "anchor": "archetype.scout",
+    "name": "Скаут"
+   },
+   {
+    "anchor": "archetype.inquisitive",
+    "name": "Сыщик"
+   },
+   {
+    "anchor": "archetype.phantom",
+    "name": "Фантом"
+   },
+   {
+    "anchor": "archetype.soulknife",
+    "name": "Клинок души"
+   }
+  ]
+ }
+}

@@ -1,0 +1,781 @@
+{
+ "101-sorcerer": {
+  "class": "Чародей",
+  "hit_dice": "1к6 за каждый уровень чародея",
+  "hp_1": "6 + модификатор Телосложения",
+  "hp_next": "1к6 (или 4) + модификатор Телосложения (суммарно минимум 1) за каждый уровень чародея после первого",
+  "armor": "нет",
+  "weapons": "Боевые посохи, дротики, кинжалы, лёгкие арбалеты, пращи",
+  "tools": "нет",
+  "saves": "Телосложение, Харизма",
+  "skills": "Выберите два навыка из следующих: Запугивание, Магия, Обман, Проницательность, Религия, Убеждение.",
+  "subclasses": [
+   {
+    "anchor": "origin.draconic",
+    "name": "Наследие драконьей крови",
+    "source": ""
+   },
+   {
+    "anchor": "origin.wild-magic",
+    "name": "Дикая магия",
+    "source": ""
+   },
+   {
+    "anchor": "origin.divine-soul",
+    "name": "Божественная душа",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "origin.shadow",
+    "name": "Теневая магия",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "origin.storm",
+    "name": "Штормовое колдовство",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "origin.aberrant-mind",
+    "name": "Аберрантный разум",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "origin.clockwork-soul",
+    "name": "Заводная душа",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "origin.lunar-sorcery",
+    "name": "Лунное чародейство",
+    "source": "Dragonlance: Shadow of the Dragon Queen"
+   }
+  ]
+ },
+ "104-warlock": {
+  "class": "Колдун",
+  "hit_dice": "1к8 за каждый уровень колдуна",
+  "hp_1": "8 + модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень колдуна после первого",
+  "armor": ": Лёгкие доспехи",
+  "weapons": ": Простое оружие",
+  "tools": ": Нет",
+  "saves": ": Мудрость, Харизма",
+  "skills": ": Выберите два навыка из следующих: Запугивание, История, Магия, Обман, Природа, Расследование, Религия",
+  "subclasses": [
+   {
+    "anchor": "patron.archfey",
+    "name": "Архифея",
+    "source": ""
+   },
+   {
+    "anchor": "patron.fiend",
+    "name": "Исчадие",
+    "source": ""
+   },
+   {
+    "anchor": "patron.great-old-one",
+    "name": "Великий Древний",
+    "source": "Тот Кто Таится"
+   },
+   {
+    "anchor": "patron.undying",
+    "name": "Бессмертный",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "patron.hexblade",
+    "name": "Ведьмовской клинок",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "patron.celestial",
+    "name": "Небожитель",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "patron.fathomless",
+    "name": "Бездонный",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "patron.genie",
+    "name": "Гений",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "patron.undead",
+    "name": "Нежить",
+    "source": "Van Richten’s Guide to Ravenloft"
+   }
+  ]
+ },
+ "105-wizard": {
+  "class": "Волшебник",
+  "hit_dice": "1к6 за каждый уровень волшебника",
+  "hp_1": "6 + ваш модификатор Телосложения",
+  "hp_next": "1к6 (или 4) + модификатор Телосложения (суммарно минимум 1) за каждый уровень волшебника после первого",
+  "armor": "Нет",
+  "weapons": "",
+  "tools": "Нет",
+  "saves": "Интеллект, Мудрость",
+  "skills": "Выберите два навыка из следующих: История, Магия, Медицина, Проницательность, Расследование, Религия",
+  "subclasses": [
+   {
+    "anchor": "tradition.evocation",
+    "name": "Школа Воплощения",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.conjuration",
+    "name": "Школа Вызова",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.illusion",
+    "name": "Школа Иллюзии",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.necromancy",
+    "name": "Школа Некромантии",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.abjuration",
+    "name": "Школа Ограждения",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.enchantment",
+    "name": "Школа Очарования",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.transmutation",
+    "name": "Школа Преобразования",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.divination",
+    "name": "Школа Прорицания",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.war-magic",
+    "name": "Военная магия",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "tradition.chronurgy",
+    "name": "Магия хронургии",
+    "source": "Explorer’s Guide to Wildemount"
+   },
+   {
+    "anchor": "tradition.graviturgy",
+    "name": "Магия гравитургии",
+    "source": "Explorer’s Guide to Wildemount"
+   },
+   {
+    "anchor": "tradition.scribes",
+    "name": "Орден писцов",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "tradition.bladesinging",
+    "name": "Песнь клинка",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "137-artificer": {
+  "class": "Изобретатель",
+  "hit_dice": ": 1к8 за каждый уровень изобретателя",
+  "hp_1": ": 8 + модификатор Телосложения",
+  "hp_next": ": 1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень изобретателя после первого.",
+  "armor": "Лёгкие доспехи, средние доспехи, щиты",
+  "weapons": "Простое оружие",
+  "tools": "Воровские инструменты, инструменты ремонтника, а также один тип инструментов ремесленника на ваш выбор",
+  "saves": "Телосложение, Интеллект",
+  "skills": "Выберите два навыка из следующих: Восприятие, История, Ловкость рук, Магия, Медицина, Природа, Расследование.",
+  "subclasses": [
+   {
+    "anchor": "specialist.alchemist",
+    "name": "Алхимик",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "specialist.artillerist",
+    "name": "Артиллерист",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "specialist.battlesmith",
+    "name": "Боевой кузнец",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "specialist.armorer",
+    "name": "Бронник",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "87-barbarian": {
+  "class": "Варвар",
+  "hit_dice": "1к12 за каждый уровень варвара",
+  "hp_1": "12 + модификатор Телосложения",
+  "hp_next": "1к12 (или 7) + модификатор Телосложения (суммарно минимум 1) за каждый уровень варвара после первого",
+  "armor": "Лёгкие доспехи, средние доспехи, щиты",
+  "weapons": "Простое оружие, воинское оружие",
+  "tools": "Нет",
+  "saves": "Сила, Телосложение",
+  "skills": "Выберите два навыка из следующих: Атлетика, Восприятие, Выживание, Запугивание, Природа, Уход за животными",
+  "subclasses": [
+   {
+    "anchor": "primal.berserker",
+    "name": "Путь берсерка",
+    "source": ""
+   },
+   {
+    "anchor": "primal.totem-warrior",
+    "name": "Путь тотемного воина",
+    "source": ""
+   },
+   {
+    "anchor": "primal.battlerager",
+    "name": "Путь бушующего в бою",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "primal.storm-herald",
+    "name": "Путь буревестника",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "primal.ancestral-guardian",
+    "name": "Путь предка-хранителя",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "primal.zealot",
+    "name": "Путь фанатика",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "primal.wild-magic",
+    "name": "Путь дикой магии",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "primal.beast",
+    "name": "Путь зверя",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "primal.giant",
+    "name": "Путь великана",
+    "source": "Bigby Presents: Glory of the Giants"
+   }
+  ]
+ },
+ "88-bard": {
+  "class": "Бард",
+  "hit_dice": "1к8 за каждый уровень барда",
+  "hp_1": "8 + модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень барда после первого",
+  "armor": "Лёгкие доспехи",
+  "weapons": "Простое оружие, длинные мечи, короткие мечи, рапиры, ручные арбалеты",
+  "tools": "Три музыкальных инструмента на ваш выбор",
+  "saves": "Ловкость, Харизма",
+  "skills": "Выберите три любых",
+  "subclasses": [
+   {
+    "anchor": "college.valor",
+    "name": "Коллегия доблести",
+    "source": ""
+   },
+   {
+    "anchor": "college.lore",
+    "name": "Коллегия знаний",
+    "source": ""
+   },
+   {
+    "anchor": "college.swords",
+    "name": "Коллегия мечей",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "college.glamour",
+    "name": "Коллегия очарования",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "college.whispers",
+    "name": "Коллегия шёпотов",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "college.eloquence",
+    "name": "Коллегия красноречия",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "college.creation",
+    "name": "Коллегия созидания",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "college.spirits",
+    "name": "Коллегия духов",
+    "source": "Van Richten’s Guide to Ravenloft"
+   }
+  ]
+ },
+ "89-cleric": {
+  "class": "Жрец",
+  "hit_dice": "1к8 за каждый уровень жреца",
+  "hp_1": "8 + модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень жреца после первого",
+  "armor": "Лёгкие доспехи, средние доспехи, щиты",
+  "weapons": "Простое оружие",
+  "tools": "Нет",
+  "saves": "Мудрость, Харизма",
+  "skills": "Выберите два навыка из следующих: История, Медицина, Проницательность, Религия, Убеждение",
+  "subclasses": [
+   {
+    "anchor": "domain.tempest",
+    "name": "Домен бури",
+    "source": ""
+   },
+   {
+    "anchor": "domain.war",
+    "name": "Домен войны",
+    "source": ""
+   },
+   {
+    "anchor": "domain.life",
+    "name": "Домен жизни",
+    "source": ""
+   },
+   {
+    "anchor": "domain.knowledge",
+    "name": "Домен знаний",
+    "source": ""
+   },
+   {
+    "anchor": "domain.trickery",
+    "name": "Домен обмана",
+    "source": ""
+   },
+   {
+    "anchor": "domain.nature",
+    "name": "Домен природы",
+    "source": ""
+   },
+   {
+    "anchor": "domain.light",
+    "name": "Домен света",
+    "source": ""
+   },
+   {
+    "anchor": "domain.death",
+    "name": "Домен смерти",
+    "source": "Dungeon Master’s Guide"
+   },
+   {
+    "anchor": "domain.arcana",
+    "name": "Домен магии",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "domain.forge",
+    "name": "Домен кузни",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "domain.grave",
+    "name": "Домен упокоения",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "domain.peace",
+    "name": "Домен мира",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "domain.order",
+    "name": "Домен порядка",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "domain.twilight",
+    "name": "Домен сумерек",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "ps.oketra",
+    "name": "Окетра: Домен сплочённости",
+    "source": "Plane Shift: Amonkhet"
+   },
+   {
+    "anchor": "ps.ronas",
+    "name": "Ронас: Домен силы",
+    "source": "Plane Shift: Amonkhet"
+   },
+   {
+    "anchor": "ps.bontu",
+    "name": "Бонту: Домен амбиций",
+    "source": "Plane Shift: Amonkhet"
+   },
+   {
+    "anchor": "ps.hazoret",
+    "name": "Хазорет: Домен рвения",
+    "source": "Plane Shift: Amonkhet"
+   }
+  ]
+ },
+ "90-druid": {
+  "class": "Друид",
+  "hit_dice": "1к8 за каждый уровень друида",
+  "hp_1": "8 + ваш модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень друида после первого",
+  "armor": "Лёгкие доспехи, средние доспехи, щиты (друиды не носят доспехи и щиты из металла)",
+  "weapons": "Боевые посохи, булавы, дротики, дубинки, кинжалы, копья, метательные копья, пращи, серпы, скимитары",
+  "tools": "Набор травника",
+  "saves": "Интеллект, Мудрость",
+  "skills": "Выберите два навыка из следующих: Восприятие, Выживание, Магия, Медицина, Уход за животными, Природа, Проницательность, Религия",
+  "subclasses": [
+   {
+    "anchor": "circle.land",
+    "name": "Круг земли",
+    "source": ""
+   },
+   {
+    "anchor": "circle.moon",
+    "name": "Круг луны",
+    "source": "Дикий облик"
+   },
+   {
+    "anchor": "circle.shepherd",
+    "name": "Круг пастыря",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "circle.dreams",
+    "name": "Круг снов",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "circle.wildfire",
+    "name": "Круг дикого огня",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "circle.stars",
+    "name": "Круг звёзд",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "circle.spores",
+    "name": "Круг спор",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "91-fighter": {
+  "class": "Воин",
+  "hit_dice": "1к10 за каждый уровень воина",
+  "hp_1": "10 + модификатор Телосложения",
+  "hp_next": "1к10 (или 6) + модификатор Телосложения (суммарно минимум 1) за каждый уровень воина после первого",
+  "armor": "Все доспехи, щиты",
+  "weapons": "Простое оружие, воинское оружие",
+  "tools": "Нет",
+  "saves": "Сила, Телосложение",
+  "skills": "Выберите два навыка из следующих: Акробатика, Атлетика, Восприятие, Выживание, Запугивание, История, Проницательность, Уход за животными",
+  "subclasses": [
+   {
+    "anchor": "archetype.battlemaster",
+    "name": "Мастер боевых искусств",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.eldritch-knigh",
+    "name": "Мистический рыцарь",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.champion",
+    "name": "Чемпион",
+    "source": "19"
+   },
+   {
+    "anchor": "archetype.banneret",
+    "name": "Рыцарь Пурпурного дракона",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "archetype.cavalier",
+    "name": "Кавалерист",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.arcane-archer",
+    "name": "Мистический лучник",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.samurai",
+    "name": "Самурай",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.echo-knight",
+    "name": "Рыцарь Эха",
+    "source": "Explorer’s Guide to Wildemount"
+   },
+   {
+    "anchor": "archetype.psi-warrior",
+    "name": "Пси-воин",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "archetype.rune-knight",
+    "name": "Рунный рыцарь",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "93-monk": {
+  "class": "Монах",
+  "hit_dice": "1к8 за каждый уровень монаха",
+  "hp_1": "8 + модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень монаха после первого",
+  "armor": "нет",
+  "weapons": "Простое оружие, короткие мечи",
+  "tools": "Выберите один вид инструмента ремесленников, либо музыкального инструмента.",
+  "saves": "Сила, Ловкость",
+  "skills": "Выберите два навыка из следующих: Акробатика, Атлетика, История, Проницательность, Религия, Скрытность.",
+  "subclasses": [
+   {
+    "anchor": "tradition.open-hand",
+    "name": "Путь открытой ладони",
+    "source": "Шквалом ударов"
+   },
+   {
+    "anchor": "tradition.shadow",
+    "name": "Путь тени",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.four-elements",
+    "name": "Путь четырёх стихий",
+    "source": ""
+   },
+   {
+    "anchor": "tradition.long-death",
+    "name": "Путь долгой смерти",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "tradition.kensei",
+    "name": "Путь кэнсэя",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "tradition.drunken-master",
+    "name": "Путь пьяного мастера",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "tradition.sun-soul",
+    "name": "Путь солнечной души",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "tradition.astral-body",
+    "name": "Путь астрального тела",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "tradition.mercy",
+    "name": "Путь милосердия",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "tradition.ascending-dragon",
+    "name": "Путь восходящего дракона",
+    "source": ""
+   }
+  ]
+ },
+ "94-paladin": {
+  "class": "Паладин",
+  "hit_dice": "1к10 за каждый уровень паладина",
+  "hp_1": "10 + модификатор Телосложения",
+  "hp_next": "1к10 (или 6) + модификатор Телосложения (суммарно минимум 1) за каждый уровень паладина после первого",
+  "armor": "Все виды доспехов, щиты",
+  "weapons": "Простое оружие, воинское оружие",
+  "tools": "нет",
+  "saves": "Мудрость, Харизма",
+  "skills": "Выберите два навыка из следующих: Атлетика, Запугивание, Медицина, Проницательность, Религия, Убеждение",
+  "subclasses": [
+   {
+    "anchor": "oath.devotion",
+    "name": "Клятва преданности",
+    "source": ""
+   },
+   {
+    "anchor": "oath.ancients",
+    "name": "Клятва древних",
+    "source": ""
+   },
+   {
+    "anchor": "oath.vengeance",
+    "name": "Клятва мести",
+    "source": ""
+   },
+   {
+    "anchor": "oath.oathbreaker",
+    "name": "Клятвопреступник",
+    "source": "Dungeon Master Guide"
+   },
+   {
+    "anchor": "oath.crown",
+    "name": "Клятва короны",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "anchor": "oath.redemption",
+    "name": "Клятва искупления",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "oath.conquest",
+    "name": "Клятва покорения",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "oath.glory",
+    "name": "Клятва славы",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "oath.watchers",
+    "name": "Клятва смотрителей",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "97-ranger": {
+  "class": "Следопыт",
+  "hit_dice": "1к10 за каждый уровень следопыта",
+  "hp_1": "10 + модификатор Телосложения",
+  "hp_next": "1к10 (или 6) + модификатор Телосложения (суммарно минимум 1) за каждый уровень следопыта после первого",
+  "armor": "Лёгкие доспехи, средние доспехи, щиты",
+  "weapons": "Простое оружие, воинское оружие",
+  "tools": "Нет",
+  "saves": "Сила, Ловкость",
+  "skills": "Выберите три навыка из следующих: Атлетика, Восприятие, Выживание, Природа, Проницательность, Расследование, Скрытность, Уход за животными",
+  "subclasses": [
+   {
+    "anchor": "archetype.hunter",
+    "name": "Охотник",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.beast-master",
+    "name": "Повелитель зверей",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.horizon-walker",
+    "name": "Странник горизонта",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.gloom-stalker",
+    "name": "Сумрачный охотник",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.monster-slayer",
+    "name": "Убийца чудовищ",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.fey-wanderer",
+    "name": "Странник фей",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "archetype.swarmkeeper",
+    "name": "Хранитель роя",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "archetype.drakewarden",
+    "name": "Наездник на дрейке",
+    "source": "Fizban’s Treasury of Dragons"
+   }
+  ]
+ },
+ "99-rogue": {
+  "class": "Плут",
+  "hit_dice": "1к8 за каждый уровень плута",
+  "hp_1": "8 + модификатор Телосложения",
+  "hp_next": "1к8 (или 5) + модификатор Телосложения (суммарно минимум 1) за каждый уровень плута после первого",
+  "armor": "Лёгкие доспехи",
+  "weapons": "Простое оружие, ручные арбалеты, длинные мечи, рапиры, короткие мечи",
+  "tools": "Воровские инструменты",
+  "saves": "Ловкость, Интеллект",
+  "skills": "Выберите четыре навыка из следующих: Акробатика, Атлетика, Восприятие, Выступление, Запугивание, Ловкость рук, Обман, Проницательность, Расследование, Скрытность, Убеждение.",
+  "subclasses": [
+   {
+    "anchor": "archetype.thief",
+    "name": "Вор",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.assasin",
+    "name": "Убийца",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.arcane-trickster",
+    "name": "Мистический ловкач",
+    "source": ""
+   },
+   {
+    "anchor": "archetype.swashbuckler",
+    "name": "Дуэлянт",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.mastermind",
+    "name": "Комбинатор",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.scout",
+    "name": "Скаут",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.inquisitive",
+    "name": "Сыщик",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "anchor": "archetype.phantom",
+    "name": "Фантом",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "anchor": "archetype.soulknife",
+    "name": "Клинок души",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ }
+}

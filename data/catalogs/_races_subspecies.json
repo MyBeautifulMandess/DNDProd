@@ -1,0 +1,417 @@
+{
+ "Дварф [Dwarf]": {
+  "url": "https://dnd.su/race/78-dwarf/",
+  "anchors": {
+   "Особенности дварфов": "warding",
+   "Имена дварфов": "features",
+   "Дварфы - искатели приключений": "dujergarskie_personazhi",
+   "Дуэргарские персонажи": "hill",
+   "Горный": "dvarfy___iskateli_prikljuchenij",
+   "Холмовой": "dvarfy_v_puti",
+   "Дуэргар (MTF)": "dvarfy_v_klane",
+   "Дуэргар (MPMM)": "dvarfy_v_mire",
+   "Метка опеки (RLW)": "dvarfy_v_jeberrone_rlw",
+   "Дварфы в пути": "dujergarskie_naljotnye_otryady",
+   "Дварфы в клане": "dujergary_v_klane",
+   "Дварфы в мире": "dujergary_v_mire"
+  }
+ },
+ "Эльф [Elf]": {
+  "url": "https://dnd.su/race/79-elf/",
+  "anchors": {
+   "Эльфийские имена": "jelfijskie_imena",
+   "Особенности эльфов": "osobennosti_jelfov",
+   "Разновидности": "lesnoj_jelf",
+   "Разновидности эльфов Unearthed Arcana": "grugach",
+   "Высший эльф": "tjomnyj_jelf_drou",
+   "Лесной эльф": "morskoj_jelf_mtf",
+   "Тёмный эльф (дроу)": "shadar_kaj_mtf",
+   "Морской эльф (MTF)": "jeladrin_mtf",
+   "Шадар-кай (MTF)": "metka_teni_rlw",
+   "Эладрин (MTF)": "blednyj_jelf_egw",
+   "Метка тени (RLW)": "raznovidnosti_jelfov_unearthed_arcana",
+   "Бледный эльф (EGW)": "avarijel"
+  }
+ },
+ "Полурослик [Halfling]": {
+  "url": "https://dnd.su/race/80-halfling/",
+  "anchors": {
+   "Имена полуросликов": "imena_poluroslikov",
+   "Особенности полуросликов": "osobennosti_poluroslikov",
+   "Разновидности": "legkonogij",
+   "Полурослики – искатели приключений": "korenastyj",
+   "Коренастый": "_prizrachnyj_poluroslik_scag",
+   "Легконогий": "lotosdenskij_poluroslik_egw",
+   " Призрачный полурослик (SCAG)": "metka_istseleniya_rlw",
+   "Лотосденский полурослик (EGW)": "metka_gostepriimstva_rlw"
+  }
+ },
+ "Человек [Human]": {
+  "url": "https://dnd.su/race/81-human/",
+  "anchors": {
+   "Человеческие имена и этносы": "illuskanets",
+   "Особенности людей": "alternativnye_osobennosti_ljudej",
+   "Альтернативные особенности людей": "chelovecheskie_imena_i_jetnosy",
+   "Разновидности людей ": "metka_uhoda_rlw",
+   "Дамарец": "kalishit",
+   "Иллусканец": "mulan",
+   "Калишит": "rashemi",
+   "Мулан": "tetirets",
+   "Рашеми": "tjorami",
+   "Тетирец": "chondatanets",
+   "Тёрами": "shu",
+   "Чондатанец": "raznovidnosti_ljudej",
+   "Шу": "metka_poiska_rlw",
+   "Метка поиска (RLW)": "metka_sozdaniya_rlw",
+   "Метка ухода (RLW)": "metka_prohoda_rlw",
+   "Метка создания (RLW)": "metka_strazha_rlw"
+  }
+ },
+ "Драконорождённый [Dragonborn]": {
+  "url": "https://dnd.su/race/82-dragonborn/",
+  "anchors": {
+   "Имена драконорождённых": "imena_drakonorozhdjonnyh",
+   "Особенности драконорождённых": "osobennosti_drakonorozhdjonnyh",
+   "Разновидности": "drakonokrovnyj_egtw",
+   "Драконокровный (EGtW)": "ravenit_egtw",
+   "Равенит (EGtW)": "metallicheskie_drakonorozhdjonnye_ftd",
+   "Металлические драконорождённые (FTD)": "samotsvetnye_drakonorozhdjonnye_ftd",
+   "Самоцветные драконорождённые (FTD)": "tsvetnye_drakonorozhdjonnye_ftd"
+  }
+ },
+ "Гном [Gnome]": {
+  "url": "https://dnd.su/race/83-gnome/",
+  "anchors": {
+   "Особенности гномов": "rock",
+   "Имена гномов": "gnomy_iskateli_prikljuchenij",
+   "Таблицы гномов": "skalnye_gnomy",
+   "Гномы-искатели приключений": "features",
+   "Homebrew": "forest",
+   "Лесной": "deep",
+   "Скальный": "scribing",
+   "Глубинный (PoA)": "tablitsy_gnomov",
+   "Метка письма (RLW)": "lesnye_gnomy",
+   "Лесные гномы": "glubinnye_gnomy_svirfnebliny",
+   "Скальные гномы": "metka_pisma_rlw"
+  }
+ },
+ "Полуэльф [Half-elf]": {
+  "url": "https://dnd.su/race/84-half_elf/",
+  "anchors": {
+   "Имена полуэльфов": "imena_polujelfov",
+   "Особенности полуэльфов": "osobennosti_polujelfov",
+   "Разновидности полуэльфов": "polujelf_fajeruna_scag",
+   "Полуэльф Фаэруна (SCAG)": "metka_obnaruzheniya_rlw",
+   "Метка обнаружения (RLW)": "metka_buri_rlw"
+  }
+ },
+ "Полуорк [Half-orc]": {
+  "url": "https://dnd.su/race/85-half_orc/",
+  "anchors": {
+   "Имена полуорков": "imena_poluorkov",
+   "Особенности полуорков": "osobennosti_poluorkov",
+   "Разновидности": "metka_poiska_rlw"
+  }
+ },
+ "Тифлинг [Tiefling]": {
+  "url": "https://dnd.su/race/86-tiefling/",
+  "anchors": {
+   "Имена тифлингов": "imena_tiflingov",
+   "Особенности тифлингов": "osobennosti_tiflingov",
+   "Подрасы тифлингов": "asmodej_mtf",
+   "Подрасы тифлингов  из «Unearthed Arcana»": "tifling_fajeruna_scag",
+   "Тифлинг Фаэруна (SCAG)": "velzevul_mtf",
+   "Асмодей (MTF)": "glasiya_mtf",
+   "Вельзевул (MTF)": "dispater_mtf",
+   "Гласия (MTF)": "zarijel_mtf",
+   "Диспатер (MTF)": "levistus_mtf",
+   "Зариэль (MTF)": "mammon_mtf",
+   "Левистус (MTF)": "mefistofel_mtf",
+   "Маммон (MTF)": "fjorna_mtf",
+   "Мефистофель (MTF)": "podrasy_tiflingov__iz_unearthed_arcana",
+   "Фьёрна (MTF)": "tifling_bezdny"
+  }
+ },
+ "Ааракокра [Aarakocra]": {
+  "url": "https://dnd.su/race/278-aarakocra/",
+  "anchors": {}
+ },
+ "Дженази [Genasi]": {
+  "url": "https://dnd.su/race/291-genasi/",
+  "anchors": {}
+ },
+ "Голиаф [Goliath]": {
+  "url": "https://dnd.su/race/295-goliath/",
+  "anchors": {}
+ },
+ "Аасимар  [Aasimar]": {
+  "url": "https://dnd.su/race/161-aasimar/",
+  "anchors": {
+   "Особенности аасимара": "osobennosti_aasimara",
+   "Разновидности": "aasimar_zaschitnik",
+   "Аасимар-защитник": "aasimar_karatel",
+   "Аасимар-каратель": "padshij_aasimar"
+  }
+ },
+ "Ведалкен [Vedalken]": {
+  "url": "https://dnd.su/race/162-vedalken/",
+  "anchors": {
+   "Имена ведалкенов": "imena_vedalkenov",
+   "Особенности ведалкенов": "osobennosti_vedalkenov"
+  }
+ },
+ "Вердан [Verdan]": {
+  "url": "https://dnd.su/race/163-verdan/",
+  "anchors": {}
+ },
+ "Гибрид Симиков [Simic hybrid]": {
+  "url": "https://dnd.su/race/164-simic_hybrid/",
+  "anchors": {
+   "Имена гибридов": "imena_gibridov",
+   "Особенности гибридов Симиков": "osobennosti_gibridov_simikov"
+  }
+ },
+ "Гит [Gith]": {
+  "url": "https://dnd.su/race/165-gith/",
+  "anchors": {}
+ },
+ "Гоблин [Goblin]": {
+  "url": "https://dnd.su/race/294-goblin/",
+  "anchors": {}
+ },
+ "Багбир [Bugbear]": {
+  "url": "https://dnd.su/race/281-bugbear/",
+  "anchors": {}
+ },
+ "Хобгоблин [Hobgoblin]": {
+  "url": "https://dnd.su/race/297-hobgoblin/",
+  "anchors": {}
+ },
+ "Грунг  [Grung]": {
+  "url": "https://dnd.su/race/169-grung/",
+  "anchors": {
+   "Особенности грунгов": "osobennosti_grungov"
+  }
+ },
+ "Чейнджлинг [Changeling]": {
+  "url": "https://dnd.su/race/283-changeling/",
+  "anchors": {}
+ },
+ "Калаштар [Kalashtar]": {
+  "url": "https://dnd.su/race/171-kalashtar/",
+  "anchors": {
+   "Имена калаштаров": "imena_kalashtarov",
+   "Особенности калаштаров": "osobennosti_kalashtarov"
+  }
+ },
+ "Кенку  [Kenku]": {
+  "url": "https://dnd.su/race/172-kenku/",
+  "anchors": {
+   "Имена кенку": "imena_kenku",
+   "Особенности кенку": "osobennosti_kenku"
+  }
+ },
+ "Кентавр  [Centaur]": {
+  "url": "https://dnd.su/race/173-centaur/",
+  "anchors": {
+   "Имена кентавров": "imena_kentavrov",
+   "Особенности кентавров": "osobennosti_kentavrov",
+   "Разновидности": "kentavr_mot"
+  }
+ },
+ "Кованый [Warforged]": {
+  "url": "https://dnd.su/race/174-warforged/",
+  "anchors": {
+   "Имена кованых": "imena_kovanyh",
+   "Особенности кованых": "osobennosti_kovanyh",
+   "Homebrew": "homebrew"
+  }
+ },
+ "Кобольд  [Kobold]": {
+  "url": "https://dnd.su/race/175-kobold/",
+  "anchors": {
+   "Особенности кобольдов": "osobennosti_koboldov"
+  }
+ },
+ "Леонин [Leonin]": {
+  "url": "https://dnd.su/race/176-leonin/",
+  "anchors": {}
+ },
+ "Локсодон [Loxodon]": {
+  "url": "https://dnd.su/race/177-loxodon/",
+  "anchors": {
+   "Имена локсодонов": "imena_loksodonov",
+   "Особенности локсодонов": "osobennosti_loksodonov"
+  }
+ },
+ "Локата [Locathah]": {
+  "url": "https://dnd.su/race/178-locathah/",
+  "anchors": {}
+ },
+ "Людоящер [Lizardfolk]": {
+  "url": "https://dnd.su/race/300-lizardfolk/",
+  "anchors": {}
+ },
+ "Минотавр [Minotaur]": {
+  "url": "https://dnd.su/race/301-minotaur/",
+  "anchors": {}
+ },
+ "Сатир [Satyr]": {
+  "url": "https://dnd.su/race/303-satyr/",
+  "anchors": {}
+ },
+ "Табакси [Tabaxi]": {
+  "url": "https://dnd.su/race/183-tabaxi/",
+  "anchors": {
+   "Имена табакси": "imena_tabaksi",
+   "Индивидуальность табакси": "individualnost_tabaksi",
+   "Особенности табакси": "osobennosti_tabaksi"
+  }
+ },
+ "Тортл [Tortle]": {
+  "url": "https://dnd.su/race/309-tortle/",
+  "anchors": {}
+ },
+ "Фирболг [Firbolg]": {
+  "url": "https://dnd.su/race/290-firbolg/",
+  "anchors": {}
+ },
+ "Шифтер [Shifter]": {
+  "url": "https://dnd.su/race/306-shifter/",
+  "anchors": {}
+ },
+ "Орк [Orc]": {
+  "url": "https://dnd.su/race/187-orc/",
+  "anchors": {
+   "Отыгрыш орка": "otygrysh_orka",
+   "Имена орков": "imena_orkov",
+   "Особенности орка": "osobennosti_orka",
+   "Разновидности": "ork_rlw",
+   "Орк (RLW)": "ork_egw"
+  }
+ },
+ "Тритон [Triton]": {
+  "url": "https://dnd.su/race/310-triton/",
+  "anchors": {}
+ },
+ "Юань-ти [Yuan-ti Pureblood]": {
+  "url": "https://dnd.su/race/189-yuan_ti_pureblood/",
+  "anchors": {
+   "Имена юань-ти": "imena_juan_ti",
+   "Отыгрыш юань-ти": "otygrysh_juan_ti",
+   "Особенности Чистокровных Юань-ти": "osobennosti_chistokrovnyh_juan_ti"
+  }
+ },
+ "Дампир [Dhampir]": {
+  "url": "https://dnd.su/multiverse/race/191-dhampir/",
+  "anchors": {}
+ },
+ "Ведьмовская кровь [Hexblood]": {
+  "url": "https://dnd.su/multiverse/race/192-hexblood/",
+  "anchors": {}
+ },
+ "Возрождённый [Reborn]": {
+  "url": "https://dnd.su/multiverse/race/193-reborn/",
+  "anchors": {}
+ },
+ "Фэйри [Fairy]": {
+  "url": "https://dnd.su/race/289-fairy/",
+  "anchors": {}
+ },
+ "Совлин [Owlin]": {
+  "url": "https://dnd.su/race/206-owlin/",
+  "anchors": {}
+ },
+ "Зайцегон [Harengon]": {
+  "url": "https://dnd.su/race/296-harengon/",
+  "anchors": {}
+ },
+ "Астральный эльф [Astral elf]": {
+  "url": "https://dnd.su/race/213-astral_elf/",
+  "anchors": {}
+ },
+ "Автогном [Autognome]": {
+  "url": "https://dnd.su/race/214-autognome/",
+  "anchors": {}
+ },
+ "Гифф [Giff]": {
+  "url": "https://dnd.su/race/215-giff/",
+  "anchors": {}
+ },
+ "Хадози [Hadozee]": {
+  "url": "https://dnd.su/race/216-hadozee/",
+  "anchors": {}
+ },
+ "Плазмоид [Plasmoid]": {
+  "url": "https://dnd.su/race/217-plasmoid/",
+  "anchors": {}
+ },
+ "Три-крин [Thri-kreen]": {
+  "url": "https://dnd.su/race/218-thri_kreen/",
+  "anchors": {}
+ },
+ "Своё происхождение [Custom lineage]": {
+  "url": "https://dnd.su/multiverse/race/223-custom_lineage/",
+  "anchors": {}
+ },
+ "Аасимар [Aasimar]": {
+  "url": "https://dnd.su/race/280-aasimar/",
+  "anchors": {}
+ },
+ "Кентавр [Centaur]": {
+  "url": "https://dnd.su/race/282-centaur/",
+  "anchors": {}
+ },
+ "Кендер [Kender]": {
+  "url": "https://dnd.su/race/285-kender/",
+  "anchors": {}
+ },
+ "Глубинный гном [Deep Gnome]": {
+  "url": "https://dnd.su/race/286-deep_gnome/",
+  "anchors": {}
+ },
+ "Дуэргар [Duergar]": {
+  "url": "https://dnd.su/race/287-duergar/",
+  "anchors": {}
+ },
+ "Эладрин [Eladrin]": {
+  "url": "https://dnd.su/race/288-eladrin/",
+  "anchors": {}
+ },
+ "Гитъянки [Githyanki]": {
+  "url": "https://dnd.su/race/292-githyanki/",
+  "anchors": {}
+ },
+ "Гитцерай [Githzerai]": {
+  "url": "https://dnd.su/race/293-githzerai/",
+  "anchors": {}
+ },
+ "Кенку [Kenku]": {
+  "url": "https://dnd.su/race/298-kenku/",
+  "anchors": {}
+ },
+ "Кобольд [Kobold]": {
+  "url": "https://dnd.su/race/299-kobold/",
+  "anchors": {}
+ },
+ "Орк  [Orc]": {
+  "url": "https://dnd.su/race/302-orc/",
+  "anchors": {}
+ },
+ "Морской эльф [Sea Elf]": {
+  "url": "https://dnd.su/race/304-sea_elf/",
+  "anchors": {}
+ },
+ "Шадар-кай [Shadar-Kai]": {
+  "url": "https://dnd.su/race/305-shadar_kai/",
+  "anchors": {}
+ },
+ "Табакси  [Tabaxi]": {
+  "url": "https://dnd.su/race/307-tabaxi/",
+  "anchors": {}
+ },
+ "Юань-ти [Yuan-Ti]": {
+  "url": "https://dnd.su/race/311-yuan_ti/",
+  "anchors": {}
+ }
+}

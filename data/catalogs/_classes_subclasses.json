@@ -1,0 +1,179 @@
+{
+ "101-sorcerer": {
+  "subclasses": []
+ },
+ "104-warlock": {
+  "subclasses": []
+ },
+ "105-wizard": {
+  "subclasses": []
+ },
+ "137-artificer": {
+  "subclasses": []
+ },
+ "87-barbarian": {
+  "subclasses": []
+ },
+ "88-bard": {
+  "subclasses": []
+ },
+ "89-cleric": {
+  "subclasses": []
+ },
+ "90-druid": {
+  "subclasses": []
+ },
+ "91-fighter": {
+  "subclasses": [
+   {
+    "slug": "battlemaster",
+    "name": "Мастер боевых искусств",
+    "source": ""
+   },
+   {
+    "slug": "eldritch-knigh",
+    "name": "Мистический рыцарь",
+    "source": ""
+   },
+   {
+    "slug": "champion",
+    "name": "Чемпион",
+    "source": "19"
+   },
+   {
+    "slug": "banneret",
+    "name": "Рыцарь Пурпурного дракона",
+    "source": "Sword Coast Adventurer’s Guide"
+   },
+   {
+    "slug": "cavalier",
+    "name": "Кавалерист",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "arcane-archer",
+    "name": "Мистический лучник",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "samurai",
+    "name": "Самурай",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "echo-knight",
+    "name": "Рыцарь Эха",
+    "source": "Explorer’s Guide to Wildemount"
+   },
+   {
+    "slug": "psi-warrior",
+    "name": "Пси-воин",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "slug": "rune-knight",
+    "name": "Рунный рыцарь",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ },
+ "93-monk": {
+  "subclasses": []
+ },
+ "94-paladin": {
+  "subclasses": []
+ },
+ "97-ranger": {
+  "subclasses": [
+   {
+    "slug": "hunter",
+    "name": "Охотник",
+    "source": ""
+   },
+   {
+    "slug": "beast-master",
+    "name": "Повелитель зверей",
+    "source": ""
+   },
+   {
+    "slug": "horizon-walker",
+    "name": "Странник горизонта",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "gloom-stalker",
+    "name": "Сумрачный охотник",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "monster-slayer",
+    "name": "Убийца чудовищ",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "fey-wanderer",
+    "name": "Странник фей",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "slug": "swarmkeeper",
+    "name": "Хранитель роя",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "slug": "drakewarden",
+    "name": "Наездник на дрейке",
+    "source": "Fizban’s Treasury of Dragons"
+   }
+  ]
+ },
+ "99-rogue": {
+  "subclasses": [
+   {
+    "slug": "thief",
+    "name": "Вор",
+    "source": ""
+   },
+   {
+    "slug": "assasin",
+    "name": "Убийца",
+    "source": ""
+   },
+   {
+    "slug": "arcane-trickster",
+    "name": "Мистический ловкач",
+    "source": ""
+   },
+   {
+    "slug": "swashbuckler",
+    "name": "Дуэлянт",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "mastermind",
+    "name": "Комбинатор",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "scout",
+    "name": "Скаут",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "inquisitive",
+    "name": "Сыщик",
+    "source": "Xanathar’s Guide to Everything"
+   },
+   {
+    "slug": "phantom",
+    "name": "Фантом",
+    "source": "Tasha’‎s Cauldron of Everything"
+   },
+   {
+    "slug": "soulknife",
+    "name": "Клинок души",
+    "source": "Tasha’‎s Cauldron of Everything"
+   }
+  ]
+ }
+}

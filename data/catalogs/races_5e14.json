@@ -1,0 +1,562 @@
+[
+ {
+  "url": "https://dnd.su/race/102-genasi/",
+  "name_ru": "Дженази",
+  "name_en": "Genasi",
+  "source": "«Princes of the Apocalypse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/103-goliath/",
+  "name_ru": "Голиаф",
+  "name_en": "Goliath",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/161-aasimar/",
+  "name_ru": "Аасимар",
+  "name_en": "Aasimar",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/162-vedalken/",
+  "name_ru": "Ведалкен",
+  "name_en": "Vedalken",
+  "source": "«Guildmasters' guide to Ravnica»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/163-verdan/",
+  "name_ru": "Вердан",
+  "name_en": "Verdan",
+  "source": "«Acquisition Incorporated»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/164-simic_hybrid/",
+  "name_ru": "Гибрид Симиков",
+  "name_en": "Simic hybrid",
+  "source": "«Guildmasters' guide to Ravnica»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/165-gith/",
+  "name_ru": "Гит",
+  "name_en": "Gith",
+  "source": "«Mordenkainen's Tome of Foes»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/166-goblin/",
+  "name_ru": "Гоблин",
+  "name_en": "Goblin",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/167-bugbear/",
+  "name_ru": "Багбир",
+  "name_en": "Bugbear",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/168-hobgoblin/",
+  "name_ru": "Хобгоблин",
+  "name_en": "Hobgoblin",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/169-grung/",
+  "name_ru": "Грунг",
+  "name_en": "Grung",
+  "source": "«One Grung Above»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/170-changeling/",
+  "name_ru": "Чейнджлинг",
+  "name_en": "Changeling",
+  "source": "«Eberron: Rising from the Last War»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/171-kalashtar/",
+  "name_ru": "Калаштар",
+  "name_en": "Kalashtar",
+  "source": "«Eberron: Rising from the Last War»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/172-kenku/",
+  "name_ru": "Кенку",
+  "name_en": "Kenku",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/173-centaur/",
+  "name_ru": "Кентавр",
+  "name_en": "Centaur",
+  "source": "«Guildmasters' guide to Ravnica»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/174-warforged/",
+  "name_ru": "Кованый",
+  "name_en": "Warforged",
+  "source": "«Eberron: Rising from the Last War»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/175-kobold/",
+  "name_ru": "Кобольд",
+  "name_en": "Kobold",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/176-leonin/",
+  "name_ru": "Леонин",
+  "name_en": "Leonin",
+  "source": "«Mythic Odysseys of Theros»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/177-loxodon/",
+  "name_ru": "Локсодон",
+  "name_en": "Loxodon",
+  "source": "«Guildmasters' guide to Ravnica»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/178-locathah/",
+  "name_ru": "Локата",
+  "name_en": "Locathah",
+  "source": "«Locathah Rising»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/179-lizardfolk/",
+  "name_ru": "Людоящер",
+  "name_en": "Lizardfolk",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/181-minotaur/",
+  "name_ru": "Минотавр",
+  "name_en": "Minotaur",
+  "source": "«Guildmasters' guide to Ravnica»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/182-satyr/",
+  "name_ru": "Сатир",
+  "name_en": "Satyr",
+  "source": "«Mythic Odysseys of Theros»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/183-tabaxi/",
+  "name_ru": "Табакси",
+  "name_en": "Tabaxi",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/184-tortle/",
+  "name_ru": "Тортл",
+  "name_en": "Tortle",
+  "source": "«The Tortle Package»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/185-firbolg/",
+  "name_ru": "Фирболг",
+  "name_en": "Firbolg",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/186-shifter/",
+  "name_ru": "Шифтер",
+  "name_en": "Shifter",
+  "source": "«Eberron: Rising from the Last War»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/187-orc/",
+  "name_ru": "Орк",
+  "name_en": "Orc",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/188-triton/",
+  "name_ru": "Тритон",
+  "name_en": "Triton",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/189-yuan_ti_pureblood/",
+  "name_ru": "Юань-ти",
+  "name_en": "Yuan-ti Pureblood",
+  "source": "«Volo's guide to monsters»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/204-fairy/",
+  "name_ru": "Фэйри",
+  "name_en": "Fairy",
+  "source": "«The Wild Beyond The Witchlight: A Feywild Adventure»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/206-owlin/",
+  "name_ru": "Совлин",
+  "name_en": "Owlin",
+  "source": "«Strixhaven: A Curriculum of Chaos»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/207-harengon/",
+  "name_ru": "Зайцегон",
+  "name_en": "Harengon",
+  "source": "«The Wild Beyond The Witchlight: A Feywild Adventure»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/213-astral_elf/",
+  "name_ru": "Астральный эльф",
+  "name_en": "Astral elf",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/214-autognome/",
+  "name_ru": "Автогном",
+  "name_en": "Autognome",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/215-giff/",
+  "name_ru": "Гифф",
+  "name_en": "Giff",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/216-hadozee/",
+  "name_ru": "Хадози",
+  "name_en": "Hadozee",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/217-plasmoid/",
+  "name_ru": "Плазмоид",
+  "name_en": "Plasmoid",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/218-thri_kreen/",
+  "name_ru": "Три-крин",
+  "name_en": "Thri-kreen",
+  "source": "«Spelljammer: Adventures in Space»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/278-aarakocra/",
+  "name_ru": "Ааракокра",
+  "name_en": "Aarakocra",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/280-aasimar/",
+  "name_ru": "Аасимар",
+  "name_en": "Aasimar",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/281-bugbear/",
+  "name_ru": "Багбир",
+  "name_en": "Bugbear",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/282-centaur/",
+  "name_ru": "Кентавр",
+  "name_en": "Centaur",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/283-changeling/",
+  "name_ru": "Чейнджлинг",
+  "name_en": "Changeling",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/285-kender/",
+  "name_ru": "Кендер",
+  "name_en": "Kender",
+  "source": "«Dragonlance: Shadow of the Dragon Queen»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/286-deep_gnome/",
+  "name_ru": "Глубинный гном",
+  "name_en": "Deep Gnome",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/287-duergar/",
+  "name_ru": "Дуэргар",
+  "name_en": "Duergar",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/288-eladrin/",
+  "name_ru": "Эладрин",
+  "name_en": "Eladrin",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/289-fairy/",
+  "name_ru": "Фэйри",
+  "name_en": "Fairy",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/290-firbolg/",
+  "name_ru": "Фирболг",
+  "name_en": "Firbolg",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/291-genasi/",
+  "name_ru": "Дженази",
+  "name_en": "Genasi",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/292-githyanki/",
+  "name_ru": "Гитъянки",
+  "name_en": "Githyanki",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/293-githzerai/",
+  "name_ru": "Гитцерай",
+  "name_en": "Githzerai",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/294-goblin/",
+  "name_ru": "Гоблин",
+  "name_en": "Goblin",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/295-goliath/",
+  "name_ru": "Голиаф",
+  "name_en": "Goliath",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/296-harengon/",
+  "name_ru": "Зайцегон",
+  "name_en": "Harengon",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/297-hobgoblin/",
+  "name_ru": "Хобгоблин",
+  "name_en": "Hobgoblin",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/298-kenku/",
+  "name_ru": "Кенку",
+  "name_en": "Kenku",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/299-kobold/",
+  "name_ru": "Кобольд",
+  "name_en": "Kobold",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/300-lizardfolk/",
+  "name_ru": "Людоящер",
+  "name_en": "Lizardfolk",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/301-minotaur/",
+  "name_ru": "Минотавр",
+  "name_en": "Minotaur",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/302-orc/",
+  "name_ru": "Орк",
+  "name_en": "Orc",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/303-satyr/",
+  "name_ru": "Сатир",
+  "name_en": "Satyr",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/304-sea_elf/",
+  "name_ru": "Морской эльф",
+  "name_en": "Sea Elf",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/305-shadar_kai/",
+  "name_ru": "Шадар-кай",
+  "name_en": "Shadar-Kai",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/306-shifter/",
+  "name_ru": "Шифтер",
+  "name_en": "Shifter",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/307-tabaxi/",
+  "name_ru": "Табакси",
+  "name_en": "Tabaxi",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/309-tortle/",
+  "name_ru": "Тортл",
+  "name_en": "Tortle",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/310-triton/",
+  "name_ru": "Тритон",
+  "name_en": "Triton",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/311-yuan_ti/",
+  "name_ru": "Юань-ти",
+  "name_en": "Yuan-Ti",
+  "source": "«Mordenkainen Presents: Monsters of the Multiverse»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/78-dwarf/",
+  "name_ru": "Дварф",
+  "name_en": "Dwarf",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/79-elf/",
+  "name_ru": "Эльф",
+  "name_en": "Elf",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/80-halfling/",
+  "name_ru": "Полурослик",
+  "name_en": "Halfling",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/81-human/",
+  "name_ru": "Человек",
+  "name_en": "Human",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/82-dragonborn/",
+  "name_ru": "Драконорождённый",
+  "name_en": "Dragonborn",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/83-gnome/",
+  "name_ru": "Гном",
+  "name_en": "Gnome",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/84-half_elf/",
+  "name_ru": "Полуэльф",
+  "name_en": "Half-elf",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/85-half_orc/",
+  "name_ru": "Полуорк",
+  "name_en": "Half-orc",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/86-tiefling/",
+  "name_ru": "Тифлинг",
+  "name_en": "Tiefling",
+  "source": "«Player's Handbook»",
+  "sources": []
+ },
+ {
+  "url": "https://dnd.su/race/92-aarakocra/",
+  "name_ru": "Ааракокра",
+  "name_en": "Aarakocra",
+  "source": "«Princes of the Apocalypse»",
+  "sources": []
+ }
+]

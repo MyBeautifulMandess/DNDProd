@@ -1,0 +1,447 @@
+[
+ {
+  "name_ru": "Артист",
+  "name_en": "Entertainer",
+  "url": "https://dnd.su/backgrounds/757-entertainer/"
+ },
+ {
+  "name_ru": "Беспризорник",
+  "name_en": "Urchin",
+  "url": "https://dnd.su/backgrounds/758-urchin/"
+ },
+ {
+  "name_ru": "Благородный",
+  "name_en": "Noble",
+  "url": "https://dnd.su/backgrounds/759-noble/"
+ },
+ {
+  "name_ru": "Гильдейский ремесленник",
+  "name_en": "Guild artisan",
+  "url": "https://dnd.su/backgrounds/760-guild-artisan/"
+ },
+ {
+  "name_ru": "Моряк",
+  "name_en": "Sailor",
+  "url": "https://dnd.su/backgrounds/761-sailor/"
+ },
+ {
+  "name_ru": "Мудрец",
+  "name_en": "Sage",
+  "url": "https://dnd.su/backgrounds/762-sage/"
+ },
+ {
+  "name_ru": "Народный герой",
+  "name_en": "Folk hero",
+  "url": "https://dnd.su/backgrounds/763-folk-hero/"
+ },
+ {
+  "name_ru": "Отшельник",
+  "name_en": "Hermit",
+  "url": "https://dnd.su/backgrounds/764-hermit/"
+ },
+ {
+  "name_ru": "Пират",
+  "name_en": "Pirate",
+  "url": "https://dnd.su/backgrounds/770-pirate/"
+ },
+ {
+  "name_ru": "Преступник",
+  "name_en": "Criminal",
+  "url": "https://dnd.su/backgrounds/765-criminal/"
+ },
+ {
+  "name_ru": "Прислужник",
+  "name_en": "Acolyte",
+  "url": "https://dnd.su/backgrounds/766-acolyte/"
+ },
+ {
+  "name_ru": "Солдат",
+  "name_en": "Soldier",
+  "url": "https://dnd.su/backgrounds/767-soldier/"
+ },
+ {
+  "name_ru": "Чужеземец",
+  "name_en": "Outlander",
+  "url": "https://dnd.su/backgrounds/768-outlander/"
+ },
+ {
+  "name_ru": "Шарлатан",
+  "name_en": "Charlatan",
+  "url": "https://dnd.su/backgrounds/769-charlatan/"
+ },
+ {
+  "name_ru": "Азартный игрок",
+  "name_en": "Gambler",
+  "url": "https://dnd.su/backgrounds/811-gambler/"
+ },
+ {
+  "name_ru": "Истец",
+  "name_en": "Plaintiff",
+  "url": "https://dnd.su/backgrounds/812-plaintiff/"
+ },
+ {
+  "name_ru": "Неудавшийся торговец",
+  "name_en": "Failed Merchant",
+  "url": "https://dnd.su/backgrounds/810-failed-merchant/"
+ },
+ {
+  "name_ru": "Потомок знаменитого авантюриста",
+  "name_en": "Celebrity Adventurer",
+  "url": "https://dnd.su/backgrounds/809-celebrity-adventurers-scion/"
+ },
+ {
+  "name_ru": "Стажёр конкурента",
+  "name_en": "Rival Intern",
+  "url": "https://dnd.su/backgrounds/813-rival-intern/"
+ },
+ {
+  "name_ru": "Великаний подкидыш",
+  "name_en": "Giant foundling",
+  "url": "https://dnd.su/backgrounds/820-giant-foundling/"
+ },
+ {
+  "name_ru": "Резчик рун",
+  "name_en": "Rune carver",
+  "url": "https://dnd.su/backgrounds/822-rune-carver/"
+ },
+ {
+  "name_ru": "Награждённый",
+  "name_en": "Rewarded",
+  "url": "https://dnd.su/backgrounds/858-rewarded/"
+ },
+ {
+  "name_ru": "Разорённый",
+  "name_en": "Ruined",
+  "url": "https://dnd.su/backgrounds/859-ruined/"
+ },
+ {
+  "name_ru": "Агент Дома",
+  "name_en": "House Agent",
+  "url": "https://dnd.su/backgrounds/788-house-agent/"
+ },
+ {
+  "name_ru": "Агент-Волстракер",
+  "name_en": "Volstrucker Agent",
+  "url": "https://dnd.su/backgrounds/816-volstrucker-agent/"
+ },
+ {
+  "name_ru": "Адаптация предысторий EGW",
+  "name_en": "",
+  "url": "https://dnd.su/backgrounds/848-adaptaciia-predystorii-egw/"
+ },
+ {
+  "name_ru": "Ухмылка",
+  "name_en": "Grinner",
+  "url": "https://dnd.su/backgrounds/817-grinner/"
+ },
+ {
+  "name_ru": "Агент Голгари",
+  "name_en": "Golgari Agent",
+  "url": "https://dnd.su/backgrounds/802-golgari-agent/"
+ },
+ {
+  "name_ru": "Анарх Груулов",
+  "name_en": "Gruul Anarch",
+  "url": "https://dnd.su/backgrounds/803-gruul-anarch/"
+ },
+ {
+  "name_ru": "Инженер Иззетов",
+  "name_en": "Izzet Engineer",
+  "url": "https://dnd.su/backgrounds/804-izzet-engineer/"
+ },
+ {
+  "name_ru": "Культист Ракдоса",
+  "name_en": "Rakdos Cultist",
+  "url": "https://dnd.su/backgrounds/806-rakdos-cultist/"
+ },
+ {
+  "name_ru": "Легионер Боросов",
+  "name_en": "Boros Legionnaire",
+  "url": "https://dnd.su/backgrounds/800-boros-legionnaire/"
+ },
+ {
+  "name_ru": "Оперативник Димиров",
+  "name_en": "Dimir Operative",
+  "url": "https://dnd.su/backgrounds/801-dimir-operative/"
+ },
+ {
+  "name_ru": "Посвящённый Селезнии",
+  "name_en": "Selesnya Initiate",
+  "url": "https://dnd.su/backgrounds/807-selesnya-initiate/"
+ },
+ {
+  "name_ru": "Представитель Орзовов",
+  "name_en": "Orzhov Representative",
+  "url": "https://dnd.su/backgrounds/805-orzhov-representative/"
+ },
+ {
+  "name_ru": "Учёный Симиков",
+  "name_en": "Simic Scientist",
+  "url": "https://dnd.su/backgrounds/808-simic-scientist/"
+ },
+ {
+  "name_ru": "Функционер Азориусов",
+  "name_en": "Azorius Functionary",
+  "url": "https://dnd.su/backgrounds/799-azorius-functionary/"
+ },
+ {
+  "name_ru": "Атлет",
+  "name_en": "Athlete",
+  "url": "https://dnd.su/backgrounds/787-athlete/"
+ },
+ {
+  "name_ru": "Планарный философ",
+  "name_en": "Planar philosopher",
+  "url": "https://dnd.su/backgrounds/821-planar-philosopher/"
+ },
+ {
+  "name_ru": "Хранитель врат",
+  "name_en": "Gate warden",
+  "url": "https://dnd.su/backgrounds/823-gate-warden/"
+ },
+ {
+  "name_ru": "Астральный бродяга",
+  "name_en": "Astral Drifter",
+  "url": "https://dnd.su/multiverse/backgrounds/815-astral-drifter/"
+ },
+ {
+  "name_ru": "Дикий космонавт",
+  "name_en": "Wildspacer",
+  "url": "https://dnd.su/multiverse/backgrounds/814-wildspacer/"
+ },
+ {
+  "name_ru": "Ветеран наёмник",
+  "name_en": "Mercenary Veteran",
+  "url": "https://dnd.su/backgrounds/780-mercenary-veteran/"
+ },
+ {
+  "name_ru": "Городской охотник за головами",
+  "name_en": "Urban Bounty Hunter",
+  "url": "https://dnd.su/backgrounds/781-urban-bounty-hunter/"
+ },
+ {
+  "name_ru": "Городской стражник",
+  "name_en": "City Watch",
+  "url": "https://dnd.su/backgrounds/772-city-watch/"
+ },
+ {
+  "name_ru": "Дальний путешественник",
+  "name_en": "Far Traveler",
+  "url": "https://dnd.su/backgrounds/777-far-traveler/"
+ },
+ {
+  "name_ru": "Дворянин Глубоководья",
+  "name_en": "Waterdhavian Noble",
+  "url": "https://dnd.su/backgrounds/771-waterdhavian-noble/"
+ },
+ {
+  "name_ru": "Клановый ремесленник",
+  "name_en": "Clan Crafter",
+  "url": "https://dnd.su/backgrounds/773-clan-crafter/"
+ },
+ {
+  "name_ru": "Наследник",
+  "name_en": "Inheritor",
+  "url": "https://dnd.su/backgrounds/778-inheritor/"
+ },
+ {
+  "name_ru": "Представитель фракции",
+  "name_en": "Faction Agent",
+  "url": "https://dnd.su/backgrounds/776-faction-agent/"
+ },
+ {
+  "name_ru": "Придворный",
+  "name_en": "Courtier",
+  "url": "https://dnd.su/backgrounds/775-courtier/"
+ },
+ {
+  "name_ru": "Рыцарь ордена",
+  "name_en": "Knight of the Order",
+  "url": "https://dnd.su/backgrounds/779-knight-of-the-order/"
+ },
+ {
+  "name_ru": "Утгардтский соплеменник",
+  "name_en": "Uthgardt Tribe Member",
+  "url": "https://dnd.su/backgrounds/782-uthgardt-tribe-member/"
+ },
+ {
+  "name_ru": "Учёный-затворник",
+  "name_en": "Cloistered Scholar",
+  "url": "https://dnd.su/backgrounds/774-cloistered-scholar/"
+ },
+ {
+  "name_ru": "Адаптация предысторий VRGR",
+  "name_en": "",
+  "url": "https://dnd.su/backgrounds/845-adaptaciia-predystorii-vrgr/"
+ },
+ {
+  "name_ru": "Следователь",
+  "name_en": "Investigator",
+  "url": "https://dnd.su/backgrounds/790-investigator/"
+ },
+ {
+  "name_ru": "Артист Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/832-baldurs-gate-entertainer/"
+ },
+ {
+  "name_ru": "Безликий",
+  "name_en": "Faceless",
+  "url": "https://dnd.su/backgrounds/833-faceless/"
+ },
+ {
+  "name_ru": "Беспризорник Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/835-baldurs-gate-urchin/"
+ },
+ {
+  "name_ru": "Благородный Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/834-baldurs-gate-noble/"
+ },
+ {
+  "name_ru": "Гильдейский ремесленник Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/842-baldurs-gate-guild-artisan/"
+ },
+ {
+  "name_ru": "Моряк Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/836-baldurs-gate-sailor/"
+ },
+ {
+  "name_ru": "Мудрец Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/837-baldurs-gate-sage/"
+ },
+ {
+  "name_ru": "Народный герой Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/838-baldurs-gate-folk-hero/"
+ },
+ {
+  "name_ru": "Отшельник Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/839-baldurs-gate-hermit/"
+ },
+ {
+  "name_ru": "Преступник Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/841-baldurs-gate-criminal/"
+ },
+ {
+  "name_ru": "Прислужник Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/840-baldurs-gate-acolyte/"
+ },
+ {
+  "name_ru": "Солдат Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/843-baldurs-gate-soldier/"
+ },
+ {
+  "name_ru": "Чужеземец Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/844-baldurs-gate-outlander/"
+ },
+ {
+  "name_ru": "Шарлатан Врат Балдура",
+  "name_en": "Baldur",
+  "url": "https://dnd.su/backgrounds/830-baldurs-gate-charlatan/"
+ },
+ {
+  "name_ru": "Преследуемый",
+  "name_en": "Haunted One",
+  "url": "https://dnd.su/backgrounds/789-haunted-one/"
+ },
+ {
+  "name_ru": "Адаптация предысторий SDQ",
+  "name_en": "",
+  "url": "https://dnd.su/backgrounds/856-adaptaciia-predystorii-sdq/"
+ },
+ {
+  "name_ru": "Маг Высшего Волшебства",
+  "name_en": "Mage of High Sorcery",
+  "url": "https://dnd.su/backgrounds/855-mage-of-high-sorcery/"
+ },
+ {
+  "name_ru": "Соламнийский Рыцарь",
+  "name_en": "Knight of Solamnia",
+  "url": "https://dnd.su/backgrounds/854-knight-of-solamnia/"
+ },
+ {
+  "name_ru": "Контрабандист",
+  "name_en": "Smuggler",
+  "url": "https://dnd.su/backgrounds/784-smuggler/"
+ },
+ {
+  "name_ru": "Корабел",
+  "name_en": "Shipwright",
+  "url": "https://dnd.su/backgrounds/785-shipwright/"
+ },
+ {
+  "name_ru": "Морской пехотинец",
+  "name_en": "Marine",
+  "url": "https://dnd.su/backgrounds/786-marine/"
+ },
+ {
+  "name_ru": "Рыбак",
+  "name_en": "Fisher",
+  "url": "https://dnd.su/backgrounds/783-fisher/"
+ },
+ {
+  "name_ru": "Адаптация предысторий HDQ",
+  "name_en": "",
+  "url": "https://dnd.su/backgrounds/847-adaptaciia-predystorii-hdq/"
+ },
+ {
+  "name_ru": "Адаптация предысторий OTA",
+  "name_en": "",
+  "url": "https://dnd.su/backgrounds/846-adaptaciia-predystorii-ota/"
+ },
+ {
+  "name_ru": "Студент Визерблума",
+  "name_en": "Witherbloom Student",
+  "url": "https://dnd.su/backgrounds/798-witherbloom-student/"
+ },
+ {
+  "name_ru": "Студент Квандрикса",
+  "name_en": "Quandrix Student",
+  "url": "https://dnd.su/backgrounds/796-quandrix-student/"
+ },
+ {
+  "name_ru": "Студент Лорхолда",
+  "name_en": "Lorehold Student",
+  "url": "https://dnd.su/backgrounds/794-lorehold-student/"
+ },
+ {
+  "name_ru": "Студент Призмари",
+  "name_en": "Prismari Student",
+  "url": "https://dnd.su/backgrounds/795-prismari-student/"
+ },
+ {
+  "name_ru": "Студент Сильверквилла",
+  "name_en": "Silverquill Student",
+  "url": "https://dnd.su/backgrounds/797-silverquill-student/"
+ },
+ {
+  "name_ru": "Антрополог",
+  "name_en": "Anthropologist",
+  "url": "https://dnd.su/backgrounds/756-anthropologist/"
+ },
+ {
+  "name_ru": "Археолог",
+  "name_en": "Archaeologist",
+  "url": "https://dnd.su/backgrounds/791-archaeologist/"
+ },
+ {
+  "name_ru": "Подручный Ведьмосвета",
+  "name_en": "Witchlight Hand",
+  "url": "https://dnd.su/backgrounds/793-witchlight-hand/"
+ },
+ {
+  "name_ru": "Потерявшийся в царстве фей",
+  "name_en": "Feylost",
+  "url": "https://dnd.su/backgrounds/792-feylost/"
+ }
+]
