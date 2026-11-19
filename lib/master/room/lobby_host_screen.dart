@@ -1,12 +1,14 @@
 /// Экран мастера: запуск комнаты, адрес/QR, игроки, пешки и чат.
 library;
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../core/models/room.dart';
 import '../../lobby/master_lobby_controller.dart';
+import '../../platform/files/map_file.dart';
 import '../../shared/lobby/chat_panel.dart';
 import '../../shared/field/battle_field.dart';
 
@@ -196,6 +198,69 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
                   title: const Text('Игроки двигают свои пешки'),
                   value: controller.moveOwnAllowed,
                   onChanged: controller.setMoveOwnAllowed,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Карты приключения',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                if (controller.mapChoices.isEmpty)
+                  const Text('Комната запущена без набора карт',
+                      style: TextStyle(fontSize: 12, color: Colors.white70)),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    for (final choice in controller.mapChoices)
+                      ChoiceChip(
+                        label: Text(choice.name),
+                        selected: choice.key == state.mapKey,
+                        onSelected: (_) => controller.switchMap(choice.key),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text('Картинка игрокам',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    FilledButton.tonal(
+                      onPressed: _showImage,
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.image_outlined),
+                          SizedBox(width: 8),
+                          Text('Показать'),
+                        ],
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: controller.hideImage,
+                      child: const Text('Скрыть'),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -403,6 +468,21 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
               ),
       ),
     );
+  }
+
+  Future<void> _showImage() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+    );
+    final path = result?.files.singleOrNull?.path;
+    if (path == null) return;
+    final bytes = await readMapBytes(path);
+    if (!mounted) return;
+    context.read<MasterLobbyController>().showImageBytes(
+          bytes,
+          contentType: mapContentType(path),
+        );
   }
 
   void _addToken(MasterLobbyController controller) {

@@ -75,6 +75,37 @@ class _ConnectScreenState extends State<ConnectScreen> {
               ),
             ),
           ),
+        if (controller.imageUrl != null)
+          Positioned.fill(
+            child: Material(
+              color: const Color(0xF21A1A1A),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: InteractiveViewer(
+                      child: Image.network(
+                        controller.imageUrl!,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stack) => const Center(
+                          child: Text('Картинка недоступна',
+                              style: TextStyle(color: Colors.white70)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: Colors.white),
+                      tooltip: 'Скрыть картинку',
+                      onPressed: controller.dismissImage,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
       ],
     );
   }
@@ -328,6 +359,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
       characterId: character.id,
       hp: character.currentHp,
       maxHp: character.maxHp,
+      characterSnapshot: character.toJson(),
     );
   }
 }
