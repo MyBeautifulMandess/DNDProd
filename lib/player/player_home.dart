@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'lobby/connect_screen.dart';
 import 'characters/characters_screen.dart';
+import '../shared/adaptive_navigation.dart';
 import '../shared/catalog_ui/library_home.dart';
 
 /// Домашний экран роли «Игрок».
@@ -16,29 +17,22 @@ class PlayerHomeScreen extends StatefulWidget {
 class _PlayerHomeScreenState extends State<PlayerHomeScreen> {
   int _tab = 0;
 
-  static const _tabs = [
-    (icon: Icons.person_outline, label: 'Персонажи'),
-    (icon: Icons.book_outlined, label: 'Справочники'),
-    (icon: Icons.wifi_tethering, label: 'Подключение'),
+  static const _items = [
+    NavigationItem(icon: Icons.person_outline, label: 'Персонажи'),
+    NavigationItem(icon: Icons.book_outlined, label: 'Справочники'),
+    NavigationItem(icon: Icons.wifi_tethering, label: 'Подключение'),
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(_tabs[_tab].label)),
+  Widget build(BuildContext context) => AdaptiveNavigationShell(
+        title: _items[_tab].label,
+        items: _items,
+        selectedIndex: _tab,
+        onDestinationSelected: (i) => setState(() => _tab = i),
         body: switch (_tab) {
           0 => const CharactersScreen(),
           1 => const LibraryHomeScreen(),
           _ => const ConnectScreen(),
         },
-        // Нижняя навигация — форм-фактор телефона; на широких экранах заменить
-        // боковой (LayoutBuilder), см. правила переносимости docs/01-architecture.md.
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _tab,
-          onDestinationSelected: (i) => setState(() => _tab = i),
-          destinations: [
-            for (final t in _tabs)
-              NavigationDestination(icon: Icon(t.icon), label: t.label),
-          ],
-        ),
       );
 }

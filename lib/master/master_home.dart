@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'adventures/adventures_screen.dart';
 import 'archives/archives_screen.dart';
 import '../master/room/lobby_host_screen.dart';
+import '../shared/adaptive_navigation.dart';
 import '../shared/catalog_ui/library_home.dart';
 
 /// Домашний экран роли «Мастер».
@@ -17,16 +18,19 @@ class MasterHomeScreen extends StatefulWidget {
 class _MasterHomeScreenState extends State<MasterHomeScreen> {
   int _tab = 0;
 
-  static const _tabs = [
-    (icon: Icons.auto_awesome_outlined, label: 'Приключения'),
-    (icon: Icons.book_outlined, label: 'Справочники'),
-    (icon: Icons.badge_outlined, label: 'Архивы'),
-    (icon: Icons.meeting_room_outlined, label: 'Комната'),
+  static const _items = [
+    NavigationItem(icon: Icons.auto_awesome_outlined, label: 'Приключения'),
+    NavigationItem(icon: Icons.book_outlined, label: 'Справочники'),
+    NavigationItem(icon: Icons.badge_outlined, label: 'Архивы'),
+    NavigationItem(icon: Icons.meeting_room_outlined, label: 'Комната'),
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(_tabs[_tab].label)),
+  Widget build(BuildContext context) => AdaptiveNavigationShell(
+        title: _items[_tab].label,
+        items: _items,
+        selectedIndex: _tab,
+        onDestinationSelected: (i) => setState(() => _tab = i),
         body: switch (_tab) {
           1 => const LibraryHomeScreen(),
           2 => const ArchivesScreen(),
@@ -35,13 +39,5 @@ class _MasterHomeScreenState extends State<MasterHomeScreen> {
             ),
           _ => const LobbyHostScreen(),
         },
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _tab,
-          onDestinationSelected: (i) => setState(() => _tab = i),
-          destinations: [
-            for (final t in _tabs)
-              NavigationDestination(icon: Icon(t.icon), label: t.label),
-          ],
-        ),
       );
 }

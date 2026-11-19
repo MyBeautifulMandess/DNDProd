@@ -18,6 +18,22 @@ abstract final class AppTheme {
         scaffoldBackgroundColor: background,
         appBarTheme: const AppBarTheme(backgroundColor: surface, centerTitle: true),
         // Кроссплатформенность: минимальный размер тапа — правило 44×44 из docs/01-architecture.md.
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(minimumSize: const Size(44, 44)),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(minimumSize: const Size(44, 44)),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(minimumSize: const Size(44, 44)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(minimumSize: const Size(44, 44)),
+        ),
+        iconButtonTheme: IconButtonThemeData(
+          style: IconButton.styleFrom(minimumSize: const Size(44, 44)),
+        ),
         visualDensity: VisualDensity.standard,
       );
 }
