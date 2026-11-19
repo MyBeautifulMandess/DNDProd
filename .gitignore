@@ -4,7 +4,7 @@
 build/
 .flutter-plugins
 .flutter-plugins-dependencies
-pubspec.lock
+# reproducibility: lock-файл приложения хранится в репозитории
 
 # IDE
 .idea/
@@ -19,23 +19,13 @@ windows/flutter/ephemeral/
 # Генерируемый код drift
 *.g.dart
 
-# Ассеты пользователя — большие бинарники не коммитим (см. docs/08-assets.md)
-assets/2d/*
-!assets/2d/.gitkeep
-assets/maps/*
-!assets/maps/.gitkeep
-assets/fonts/*
-!assets/fonts/.gitkeep
-# Сырец сгенерированных ассетов (tools/gen_assets.py), финальные файлы — в assets/2d, assets/maps
-assets/_gen_raw/
+# Python
+__pycache__/
+*.pyc
 
-# Локальные материалы проекта — в репозитории только код и README.
-# Документация, игровые данные и инструменты остаются локально (по решению владельца).
-# Якорь в начале — правило действует только на корень: lib/data/ — это код.
-/docs/
-/data/
-/tools/
-AGENTS.md
+# Сырец генерации ассетов и временные файлы парсеров в репозиторий не нужны
+assets/_gen_raw/
+.tmp_spell*.html
 
 # Системное
 .DS_Store
