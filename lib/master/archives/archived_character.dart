@@ -1,8 +1,12 @@
-/// Снимок персонажа игрока, подключившегося к комнате мастера.
-/// Только чтение + заметки мастера (docs/05-master-app.md, раздел 6).
+/// Персонаж в архиве мастера: снимок игрока или созданный мастером NPC.
+/// Игровые значения (уровень/класс) — только то, что задал мастер или прислал
+/// клиент; конструктор не генерирует характеристики.
 library;
 
 class ArchivedCharacter {
+  static const originPlayer = 'player';
+  static const originNpc = 'npc';
+
   ArchivedCharacter({
     required this.id,
     required this.characterName,
@@ -12,6 +16,7 @@ class ArchivedCharacter {
     required this.snapshot,
     this.notes = '',
     this.archivedAtMs = 0,
+    this.origin = originPlayer,
   });
 
   String id;
@@ -24,6 +29,9 @@ class ArchivedCharacter {
   final Map<String, dynamic> snapshot;
   String notes;
   int archivedAtMs;
+  String origin;
+
+  bool get isNpc => origin == originNpc;
 
   Map<String, dynamic> toJson() => {
         'schema_version': 1,
@@ -34,6 +42,7 @@ class ArchivedCharacter {
         'class_names': classNames,
         'notes': notes,
         'archived_at_ms': archivedAtMs,
+        'origin': origin,
         'snapshot': snapshot,
       };
 
@@ -46,6 +55,7 @@ class ArchivedCharacter {
         classNames: json['class_names'] as String? ?? '',
         notes: json['notes'] as String? ?? '',
         archivedAtMs: json['archived_at_ms'] as int? ?? 0,
+        origin: json['origin'] as String? ?? originPlayer,
         snapshot:
             (json['snapshot'] as Map?)?.cast<String, dynamic>() ?? const {},
       );

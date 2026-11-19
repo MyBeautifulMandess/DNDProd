@@ -38,8 +38,8 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Удалить снимок?'),
-        content: Text('Снимок «${archived.characterName}» будет удалён.'),
+        title: const Text('Удалить запись?'),
+        content: Text('«${archived.characterName}» будет удалён из архива.'),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -55,9 +55,31 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
     _reload();
   }
 
+  Future<void> _addNpc() async {
+    final result = await showDialog<_NpcFormResult>(
+      context: context,
+      builder: (context) => const _NpcDialog(),
+    );
+    if (result == null) return;
+    await _repository.addNpc(
+      name: result.name,
+      level: result.level,
+      classNames: result.classNames,
+      notes: result.notes,
+    );
+    if (!mounted) return;
+    _reload();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text('Архивы персонажей')),
+        floatingActionButton: FloatingActionButton.extended(
+          key: const ValueKey('add-npc'),
+          onPressed: _addNpc,
+          icon: const Icon(Icons.person_add_alt_1),
+          label: const Text('Добавить NPC'),
+        ),
         body: FutureBuilder<List<ArchivedCharacter>>(
           future: _future,
           builder: (context, snapshot) {
@@ -74,7 +96,8 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
                   padding: EdgeInsets.all(24),
                   child: Text(
                     'Снимки появятся здесь, когда игроки подключатся '
-                    'к вашим комнатам.',
+                    'к вашим комнатам. Кнопка «Добавить NPC» создаёт запись '
+                    'мастера.',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -89,15 +112,18 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
                     item.archivedAtMs).toLocal();
                 final hp = item.snapshot['current_hp'];
                 final maxHp = item.snapshot['max_hp'];
+                final classSuffix =
+                    item.classNames.isEmpty ? '' : ' · ${item.classNames}';
                 return Card(
                   child: ExpansionTile(
-                    leading: const Icon(Icons.badge_outlined,
-                        color: Colors.amber),
-                    title: Text(item.characterName),
-                    subtitle: Text(
-                      '${item.playerName} · ${item.level} ур.'
-                      '${item.classNames.isEmpty ? '' : ' · ${item.classNames}'}',
+                    leading: Icon(
+                      item.isNpc ? Icons.person_outline : Icons.badge_outlined,
+                      color: Colors.amber,
                     ),
+                    title: Text(item.characterName),
+                    subtitle: Text(item.isNpc
+                        ? 'NPC · ${item.level} ур.$classSuffix'
+                        : '${item.playerName} · ${item.level} ур.$classSuffix'),
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -128,7 +154,7 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
                               child: TextButton.icon(
                                 onPressed: () => _delete(item),
                                 icon: const Icon(Icons.delete_outline),
-                                label: const Text('Удалить снимок'),
+                                label: const Text('Удалить запись'),
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -142,5 +168,97 @@ class _ArchivesScreenState extends State<ArchivesScreen> {
             );
           },
         ),
+      );
+}
+
+class _NpcFormResult {
+  const _NpcFormResult({
+    required this.name,
+    required this.level,
+    required this.classNames,
+    required this.notes,
+  });
+
+  final String name;
+  final int level;
+  final String classNames;
+  final String notes;
+}
+
+class _NpcDialog extends StatefulWidget {
+  const _NpcDialog();
+
+  @override
+  State<_NpcDialog> createState() => _NpcDialogState();
+}
+
+class _NpcDialogState extends State<_NpcDialog> {
+  final _name = TextEditingController();
+  final _level = TextEditingController(text: '1');
+  final _classNames = TextEditingController();
+  final _notes = TextEditingController();
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _level.dispose();
+    _classNames.dispose();
+    _notes.dispose();
+    super.dispose();
+  }
+
+  void _save() {
+    final name = _name.text.trim();
+    if (name.isEmpty) return;
+    Navigator.of(context).pop(_NpcFormResult(
+      name: name,
+      level: int.tryParse(_level.text.trim()) ?? 1,
+      classNames: _classNames.text,
+      notes: _notes.text,
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        title: const Text('Новый NPC'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                key: const ValueKey('npc-name'),
+                controller: _name,
+                autofocus: true,
+                decoration: const InputDecoration(labelText: 'Имя'),
+              ),
+              TextField(
+                key: const ValueKey('npc-level'),
+                controller: _level,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: 'Уровень'),
+              ),
+              TextField(
+                key: const ValueKey('npc-class'),
+                controller: _classNames,
+                decoration: const InputDecoration(labelText: 'Класс или роль'),
+              ),
+              TextField(
+                key: const ValueKey('npc-notes'),
+                controller: _notes,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  labelText: 'Заметки мастера',
+                  alignLabelWithHint: true,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Отмена')),
+          FilledButton(onPressed: _save, child: const Text('Сохранить')),
+        ],
       );
 }

@@ -75,7 +75,33 @@ class ArchiveRepository {
       snapshot: Map<String, dynamic>.from(character),
       archivedAtMs: DateTime.now().millisecondsSinceEpoch,
     );
-    await _store.write(_name(archived.id), jsonEncode(archived.toJson()));
+    await _write(archived);
+    return archived;
+  }
+
+  /// Создать NPC мастера: имя, уровень, класс/роль и заметки.
+  Future<ArchivedCharacter> addNpc({
+    required String name,
+    int level = 1,
+    String classNames = '',
+    String notes = '',
+  }) async {
+    final trimmed = name.trim();
+    if (trimmed.isEmpty) {
+      throw ArgumentError.value(name, 'name', 'Имя NPC не может быть пустым');
+    }
+    final archived = ArchivedCharacter(
+      id: _idGenerator(),
+      characterName: trimmed,
+      playerName: '',
+      level: level < 1 ? 1 : level,
+      classNames: classNames.trim(),
+      notes: notes.trim(),
+      snapshot: const <String, dynamic>{},
+      archivedAtMs: DateTime.now().millisecondsSinceEpoch,
+      origin: ArchivedCharacter.originNpc,
+    );
+    await _write(archived);
     return archived;
   }
 
@@ -83,8 +109,11 @@ class ArchiveRepository {
     final archived = ArchivedCharacter.fromJson(
         jsonDecode(await _store.read(_name(id))) as Map<String, dynamic>)
       ..notes = notes;
-    await _store.write(_name(id), jsonEncode(archived.toJson()));
+    await _write(archived);
   }
 
   Future<void> delete(String id) => _store.delete(_name(id));
+
+  Future<void> _write(ArchivedCharacter archived) =>
+      _store.write(_name(archived.id), jsonEncode(archived.toJson()));
 }
