@@ -7,11 +7,19 @@ import 'package:flutter/foundation.dart';
 
 import '../core/models/room.dart';
 import '../lobby/lobby_log.dart';
+import '../lobby/lobby_map.dart';
 import '../platform/files/map_file.dart';
 import '../platform/network/lobby_transport.dart';
 import '../platform/network/shelf_lobby_server.dart';
 
 class MasterLobbyController extends ChangeNotifier {
+  MasterLobbyController({
+    void Function(Map<String, dynamic> character, String playerName)?
+        onCharacterConnected,
+  }) : _onCharacterConnected = onCharacterConnected;
+
+  final void Function(Map<String, dynamic> character, String playerName)?
+      _onCharacterConnected;
   ShelfLobbyServer? _server;
   StreamSubscription<LobbyMessage>? _subscription;
   RoomState _state = const RoomState();
@@ -20,6 +28,8 @@ class MasterLobbyController extends ChangeNotifier {
   String? _error;
   bool _starting = false;
   bool _moveOwnAllowed = true;
+  List<({String key, String name})> _mapChoices = [];
+  Map<String, RoomState> _lastMapStates = {};
 
   RoomState get state => _state;
   List<LobbyLogEntry> get log => List.unmodifiable(_log);
@@ -29,6 +39,17 @@ class MasterLobbyController extends ChangeNotifier {
   bool get isRunning => _server != null;
   bool get isStarting => _starting;
   bool get moveOwnAllowed => _moveOwnAllowed;
+  List<({String key, String name})> get mapChoices =>
+      List.unmodifiable(_mapChoices);
+
+  /// Состояния карт после остановки комнаты — для возврата в приключение.
+  Map<String, RoomState> get lastMapStates =>
+      Map.unmodifiable(_lastMapStates);
+
+  void clearSessionStates() {
+    _lastMapStates = {};
+    notifyListeners();
+  }
 
   /// `initialState` и `mapBytes` приходят из подготовленного приключения.
   Future<void> start({
@@ -37,6 +58,8 @@ class MasterLobbyController extends ChangeNotifier {
     Uint8List? mapBytes,
     String mapContentType = 'image/png',
     bool moveOwnAllowed = true,
+    List<LobbyMap>? maps,
+    String? initialMapKey,
   }) async {
     if (_server != null || _starting) return;
     _starting = true;
@@ -47,6 +70,8 @@ class MasterLobbyController extends ChangeNotifier {
       mapBytes: mapBytes,
       mapContentType: mapContentType,
       moveOwnAllowed: moveOwnAllowed,
+      maps: maps,
+      initialMapKey: initialMapKey,
     );
     try {
       await server.start();
@@ -55,6 +80,8 @@ class MasterLobbyController extends ChangeNotifier {
       _address = server.address;
       _state = server.state;
       _moveOwnAllowed = server.moveOwnAllowed;
+      _mapChoices = server.mapChoices;
+      _lastMapStates = {};
       _error = null;
     } catch (error) {
       _error = 'Не удалось запустить комнату: $error';
@@ -65,6 +92,7 @@ class MasterLobbyController extends ChangeNotifier {
 
   Future<void> stop() async {
     final server = _server;
+    _lastMapStates = server?.collectMapStates() ?? {};
     _server = null;
     await _subscription?.cancel();
     _subscription = null;
@@ -72,6 +100,7 @@ class MasterLobbyController extends ChangeNotifier {
     _address = null;
     _state = const RoomState();
     _moveOwnAllowed = true;
+    _mapChoices = [];
     notifyListeners();
   }
 
@@ -125,7 +154,12 @@ class MasterLobbyController extends ChangeNotifier {
   void toggleFog(Iterable<(int, int)> cells, {required bool reveal}) =>
       _server?.setFog(cells, reveal: reveal);
 
-  void switchMap(String mapId) => _server?.switchMap(mapId);
+  void switchMap(String mapKey) => _server?.switchMap(mapKey);
+
+  void showImageBytes(Uint8List bytes, {String contentType = 'image/png'}) =>
+      _server?.showImageBytes(bytes, contentType: contentType);
+
+  void hideImage() => _server?.hideImage();
 
   /// Фон карты выбирает мастер; сервер раздаёт файл игрокам по HTTP.
   Future<bool> importMap() async {
@@ -159,6 +193,15 @@ class MasterLobbyController extends ChangeNotifier {
           if (_state.players.isNotEmpty) {
             _moveOwnAllowed = _state.players.first.moveOwn;
           }
+        }
+        break;
+      case LobbyMessageType.characterSnapshot:
+        final character = message.payload['character'];
+        if (character is Map) {
+          _onCharacterConnected?.call(
+            character.cast<String, dynamic>(),
+            message.payload['player_name'] as String? ?? '',
+          );
         }
         break;
       case LobbyMessageType.chat:

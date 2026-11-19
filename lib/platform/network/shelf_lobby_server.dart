@@ -16,6 +16,7 @@ import '../../core/field_grid.dart';
 import '../../core/models/room.dart';
 import '../../core/rules/dice.dart';
 import '../../lobby/lobby_log.dart';
+import '../../lobby/lobby_map.dart';
 import '../../lobby/protocol/dice_formula.dart';
 import '../../lobby/protocol/lobby_codec.dart';
 import 'lobby_transport.dart';
@@ -29,11 +30,20 @@ class ShelfLobbyServer implements LobbyServer {
     Uint8List? mapBytes,
     String mapContentType = 'image/png',
     bool moveOwnAllowed = true,
+    List<LobbyMap>? maps,
+    String? initialMapKey,
   })  : _roller = roller ?? DiceRoller() {
     _state = initialState ?? const RoomState();
     _moveOwnAllowed = moveOwnAllowed;
     _mapBytes = mapBytes;
     _mapContentType = mapContentType;
+    for (final map in maps ?? const <LobbyMap>[]) {
+      _mapStates[map.key] = map.state.copyWith(mapKey: map.key);
+      _mapImages[map.key] = map.imageBytes;
+      _mapTypes[map.key] = map.contentType;
+      _mapNames[map.key] = map.name;
+    }
+    _initialMapKey = initialMapKey;
   }
 
   final int port;
@@ -60,6 +70,14 @@ class ShelfLobbyServer implements LobbyServer {
   Uint8List? _mapBytes;
   String _mapContentType = 'image/png';
   int _mapVersion = 0;
+  final Map<String, RoomState> _mapStates = {};
+  final Map<String, Uint8List?> _mapImages = {};
+  final Map<String, String> _mapTypes = {};
+  final Map<String, String> _mapNames = {};
+  String? _initialMapKey;
+  Uint8List? _shownImageBytes;
+  String _shownImageType = 'image/png';
+  int _shownImageVersion = 0;
 
   @override
   String get address => '$_host:$boundPort';
@@ -73,19 +91,39 @@ class ShelfLobbyServer implements LobbyServer {
 
   bool get moveOwnAllowed => _moveOwnAllowed;
 
+  /// Карты приключения для панели переключения у мастера.
+  List<({String key, String name})> get mapChoices => [
+        for (final entry in _mapNames.entries)
+          (key: entry.key, name: entry.value),
+      ];
+
+  String get activeMapKey => _state.mapKey;
+
+  /// Перед остановкой комнаты переносим живое состояние в снапшоты карт.
+  Map<String, RoomState> collectMapStates() {
+    _saveCurrentMap();
+    return Map<String, RoomState>.unmodifiable(_mapStates);
+  }
+
   @override
   Future<void> start() async {
     if (_httpServer != null) return;
     _host = await preferredLocalIp();
     final handler = shelf.Cascade()
         .add(_mapHandler)
+        .add(_imageHandler)
         .add(webSocketHandler(_onConnection,
             pingInterval: const Duration(seconds: 30)))
         .handler;
     _httpServer = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
-    if (_mapBytes != null) {
+    if (_mapStates.isNotEmpty) {
+      final key = _initialMapKey != null && _mapStates.containsKey(_initialMapKey)
+          ? _initialMapKey!
+          : _mapStates.keys.first;
+      _activateMap(key, notify: false);
+    } else if (_mapBytes != null) {
       _state = _state.copyWith(
-        mapId: 'http://$_host:$boundPort/map.png?v=${++_mapVersion}',
+        mapId: _mapUrl(),
       );
     }
   }
@@ -132,24 +170,99 @@ class ShelfLobbyServer implements LobbyServer {
   void updateHp(String tokenId, int hp) => submit(
       LobbyMessage(LobbyMessageType.hpUpdate, {'id': tokenId, 'hp': hp}));
 
-  void switchMap(String mapId) =>
-      submit(LobbyMessage(LobbyMessageType.mapSwitch, {'map_id': mapId}));
+  void switchMap(String mapKey) => submit(LobbyMessage(
+      LobbyMessageType.mapSwitch, {'map_id': mapKey, 'map_key': mapKey}));
 
   void showImage(String url) =>
       submit(LobbyMessage(LobbyMessageType.imageShow, {'url': url}));
+
+  /// Картинка мастера раздаётся тем же HTTP-сервером, что и карты.
+  void showImageBytes(Uint8List bytes, {String contentType = 'image/png'}) {
+    if (bytes.isEmpty) return;
+    _shownImageBytes = bytes;
+    _shownImageType = contentType;
+    showImage('http://$_host:$boundPort/image.png?v=${++_shownImageVersion}');
+  }
+
+  void hideImage() =>
+      broadcast(const LobbyMessage(LobbyMessageType.imageHide, {}));
 
   /// Импортированная карта: байты отдаются на /map.png, URL уходит в снапшот.
   void setMapImage(Uint8List bytes, {String contentType = 'image/png'}) {
     if (bytes.isEmpty) return;
     _mapBytes = bytes;
     _mapContentType = contentType;
-    _setMapId('http://$_host:$boundPort/map.png?v=${++_mapVersion}');
+    if (_state.mapKey.isNotEmpty) {
+      _mapImages[_state.mapKey] = bytes;
+      _mapTypes[_state.mapKey] = contentType;
+    }
+    _setMapId(_mapUrl());
   }
 
   /// Вернуть стандартную карту из `assets/maps/`.
   void useAssetMap([String asset = defaultMapAsset]) {
     _mapBytes = null;
+    if (_state.mapKey.isNotEmpty) _mapImages[_state.mapKey] = null;
     _setMapId('asset:$asset');
+  }
+
+  String _mapUrl() => 'http://$_host:$boundPort/map.png?v=${++_mapVersion}';
+
+  void _saveCurrentMap() {
+    final key = _state.mapKey;
+    if (key.isNotEmpty) _mapStates[key] = _state;
+  }
+
+  /// Переключение сохраняет текущую расстановку и поднимает снапшот другой карты.
+  void _activateMap(String key, {bool notify = true}) {
+    final target = _mapStates[key];
+    if (target == null) return;
+    _saveCurrentMap();
+    _mapBytes = _mapImages[key];
+    _mapContentType = _mapTypes[key] ?? 'image/png';
+    final mapId = _mapBytes == null
+        ? (target.mapId.startsWith('asset:')
+            ? target.mapId
+            : 'asset:$defaultMapAsset')
+        : _mapUrl();
+    final tokens = List<Token>.of(target.tokens);
+    for (final player in _state.players) {
+      final hasOwn = tokens.any((token) => token.owner == player.id);
+      if (hasOwn) continue;
+      final previous = _state.tokens
+          .where((token) => token.owner == player.id)
+          .firstOrNull;
+      final number = _nextToken++;
+      tokens.add(Token(
+        id: 't$number',
+        kind: TokenKind.player,
+        owner: player.id,
+        catalogId: player.characterId,
+        label: player.name,
+        x: 2 + ((number - 1) % 8) * 3,
+        y: 2 + ((number - 1) ~/ 8) * 3,
+        hp: previous?.hp,
+        maxHp: previous?.maxHp,
+      ));
+    }
+    _state = RoomState(
+      adventureId: _state.adventureId,
+      mapKey: key,
+      mapId: mapId,
+      grid: target.grid,
+      tokens: tokens,
+      revealedCells: Set<(int, int)>.of(target.revealedCells),
+      strokes: List<DrawStroke>.of(target.strokes),
+      players: List<RoomPlayer>.of(_state.players),
+    );
+    if (_mapImages[key] == null) _mapBytes = null;
+    if (!notify) return;
+    broadcast(LobbyMessage(LobbyMessageType.mapSwitch, {
+      'map_id': mapId,
+      'map_key': key,
+      'name': _mapNames[key] ?? '',
+    }));
+    _broadcastState();
   }
 
   void _setMapId(String mapId) {
@@ -166,6 +279,19 @@ class ShelfLobbyServer implements LobbyServer {
       _mapBytes,
       headers: {
         'Content-Type': _mapContentType,
+        'Cache-Control': 'no-store',
+      },
+    );
+  }
+
+  shelf.Response _imageHandler(shelf.Request request) {
+    if (request.url.path != 'image.png' || _shownImageBytes == null) {
+      return shelf.Response.notFound('');
+    }
+    return shelf.Response.ok(
+      _shownImageBytes,
+      headers: {
+        'Content-Type': _shownImageType,
         'Cache-Control': 'no-store',
       },
     );
@@ -305,6 +431,15 @@ class ShelfLobbyServer implements LobbyServer {
         }));
     _broadcastState();
     _logSystem('${player.name} подключился');
+    final snapshot = message.payload['character'];
+    if (snapshot is Map) {
+      // Снимок персонажа нужен только мастеру для архива.
+      _messages.add(LobbyMessage(LobbyMessageType.characterSnapshot, {
+        'player_id': id,
+        'player_name': player.name,
+        'character': snapshot,
+      }));
+    }
   }
 
   void _drop(WebSocketChannel channel) {
@@ -386,10 +521,25 @@ class ShelfLobbyServer implements LobbyServer {
           _errorTo(playerId, 'Карту переключает только мастер');
           return;
         }
-        final mapId = payload['map_id'] as String? ?? '';
-        _state = _state.copyWith(mapId: mapId);
-        broadcast(LobbyMessage(LobbyMessageType.mapSwitch, {'map_id': mapId}));
-        _broadcastState();
+        final key = payload['map_key'] as String? ??
+            payload['map_id'] as String? ??
+            '';
+        if (_mapStates.containsKey(key)) {
+          _activateMap(key);
+        } else {
+          final mapId = payload['map_id'] as String? ?? '';
+          _state = _state.copyWith(mapId: mapId);
+          broadcast(
+              LobbyMessage(LobbyMessageType.mapSwitch, {'map_id': mapId}));
+          _broadcastState();
+        }
+        break;
+      case LobbyMessageType.imageHide:
+        if (!isDm) {
+          _errorTo(playerId, 'Картинки скрывает только мастер');
+          return;
+        }
+        hideImage();
         break;
       case LobbyMessageType.imageShow:
         if (!isDm) {

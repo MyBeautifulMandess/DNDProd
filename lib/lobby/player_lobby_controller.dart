@@ -20,6 +20,7 @@ class PlayerLobbyController extends ChangeNotifier {
   final List<LobbyLogEntry> _log = [];
   String? _playerId;
   String? _error;
+  String? _imageUrl;
   bool _connecting = false;
 
   RoomState? get state => _state;
@@ -28,6 +29,12 @@ class PlayerLobbyController extends ChangeNotifier {
   String? get error => _error;
   bool get connecting => _connecting;
   bool get connected => _client.connected && _playerId != null;
+  String? get imageUrl => _imageUrl;
+
+  void dismissImage() {
+    _imageUrl = null;
+    notifyListeners();
+  }
 
   Future<void> connect({
     required String address,
@@ -35,6 +42,7 @@ class PlayerLobbyController extends ChangeNotifier {
     String? characterId,
     int? hp,
     int? maxHp,
+    Map<String, dynamic>? characterSnapshot,
   }) async {
     if (connected || _connecting) return;
     await _subscription?.cancel();
@@ -49,6 +57,7 @@ class PlayerLobbyController extends ChangeNotifier {
         'character_id': characterId,
         'hp': hp,
         'max_hp': maxHp,
+        'character': characterSnapshot,
       }));
     } catch (error) {
       _error = 'Не удалось подключиться: $error';
@@ -63,6 +72,7 @@ class PlayerLobbyController extends ChangeNotifier {
     _subscription = null;
     _playerId = null;
     _state = null;
+    _imageUrl = null;
     _connecting = false;
     notifyListeners();
   }
@@ -118,6 +128,12 @@ class PlayerLobbyController extends ChangeNotifier {
           _log.add(LobbyLogEntry.fromJson(entry.cast<String, dynamic>()));
           if (_log.length > 200) _log.removeAt(0);
         }
+        break;
+      case LobbyMessageType.imageShow:
+        _imageUrl = message.payload['url'] as String?;
+        break;
+      case LobbyMessageType.imageHide:
+        _imageUrl = null;
         break;
       case LobbyMessageType.error:
         _error = message.payload['message'] as String?;

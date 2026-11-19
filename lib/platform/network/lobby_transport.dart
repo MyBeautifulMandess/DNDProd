@@ -66,6 +66,8 @@ abstract final class LobbyMessageType {
   static const roll = 'roll';
   static const hpUpdate = 'hp_update';
   static const imageShow = 'image_show';
+  static const imageHide = 'image_hide';
+  static const characterSnapshot = 'character_snapshot';
   static const draw = 'draw';
   static const ping = 'ping';
   static const pong = 'pong';

@@ -18,6 +18,8 @@ const _knownTypes = <String>{
   LobbyMessageType.roll,
   LobbyMessageType.hpUpdate,
   LobbyMessageType.imageShow,
+  LobbyMessageType.imageHide,
+  LobbyMessageType.characterSnapshot,
   LobbyMessageType.draw,
   LobbyMessageType.ping,
   LobbyMessageType.pong,
