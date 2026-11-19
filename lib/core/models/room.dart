@@ -183,6 +183,7 @@ class RoomState {
   const RoomState({
     this.adventureId = '',
     this.mapId = defaultMapAsset,
+    this.mapKey = '',
     this.grid = const GridSpec(),
     this.tokens = const [],
     this.players = const [],
@@ -191,6 +192,11 @@ class RoomState {
   });
 
   final String adventureId;
+
+  /// Логический ключ карты внутри приключения (для переключения на лету).
+  final String mapKey;
+
+  /// Адрес фона: `asset:...` или HTTP-URL раздачи сервера.
   final String mapId;
   final GridSpec grid;
   final List<Token> tokens;
@@ -206,6 +212,7 @@ class RoomState {
     List<Token>? tokens,
     Set<(int, int)>? revealedCells,
     String? mapId,
+    String? mapKey,
     List<RoomPlayer>? players,
     GridSpec? grid,
     List<DrawStroke>? strokes,
@@ -213,6 +220,7 @@ class RoomState {
       RoomState(
         adventureId: adventureId,
         mapId: mapId ?? this.mapId,
+        mapKey: mapKey ?? this.mapKey,
         grid: grid ?? this.grid,
         tokens: tokens ?? this.tokens,
         players: players ?? this.players,
@@ -222,7 +230,11 @@ class RoomState {
 
   Map<String, dynamic> toJson() => {
         'protocol': 1,
-        'room': {'adventure_id': adventureId, 'map_id': mapId},
+        'room': {
+          'adventure_id': adventureId,
+          'map_id': mapId,
+          'map_key': mapKey,
+        },
         'map': {'grid': grid.toJson()},
         'tokens': [for (final token in tokens) token.toJson()],
         'fog': {
@@ -250,6 +262,7 @@ class RoomState {
     }
     return RoomState(
       adventureId: room['adventure_id'] as String? ?? '',
+      mapKey: room['map_key'] as String? ?? '',
       mapId: room['map_id'] as String? ?? defaultMapAsset,
       grid: map['grid'] is Map
           ? GridSpec.fromJson((map['grid'] as Map).cast<String, dynamic>())
