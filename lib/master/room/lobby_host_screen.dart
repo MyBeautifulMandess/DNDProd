@@ -11,6 +11,8 @@ import '../../lobby/master_lobby_controller.dart';
 import '../../platform/files/map_file.dart';
 import '../../shared/lobby/chat_panel.dart';
 import '../../shared/field/battle_field.dart';
+import 'quick_load.dart';
+import 'quick_load_sheet.dart';
 
 class LobbyHostScreen extends StatefulWidget {
   const LobbyHostScreen({super.key});
@@ -271,6 +273,32 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text('Быстрая подгрузка',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                const Text(
+                  'Монстр из справочника станет пешкой с хитами из каталога, '
+                  'предмет или заклинание — сообщением в чат.',
+                  style: TextStyle(fontSize: 12, color: Colors.white70),
+                ),
+                const SizedBox(height: 8),
+                FilledButton.tonalIcon(
+                  key: const ValueKey('quick-load-button'),
+                  onPressed: _quickLoad,
+                  icon: const Icon(Icons.manage_search),
+                  label: const Text('Из справочника'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Карта', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -483,6 +511,17 @@ class _LobbyHostScreenState extends State<LobbyHostScreen> {
           bytes,
           contentType: mapContentType(path),
         );
+  }
+
+  Future<void> _quickLoad() async {
+    final controller = context.read<MasterLobbyController>();
+    final selection = await showQuickLoadSheet(context);
+    if (selection == null || !mounted) return;
+    await QuickLoadService(controller).load(selection);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(quickLoadSuccessText(selection))),
+    );
   }
 
   void _addToken(MasterLobbyController controller) {
